@@ -1,0 +1,155 @@
+<div x-data="{ showSuccess: false, addingToCart: false }">
+
+    
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200 mb-6 shadow-sm">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="fas fa-box-open text-white text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Stock Disponible</p>
+                    <p class="text-3xl font-black text-gray-900 mt-0.5">
+                        <?php echo e($quantity ?: $product->stock); ?>
+
+                        <span class="text-base font-medium text-gray-600">unidades</span>
+                    </p>
+                </div>
+            </div>
+
+            
+            <?php if(($quantity ?: $product->stock) > 10): ?>
+                <div class="flex items-center gap-2 bg-green-100 px-4 py-2 rounded-full border border-green-300">
+                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-green-700">En Stock</span>
+                </div>
+            <?php elseif(($quantity ?: $product->stock) > 0): ?>
+                <div class="flex items-center gap-2 bg-yellow-100 px-4 py-2 rounded-full border border-yellow-300">
+                    <span class="w-2.5 h-2.5 bg-yellow-500 rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-yellow-700">Pocas unidades</span>
+                </div>
+            <?php else: ?>
+                <div class="flex items-center gap-2 bg-red-100 px-4 py-2 rounded-full border border-red-300">
+                    <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+                    <span class="text-sm font-bold text-red-700">Agotado</span>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    
+    <div class="bg-white rounded-2xl border-2 border-gray-200 p-6 mb-6 shadow-md hover:shadow-lg transition-shadow">
+
+        
+        <div class="mb-5">
+            <label class="block text-sm font-bold text-gray-700 mb-3">
+                <i class="fas fa-shopping-basket text-orange-500 mr-2"></i>
+                Selecciona la cantidad
+            </label>
+            <div class="flex items-center justify-center bg-gray-50 rounded-xl p-2 border-2 border-gray-200">
+                
+                <button type="button" x-bind:disabled="$wire.qty <= 1" wire:loading.attr="disabled"
+                    wire:target="decrement" wire:click="decrement"
+                    class="w-12 h-12 flex items-center justify-center bg-white rounded-lg text-gray-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 hover:text-white font-bold text-xl shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-700 active:scale-90 border-2 border-gray-200 hover:border-orange-500">
+                    <i class="fas fa-minus"></i>
+                </button>
+
+                
+                <div class="flex-1 flex flex-col items-center justify-center px-6">
+                    <span class="text-4xl font-black text-gray-900"><?php echo e($qty); ?></span>
+                    <span class="text-xs text-gray-500 font-medium mt-1"><?php echo e($qty === 1 ? 'unidad' : 'unidades'); ?></span>
+                </div>
+
+                
+                <button type="button" x-bind:disabled="$wire.qty >= $wire.quantity" wire:loading.attr="disabled"
+                    wire:target="increment" wire:click="increment"
+                    class="w-12 h-12 flex items-center justify-center bg-white rounded-lg text-gray-700 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 hover:text-white font-bold text-xl shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-gray-700 active:scale-90 border-2 border-gray-200 hover:border-orange-500">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            
+            <?php if($qty >= ($quantity ?: $product->stock)): ?>
+                <p class="text-xs text-amber-600 mt-2 flex items-center gap-1 justify-center">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Has alcanzado el stock máximo disponible
+                </p>
+            <?php endif; ?>
+        </div>
+
+        
+        <button type="button" x-bind:disabled="!$wire.quantity" wire:click="addItem" wire:loading.attr="disabled"
+            wire:target="addItem"
+            @click="if($wire.quantity) { addingToCart = true; setTimeout(() => { addingToCart = false; showSuccess = true; setTimeout(() => showSuccess = false, 3000) }, 800) }"
+            class="relative w-full overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl px-6 py-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-500 disabled:hover:to-green-600 shadow-lg hover:shadow-2xl active:scale-95 group">
+
+            
+            <span class="relative z-10 flex items-center justify-center gap-3 text-base">
+                <i class="fas fa-shopping-cart text-xl" :class="addingToCart ? 'animate-bounce' : ''"></i>
+                <span wire:loading.remove wire:target="addItem">
+                    Agregar al carrito
+                </span>
+                <span wire:loading wire:target="addItem" class="flex items-center gap-2">
+                    <svg class="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    Agregando...
+                </span>
+            </span>
+
+            
+            <div
+                class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent">
+            </div>
+        </button>
+
+        
+        <div x-show="showSuccess" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform translate-y-4 scale-95"
+            x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0 scale-100"
+            x-transition:leave-end="opacity-0 transform translate-y-4 scale-95"
+            class="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-4 flex items-center gap-3 shadow-md"
+            style="display: none;">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                <i class="fas fa-check text-white text-lg"></i>
+            </div>
+            <div class="flex-1">
+                <p class="font-bold text-green-900 text-sm">¡Producto agregado al carrito!</p>
+                <p class="text-xs text-green-700 mt-0.5"><?php echo e($qty); ?>
+
+                    <?php echo e($qty === 1 ? 'unidad agregada' : 'unidades agregadas'); ?> correctamente</p>
+            </div>
+            <button @click="showSuccess = false" class="text-green-600 hover:text-green-800 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+    
+    
+
+</div>
+<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/livewire/add-cart-item.blade.php ENDPATH**/ ?>
