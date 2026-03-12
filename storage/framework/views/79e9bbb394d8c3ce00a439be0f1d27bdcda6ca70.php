@@ -12,9 +12,28 @@
     <?php $__env->stopPush(); ?>
 
     <div class="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+         <!-- Slider main container -->
+        <div class="swiper relative w-full mb-12">
+            <!-- Wrapper de los slides -->
+            <div class="swiper-wrapper">
+                <?php $__currentLoopData = $covers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cover): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="swiper-slide">
+                        <img src="<?php echo e($cover->image); ?>"
+                            class="w-full aspect-[3/1] object-center object-cover rounded-xl shadow-md transition-transform duration-300 hover:scale-105 hover:rounded-lg"
+                            alt="Cover image">
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+
+            <!-- Paginación -->
+            <div class="swiper-pagination !bottom-2"></div>
+
+            <!-- Botones de navegación -->
+            <div class="swiper-button-prev !text-white"></div>
+            <div class="swiper-button-next !text-white"></div>
 
 
-        
+        </div>
 
 
 
@@ -29,64 +48,22 @@
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('products-home')->html();
-} elseif ($_instance->childHasBeenRendered('ZJQlfRr')) {
-    $componentId = $_instance->getRenderedChildComponentId('ZJQlfRr');
-    $componentTag = $_instance->getRenderedChildComponentTagName('ZJQlfRr');
+} elseif ($_instance->childHasBeenRendered('SZCdKJq')) {
+    $componentId = $_instance->getRenderedChildComponentId('SZCdKJq');
+    $componentTag = $_instance->getRenderedChildComponentTagName('SZCdKJq');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('ZJQlfRr');
+    $_instance->preserveRenderedChild('SZCdKJq');
 } else {
     $response = \Livewire\Livewire::mount('products-home');
     $html = $response->html();
-    $_instance->logRenderedChild('ZJQlfRr', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('SZCdKJq', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
     </div>
 
     <?php $__env->startPush('script'); ?>
-        <script>
-            Livewire.on('glider', function(id) {
-                new Glider(document.querySelector('.glider-' + id), {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    draggable: true,
-                    dots: '.glider-' + id + '~ .dots',
-                    arrows: {
-                        prev: '.glider-' + id + '~ .glider-prev',
-                        next: '.glider-' + id + '~ .glider-next'
-                    },
-                    responsive: [{
-                            breakpoint: 640,
-                            settings: {
-                                slidesToShow: 2.5,
-                                slidesToScroll: 2,
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 3.5,
-                                slidesToScroll: 3,
-                            }
-                        },
-                        {
-                            breakpoint: 1024,
-                            settings: {
-                                slidesToShow: 4.5,
-                                slidesToScroll: 4,
-                            }
-                        },
-                        {
-                            breakpoint: 1280,
-                            settings: {
-                                slidesToShow: 5.5,
-                                slidesToScroll: 5,
-                            }
-                        },
-                    ]
-                });
-            });
-        </script>
+        
 
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -120,8 +97,6 @@ echo $html;
             });
         </script>
     <?php $__env->stopPush(); ?>
-
-
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da)): ?>

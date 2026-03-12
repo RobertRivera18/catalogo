@@ -1,224 +1,232 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-700 py-12">
-    <x-form-section submit="save" class="mb-6">
-        <x-slot name="title">
-            Crear nueva SubCategoría
-        </x-slot>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-gray-700">
 
-        <x-slot name="description">
-            Complete la información necesaria para poder crear una nueva Subcategoría
-        </x-slot>
+    <!-- CREAR SUBCATEGORIA -->
+    <div class="bg-white shadow-xl rounded-2xl p-8 mb-10 border border-gray-100">
 
-        <x-slot name="form">
-            <div class="col-span-6 sm:col-span-4">
-                <x-label>
-                    Nombre
-                </x-label>
+        <x-form-section submit="save">
 
-                <x-input wire:model="createForm.name" type="text" class="w-full mt-1" />
+            <x-slot name="title">
+                <span class="text-xl font-semibold text-gray-800">
+                    Crear nueva Subcategoría
+                </span>
+            </x-slot>
 
-                <x-input-error for="createForm.name" />
-            </div>
+            <x-slot name="description">
+                <span class="text-gray-500">
+                    Complete la información necesaria para registrar una nueva subcategoría.
+                </span>
+            </x-slot>
 
-            <div class="col-span-6 sm:col-span-4">
-                <x-label>
-                    Slug
-                </x-label>
+            <x-slot name="form">
 
-                <x-input disabled wire:model="createForm.slug" type="text" class="w-full mt-1 bg-gray-100" />
-                <x-input-error for="createForm.slug" />
-            </div>
-
-            <div class="col-span-6 sm:col-span-4">
-                <div class="flex items-center">
-                    <p>¿Esta subcategoria necesita que le especifiques un color?</p>
-                    <div class="ml-auto">
-                        <label>
-                            <input wire:model.defer="createForm.color" type="radio" name="color" value="1">
-                            Sí
-                        </label>
-
-                        <label>
-                            <input wire:model.defer="createForm.color" type="radio" name="color" value="0">
-                            No
-                        </label>
-                    </div>
-                </div>
-                <x-input-error for="createForm.color" />
-            </div>
-
-
-            <div class="col-span-6 sm:col-span-4">
-                <div class="flex items-center">
-                    <p>¿Esta subcategoria necesita que le especifiques una talla?</p>
-                    <div class="ml-auto">
-                        <label>
-                            <input wire:model.defer="createForm.size" type="radio" name="size" value="1">
-                            Sí
-                        </label>
-
-                        <label>
-                            <input wire:model.defer="createForm.size" type="radio" name="size" value="0">
-                            No
-                        </label>
-                    </div>
-                </div>
-                <x-input-error for="createForm.size" />
-            </div>
-        </x-slot>
-
-
-        <x-slot name="actions">
-
-            <x-action-message class="mr-3" on="saved">
-                SubCategoría creada
-            </x-action-message>
-
-            <x-button>
-                Agregar
-            </x-button>
-        </x-slot>
-    </x-form-section>
-
-
-    <x-action-section>
-        <x-slot name="title">
-            Lista de SubCategorías
-        </x-slot>
-
-        <x-slot name="description">
-            Aquí encontrará todas las SubCategorías agregadas
-        </x-slot>
-
-        <x-slot name="content">
-
-            <table class="text-gray-600">
-                <thead class="border-b border-gray-300">
-                    <tr class="text-left">
-                        <th class="py-2 w-full">Nombre</th>
-                        <th class="py-2">Acción</th>
-                    </tr>
-                </thead>
-
-                <tbody class="divide-y divide-gray-300">
-                    @foreach ($subcategories as $subcategory)
-                    <tr>
-                        <td class="py-2">
-
-                            <span class="uppercase underline hover:text-blue-600">
-                                {{$subcategory->name}}
-                            </span>
-                        </td>
-                        <td class="py-2">
-                            <div class="flex divide-x divide-gray-300 font-semibold">
-                                <a class="pr-2 hover:text-blue-600 cursor-pointer"
-                                    wire:click="edit('{{$subcategory->id}}')">Editar</a>
-                                <a class="pl-2 hover:text-red-600 cursor-pointer"
-                                    wire:click="$emit('deleteSubcategory', '{{$subcategory->id}}')">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-        </x-slot>
-    </x-action-section>
-
-    <x-dialog-modal wire:model="editForm.open">
-        <x-slot name="title">
-            Editar Subcategoría
-        </x-slot>
-
-        <x-slot name="content">
-            <div class="space-y-3">
-                <div>
-                    <x-label>
+                <!-- Nombre -->
+                <div class="col-span-6 sm:col-span-4">
+                    <x-label class="font-semibold text-gray-700">
                         Nombre
                     </x-label>
 
-                    <x-input wire:model="editForm.name" type="text" class="w-full mt-1" />
+                    <x-input wire:model="createForm.name"
+                        type="text"
+                        placeholder="Ej: Camisetas deportivas"
+                        class="w-full mt-2 rounded-lg border-gray-300 focus:ring-orange-500 focus:border-orange-500"/>
 
-                    <x-input-error for="editForm.name" />
+                    <x-input-error for="createForm.name" />
                 </div>
 
-                <div>
-                    <x-label>
+                <!-- Slug -->
+                <div class="col-span-6 sm:col-span-4">
+                    <x-label class="font-semibold text-gray-700">
                         Slug
                     </x-label>
 
-                    <x-input disabled wire:model="editForm.slug" type="text" class="w-full mt-1 bg-gray-100" />
-                    <x-input-error for="editForm.slug" />
+                    <x-input disabled
+                        wire:model="createForm.slug"
+                        type="text"
+                        class="w-full mt-2 bg-gray-100 rounded-lg"/>
+
+                    <x-input-error for="createForm.slug" />
                 </div>
 
+                <!-- Color -->
                 <div class="col-span-6 sm:col-span-4">
-                    <div class="flex items-center">
-                        <p>¿Esta subcategoria necesita que le especifiques un color?</p>
-                        <div class="ml-auto">
-                            <label>
-                                <input wire:model.defer="editForm.color" type="radio" name="color" value="1">
-                                Sí
+
+                    <div class="flex items-center justify-between bg-gray-50 border rounded-xl p-4">
+
+                        <p class="text-sm font-medium text-gray-700">
+                            ¿Esta subcategoría necesita color?
+                        </p>
+
+                        <div class="flex items-center gap-6">
+
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model.defer="createForm.color"
+                                    type="radio"
+                                    name="color"
+                                    value="1"
+                                    class="text-orange-600 focus:ring-orange-500">
+
+                                <span class="text-sm">Sí</span>
                             </label>
 
-                            <label>
-                                <input wire:model.defer="editForm.color" type="radio" name="color" value="0">
-                                No
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model.defer="createForm.color"
+                                    type="radio"
+                                    name="color"
+                                    value="0"
+                                    class="text-orange-600 focus:ring-orange-500">
+
+                                <span class="text-sm">No</span>
                             </label>
+
                         </div>
+
                     </div>
-                    <x-input-error for="editForm.color" />
+
+                    <x-input-error for="createForm.color" />
                 </div>
 
-
+                <!-- Talla -->
                 <div class="col-span-6 sm:col-span-4">
-                    <div class="flex items-center">
-                        <p>¿Esta subcategoria necesita que le especifiques una talla?</p>
-                        <div class="ml-auto">
-                            <label>
-                                <input wire:model.defer="editForm.size" type="radio" name="size" value="1">
-                                Sí
+
+                    <div class="flex items-center justify-between bg-gray-50 border rounded-xl p-4">
+
+                        <p class="text-sm font-medium text-gray-700">
+                            ¿Esta subcategoría necesita talla?
+                        </p>
+
+                        <div class="flex items-center gap-6">
+
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model.defer="createForm.size"
+                                    type="radio"
+                                    name="size"
+                                    value="1"
+                                    class="text-orange-600 focus:ring-orange-500">
+
+                                <span class="text-sm">Sí</span>
                             </label>
 
-                            <label>
-                                <input wire:model.defer="editForm.size" type="radio" name="size" value="0">
-                                No
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model.defer="createForm.size"
+                                    type="radio"
+                                    name="size"
+                                    value="0"
+                                    class="text-orange-600 focus:ring-orange-500">
+
+                                <span class="text-sm">No</span>
                             </label>
+
                         </div>
+
                     </div>
-                    <x-input-error for="editForm.size" />
+
+                    <x-input-error for="createForm.size" />
                 </div>
 
-            </div>
-        </x-slot>
+            </x-slot>
 
-        <x-slot name="footer">
-            <x-danger-button wire:click="update" wire:loading.attr="disabled" wire:target="update">
-                Actualizar
-            </x-danger-button>
-        </x-slot>
+            <x-slot name="actions">
 
-    </x-dialog-modal>
-    @push('script')
-    <script>
-        Livewire.on('deleteSubcategory', subcategoryId =>{
-        Swal.fire({
-        title: 'Estás Seguro?',
-        text: "El elemento que has seleccionado sera eliminado!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, Eliminar!'
-}).then((result) => {
-  if (result.isConfirmed) {
-    Livewire.emitTo('admin.show-category','delete',subcategoryId)
-    Swal.fire(
-      'Eliminado!',
-      'El elemento ha sido eliminado.',
-      'success'
-    )
-  }
-})
-});
-    </script>
-    @endpush
+                <x-action-message class="mr-3 text-green-600 font-medium" on="saved">
+                    Subcategoría creada correctamente
+                </x-action-message>
+
+                <x-button class="bg-orange-600 hover:bg-orange-700 transition rounded-lg px-6">
+                    Agregar
+                </x-button>
+
+            </x-slot>
+
+        </x-form-section>
+
+    </div>
+
+
+    <!-- LISTA -->
+    <div class="bg-white shadow-xl rounded-2xl border border-gray-100 px-6 py-4">
+
+        <x-action-section>
+
+            <x-slot name="title">
+                <span class="text-xl font-semibold text-gray-800">
+                    Lista de Subcategorías
+                </span>
+            </x-slot>
+
+            <x-slot name="description">
+                <span class="text-gray-500">
+                    Aquí encontrará todas las subcategorías registradas en el sistema.
+                </span>
+            </x-slot>
+
+            <x-slot name="content">
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full text-sm">
+
+                        <thead class="bg-gray-50 border-b">
+                            <tr class="text-left text-gray-600">
+                                <th class="py-3 px-4 font-semibold">
+                                    Nombre
+                                </th>
+
+                                <th class="py-3 px-4 font-semibold w-40">
+                                    Acción
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y">
+
+                            @foreach ($subcategories as $subcategory)
+
+                            <tr class="hover:bg-gray-50 transition">
+
+                                <td class="py-3 px-4">
+
+                                    <span class="font-medium uppercase hover:text-orange-600 cursor-pointer">
+                                        {{$subcategory->name}}
+                                    </span>
+
+                                </td>
+
+                                <td class="py-3 px-4">
+
+                                    <div class="flex items-center gap-4 font-medium">
+
+                                        <button
+                                            class="text-blue-600 hover:text-blue-800 transition"
+                                            wire:click="edit('{{$subcategory->id}}')">
+
+                                            Editar
+                                        </button>
+
+                                        <button
+                                            class="text-red-600 hover:text-red-800 transition"
+                                            wire:click="$emit('deleteSubcategory', '{{$subcategory->id}}')">
+
+                                            Eliminar
+                                        </button>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                            @endforeach
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </x-slot>
+
+        </x-action-section>
+
+    </div>
+
 </div>

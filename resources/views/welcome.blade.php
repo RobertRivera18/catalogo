@@ -4,9 +4,7 @@
     @endpush
 
     <div class="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-
-        {{-- <!-- Slider main container -->
+         <!-- Slider main container -->
         <div class="swiper relative w-full mb-12">
             <!-- Wrapper de los slides -->
             <div class="swiper-wrapper">
@@ -27,7 +25,7 @@
             <div class="swiper-button-next !text-white"></div>
 
 
-        </div> --}}
+        </div>
 
 
 
@@ -80,7 +78,7 @@
     </div>
 
     @push('script')
-        <script>
+        {{-- <script>
             Livewire.on('glider', function(id) {
                 new Glider(document.querySelector('.glider-' + id), {
                     slidesToShow: 1,
@@ -122,7 +120,7 @@
                     ]
                 });
             });
-        </script>
+        </script> --}}
 
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -156,6 +154,4 @@
             });
         </script>
     @endpush
-
-
 </x-app-layout>

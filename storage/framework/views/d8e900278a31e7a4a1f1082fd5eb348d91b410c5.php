@@ -1,67 +1,55 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-gray-700">
-
-    <!-- CREAR MARCA -->
-    <div class="bg-white border border-gray-100 shadow-xl rounded-2xl p-8 mb-10">
-
-        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form-section','data' => ['submit' => 'save']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.form-section','data' => ['class' => 'mb-6','submit' => 'save']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('form-section'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['submit' => 'save']); ?>
+<?php $component->withAttributes(['class' => 'mb-6','submit' => 'save']); ?>
+         <?php $__env->slot('title', null, []); ?> 
+            Agregar un nuevo Departamento
+         <?php $__env->endSlot(); ?>
 
-             <?php $__env->slot('title', null, []); ?> 
-                <span class="text-xl font-semibold text-gray-800">
-                    Agregar nueva Marca
-                </span>
-             <?php $__env->endSlot(); ?>
+         <?php $__env->slot('description', null, []); ?> 
+            Complete la informacion necesaria para poder agregar un nuevo departamento.
+         <?php $__env->endSlot(); ?>
 
-             <?php $__env->slot('description', null, []); ?> 
-                <span class="text-gray-500">
-                    En esta sección podrá registrar una nueva marca en el sistema.
-                </span>
-             <?php $__env->endSlot(); ?>
-
-             <?php $__env->slot('form', null, []); ?> 
-
-                <div class="col-span-6 sm:col-span-4">
-                    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['class' => 'font-semibold text-gray-700']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+         <?php $__env->slot('form', null, []); ?> 
+            <div class="col-span-6 md:col-span-4">
+                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'font-semibold text-gray-700']); ?>
-                        Nombre
-                     <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes([]); ?>
+                    Nombre
+                 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-
-                    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','placeholder' => 'Ej: Nike, Adidas, Puma','class' => 'w-full mt-2 rounded-lg border-gray-300 focus:ring-orange-500 focus:border-orange-500','wire:model' => 'createForm.name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','wire:model' => 'createForm.name','class' => 'w-full mt-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'text','placeholder' => 'Ej: Nike, Adidas, Puma','class' => 'w-full mt-2 rounded-lg border-gray-300 focus:ring-orange-500 focus:border-orange-500','wire:model' => 'createForm.name']); ?>
+<?php $component->withAttributes(['type' => 'text','wire:model' => 'createForm.name','class' => 'w-full mt-1']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-
-                    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['for' => 'createForm.name']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input-error'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -76,46 +64,53 @@
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-                </div>
+            </div>
+         <?php $__env->endSlot(); ?>
 
-             <?php $__env->endSlot(); ?>
+         <?php $__env->slot('actions', null, []); ?> 
+            <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.action-message','data' => ['on' => 'saved','class' => 'inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('action-message'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['on' => 'saved','class' => 'inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300']); ?>
+                Departamento agregado
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
 
-             <?php $__env->slot('actions', null, []); ?> 
-
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => ['class' => 'bg-gray-600 hover:bg-gray-700 transition rounded-lg px-6']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+            <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'bg-gray-600 hover:bg-gray-700 transition rounded-lg px-6']); ?>
-                    Agregar
-                 <?php echo $__env->renderComponent(); ?>
+<?php $component->withAttributes([]); ?>
+                Agregar
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
+         <?php $__env->endSlot(); ?>
+
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-             <?php $__env->endSlot(); ?>
-
-         <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-
-    </div>
-
-
-
-    <!-- LISTA DE MARCAS -->
-    <div class="bg-white border border-gray-100 shadow-xl rounded-2xl px-4 py-6">
-
-        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.action-section','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('action-section'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -124,96 +119,56 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
+         <?php $__env->slot('title', null, []); ?> 
+            Lista de categorías
+         <?php $__env->endSlot(); ?>
 
-             <?php $__env->slot('title', null, []); ?> 
-                <span class="text-xl font-semibold text-gray-800">
-                    Lista de Marcas
-                </span>
-             <?php $__env->endSlot(); ?>
+         <?php $__env->slot('description', null, []); ?> 
+            Aquí encontrará todas las categorías agregadas
+         <?php $__env->endSlot(); ?>
 
-             <?php $__env->slot('description', null, []); ?> 
-                <span class="text-gray-500">
-                    Aquí encontrará todas las marcas registradas en el sistema.
-                </span>
-             <?php $__env->endSlot(); ?>
+         <?php $__env->slot('content', null, []); ?> 
 
-             <?php $__env->slot('content', null, []); ?> 
+            <table class="text-gray-600">
+                <thead class="border-b border-gray-300">
+                    <tr class="text-left">
+                        <th class="py-2 w-full">Nombre</th>
+                        <th class="py-2">Acción</th>
+                    </tr>
+                </thead>
 
-                <div class="overflow-x-auto">
+                <tbody class="divide-y divide-gray-300">
+                    <?php $__currentLoopData = $departments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $department): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td class="py-2">
+                            
+                            <a  href="<?php echo e(route('admin.departments.show',$department)); ?>"
+                                class="cursor-pointer uppercase underline hover:text-blue-600">
+                                <?php echo e($department->name); ?>
 
-                    <table class="w-full text-sm">
+                            </a>
+                        </td>
+                        <td class="py-2">
+                            <div class="flex divide-x divide-gray-300 font-semibold">
+                                <a class="pr-2 hover:text-blue-600 cursor-pointer"
+                                    wire:click="edit(<?php echo e($department); ?>)">Editar</a>
+                                <a class="pl-2 hover:text-red-600 cursor-pointer"
+                                    wire:click="$emit('deleteDepartment', '<?php echo e($department->id); ?>')">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
 
-                        <thead class="bg-gray-50 border-b">
-                            <tr class="text-left text-gray-600">
-                                <th class="py-3 px-4 font-semibold">
-                                    Nombre
-                                </th>
-
-                                <th class="py-3 px-4 font-semibold w-40">
-                                    Acción
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="divide-y">
-
-                            <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-                            <tr class="hover:bg-gray-50 transition">
-
-                                <td class="py-3 px-4">
-
-                                    <span class="font-medium uppercase hover:text-orange-600 cursor-pointer">
-                                        <?php echo e($brand->name); ?>
-
-                                    </span>
-
-                                </td>
-
-                                <td class="py-3 px-4">
-
-                                    <div class="flex items-center gap-4 font-medium">
-
-                                        <button
-                                            class="text-blue-600 hover:text-blue-800 transition"
-                                            wire:click="edit('<?php echo e($brand->id); ?>')">
-                                            Editar
-                                        </button>
-
-                                        <button
-                                            class="text-red-600 hover:text-red-800 transition"
-                                            wire:click="$emit('deleteBrand', '<?php echo e($brand->id); ?>')">
-                                            Eliminar
-                                        </button>
-
-                                    </div>
-
-                                </td>
-
-                            </tr>
-
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-             <?php $__env->endSlot(); ?>
-
-         <?php echo $__env->renderComponent(); ?>
+         <?php $__env->endSlot(); ?>
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-    </div>
-
-
-
-    <!-- MODAL EDITAR -->
     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model' => 'editForm.open']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('dialog-modal'); ?>
@@ -225,26 +180,22 @@
 <?php $component->withAttributes(['wire:model' => 'editForm.open']); ?>
 
          <?php $__env->slot('title', null, []); ?> 
-            <span class="text-lg font-semibold text-gray-800">
-                Editar Marca
-            </span>
+            Editar Departamento
          <?php $__env->endSlot(); ?>
 
          <?php $__env->slot('content', null, []); ?> 
 
-            <div class="space-y-4">
-
+            <div class="space-y-3">
                 <div>
-
                     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['class' => 'font-semibold text-gray-700']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'font-semibold text-gray-700']); ?>
+<?php $component->withAttributes([]); ?>
                         Nombre
                      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
@@ -254,14 +205,14 @@
 <?php endif; ?>
 
                     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['wire:model' => 'editForm.name','type' => 'text','class' => 'w-full mt-2 rounded-lg border-gray-300 focus:ring-orange-500 focus:border-orange-500']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['wire:model' => 'editForm.name','type' => 'text','class' => 'w-full mt-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['wire:model' => 'editForm.name','type' => 'text','class' => 'w-full mt-2 rounded-lg border-gray-300 focus:ring-orange-500 focus:border-orange-500']); ?>
+<?php $component->withAttributes(['wire:model' => 'editForm.name','type' => 'text','class' => 'w-full mt-1']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
@@ -284,24 +235,21 @@
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-
                 </div>
 
             </div>
-
          <?php $__env->endSlot(); ?>
 
          <?php $__env->slot('footer', null, []); ?> 
-
             <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.danger-button','data' => ['wire:click' => 'update','wire:loading.attr' => 'disabled','wire:target' => 'update','class' => 'rounded-lg px-6']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.danger-button','data' => ['wire:click' => 'update','wire:loading.attr' => 'disabled','wire:target' => 'update']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('danger-button'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['wire:click' => 'update','wire:loading.attr' => 'disabled','wire:target' => 'update','class' => 'rounded-lg px-6']); ?>
+<?php $component->withAttributes(['wire:click' => 'update','wire:loading.attr' => 'disabled','wire:target' => 'update']); ?>
                 Actualizar
              <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
@@ -309,7 +257,6 @@
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-
          <?php $__env->endSlot(); ?>
 
      <?php echo $__env->renderComponent(); ?>
@@ -319,40 +266,28 @@
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-
-
     <?php $__env->startPush('script'); ?>
     <script>
-
-        Livewire.on('deleteBrand', brandId =>{
-
+        Livewire.on('deleteDepartment', departmentId =>{
         Swal.fire({
-        title: '¿Estás seguro?',
-        text: "La marca será eliminada permanentemente.",
+        title: 'Estás Seguro?',
+        text: "El elemento que has seleccionado sera eliminado!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#ea580c',
-        cancelButtonColor: '#6b7280',
-        confirmButtonText: 'Sí, eliminar'
-        }).then((result) => {
-
-            if (result.isConfirmed) {
-
-                Livewire.emitTo('admin.brands-component','delete',brandId)
-
-                Swal.fire(
-                    'Eliminado',
-                    'La marca ha sido eliminada.',
-                    'success'
-                )
-
-            }
-
-        })
-
-        });
-
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Livewire.emitTo('admin.department-component','delete',departmentId)
+    Swal.fire(
+      'Eliminado!',
+      'El elemento ha sido eliminado.',
+      'success'
+    )
+  }
+})
+});
     </script>
     <?php $__env->stopPush(); ?>
-
-</div><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/livewire/admin/brands-component.blade.php ENDPATH**/ ?>
+</div><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/livewire/admin/department-component.blade.php ENDPATH**/ ?>
