@@ -174,6 +174,7 @@
                 </li>
             </ol>
         </nav>
+        
      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
@@ -300,8 +301,17 @@
                             </div>
 
                         </div>
+                        
                     </div>
                     
+                    <a 
+    href="https://wa.me/593997433070?text=<?php echo e(urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current())); ?>" 
+    target="_blank"
+    class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
+
+    <i class="fab fa-whatsapp text-lg"></i>
+    Consultar por WhatsApp
+</a>
                 </div>
 
                 

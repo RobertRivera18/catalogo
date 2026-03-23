@@ -156,6 +156,7 @@
                 </li>
             </ol>
         </nav>
+        
     </x-container>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 pb-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -270,6 +271,7 @@
                             </div>
 
                         </div>
+                        
                     </div>
                     {{-- <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                         @if ($product->subcategory->size)
@@ -280,6 +282,14 @@
                             @livewire('add-cart-item', ['product' => $product])
                         @endif
                     </div> --}}
+                    <a 
+    href="https://wa.me/593997433070?text={{ urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current()) }}" 
+    target="_blank"
+    class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
+
+    <i class="fab fa-whatsapp text-lg"></i>
+    Consultar por WhatsApp
+</a>
                 </div>
 
                 {{-- Componente de agregar al carrito --}}
