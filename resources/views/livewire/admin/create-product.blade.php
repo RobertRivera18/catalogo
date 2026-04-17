@@ -16,7 +16,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
             <div>
-                <x-label value="Categoría" class="mb-1"/>
+                <x-label value="Categoría" class="mb-1" />
                 <select class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
                     wire:model="category_id">
 
@@ -34,9 +34,10 @@
             </div>
 
             <div>
-                <x-label value="Subcategoría" class="mb-1"/>
+                <x-label value="Subcategoría" class="mb-1" />
 
-                <select class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
                     wire:model="subcategory_id">
 
                     <option value="" selected disabled>Seleccione una subcategoría</option>
@@ -56,42 +57,34 @@
 
         <!-- Nombre -->
         <div class="mb-6">
-            <x-label value="Nombre del producto" class="mb-1"/>
-            <x-input type="text"
-                class="w-full"
-                wire:model="name"
-                placeholder="Ej: Laptop Lenovo IdeaPad 3" />
+            <x-label value="Nombre del producto" class="mb-1" />
+            <x-input type="text" class="w-full" wire:model="name" placeholder="Ej: Laptop Lenovo IdeaPad 3" />
 
             <x-input-error for="name" />
         </div>
 
         <!-- Slug -->
         <div class="mb-6">
-            <x-label value="Slug (URL del producto)" class="mb-1"/>
-            <x-input type="text"
-                wire:model="slug"
-                class="w-full bg-gray-100"
-                placeholder="ejemplo-producto" />
+            <x-label value="Slug (URL del producto)" class="mb-1" />
+            <x-input type="text" wire:model="slug" class="w-full bg-gray-100" placeholder="ejemplo-producto" />
 
             <x-input-error for="slug" />
         </div>
 
         <!-- Descripción -->
         <div class="mb-6" wire:ignore>
-            <x-label value="Descripción del producto" class="mb-2"/>
+            <x-label value="Descripción del producto" class="mb-2" />
 
-            <div x-data x-ref="quillEditor" class="bg-white border border-gray-300 rounded-lg"
-                x-init="quill = new Quill($refs.quillEditor, {
-                    theme: 'snow',
-                    placeholder: 'Escribe la descripción del producto...',
-                });
-
-                quill.root.innerHTML = @js($description ?? '');
-
-                quill.on('text-change', function() {
-                    @this.set('description', quill.root.innerHTML);
-                });"
-
+            <div x-data x-ref="quillEditor" class="bg-white border border-gray-300 rounded-lg" x-init="quill = new Quill($refs.quillEditor, {
+                theme: 'snow',
+                placeholder: 'Escribe la descripción del producto...',
+            });
+            
+            quill.root.innerHTML = @js($description ?? '');
+            
+            quill.on('text-change', function() {
+                @this.set('description', quill.root.innerHTML);
+            });"
                 style="min-height: 180px;">
             </div>
 
@@ -102,9 +95,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
             <div>
-                <x-label value="Marca" class="mb-1"/>
+                <x-label value="Marca" class="mb-1" />
 
-                <select class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
                     wire:model="brand_id">
 
                     <option value="" selected disabled>Seleccione una marca</option>
@@ -121,13 +115,9 @@
             </div>
 
             <div>
-                <x-label value="Precio ($)" class="mb-1"/>
+                <x-label value="Precio ($)" class="mb-1" />
 
-                <x-input type="number"
-                    class="w-full"
-                    step=".01"
-                    wire:model="price"
-                    placeholder="0.00"/>
+                <x-input type="number" class="w-full" step=".01" wire:model="price" placeholder="0.00" />
 
                 <x-input-error for="price" />
             </div>
@@ -138,28 +128,56 @@
         @if ($subcategory_id)
 
             @if (!$this->subcategory->color && !$this->subcategory->size)
-
                 <div class="mb-6">
-                    <x-label value="Cantidad disponible" class="mb-1"/>
-                    <x-input type="number"
-                        class="w-full"
-                        wire:model="quantity"
-                        placeholder="Cantidad en inventario"/>
+                    <x-label value="Cantidad disponible" class="mb-1" />
+                    <x-input type="number" class="w-full" wire:model="quantity" placeholder="Cantidad en inventario" />
 
                     <x-input-error for="quantity" />
                 </div>
-
             @endif
 
         @endif
 
+        <!-- ESPECIFICACIONES -->
+        <div class="mb-6">
+
+            <div class="flex justify-between items-center mb-2">
+                <x-label value="Especificaciones del producto" />
+
+                <button type="button" wire:click="addSpecification"
+                    class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
+                    + Agregar
+                </button>
+            </div>
+
+            <div class="space-y-3">
+
+                @foreach ($specifications as $index => $spec)
+                    <div class="flex gap-2 items-center">
+
+                        <input type="text" wire:model.defer="specifications.{{ $index }}.name"
+                            placeholder="Ej: Voltaje" class="w-1/2 border-gray-300 rounded-lg shadow-sm">
+
+                        <input type="text" wire:model.defer="specifications.{{ $index }}.value"
+                            placeholder="Ej: 220V" class="w-1/2 border-gray-300 rounded-lg shadow-sm">
+
+                        <button type="button" wire:click="removeSpecification({{ $index }})"
+                            class="text-red-500 text-lg hover:text-red-700">
+                            ✕
+                        </button>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+        </div>
+
+
         <!-- Botón -->
         <div class="flex justify-end pt-4 border-t border-gray-100">
 
-            <x-button
-                class="px-6 py-2 text-sm font-semibold"
-                wire:target="save"
-                wire:loading.attr="disabled"
+            <x-button class="px-6 py-2 text-sm font-semibold" wire:target="save" wire:loading.attr="disabled"
                 wire:click="save">
 
                 Crear producto

@@ -16,6 +16,9 @@ class CreateProduct extends Component
     public $category_id = "", $subcategory_id = "", $brand_id = "";
     public $name, $slug, $description, $price, $quantity;
 
+    public $specifications = [
+        ['name' => '', 'value' => '']
+    ];
 
     protected $rules = [
         'category_id' => 'required',
@@ -25,7 +28,10 @@ class CreateProduct extends Component
         'description' => 'required',
         'brand_id' => 'required',
         'price' => 'required',
+        'specifications.*.name' => 'nullable|string|max:255',
+        'specifications.*.value' => 'nullable|string|max:255',
     ];
+
 
     public function updatedCategoryId($value)
     {
@@ -54,6 +60,16 @@ class CreateProduct extends Component
         $this->categories = Category::all();
     }
 
+    public function addSpecification()
+    {
+        $this->specifications[] = ['name' => '', 'value' => ''];
+    }
+
+    public function removeSpecification($index)
+    {
+        unset($this->specifications[$index]);
+        $this->specifications = array_values($this->specifications);
+    }
 
     public function save()
     {
@@ -83,6 +99,14 @@ class CreateProduct extends Component
         }
 
         $product->save();
+        foreach ($this->specifications as $spec) {
+            if (!empty($spec['name']) && !empty($spec['value'])) {
+                $product->specifications()->create([
+                    'name' => $spec['name'],
+                    'value' => $spec['value'],
+                ]);
+            }
+        }
 
         return redirect()->route('admin.products.edit', $product);
     }

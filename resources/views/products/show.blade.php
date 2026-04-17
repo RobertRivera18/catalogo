@@ -156,7 +156,7 @@
                 </li>
             </ol>
         </nav>
-        
+
     </x-container>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 pb-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -271,7 +271,7 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
                     {{-- <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                         @if ($product->subcategory->size)
@@ -282,14 +282,13 @@
                             @livewire('add-cart-item', ['product' => $product])
                         @endif
                     </div> --}}
-                    <a 
-    href="https://wa.me/593997433070?text={{ urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current()) }}" 
-    target="_blank"
-    class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
+                    <a href="https://wa.me/593997433070?text={{ urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current()) }}"
+                        target="_blank"
+                        class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
 
-    <i class="fab fa-whatsapp text-lg"></i>
-    Consultar por WhatsApp
-</a>
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        Consultar por WhatsApp
+                    </a>
                 </div>
 
                 {{-- Componente de agregar al carrito --}}
@@ -381,82 +380,55 @@
 
 
 
-                        {{-- Tab: Especificaciones --}}
                         <div x-show="activeTab === 'specs'" x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 transform scale-95"
                             x-transition:enter-end="opacity-100 transform scale-100">
 
-                            <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
 
-                                <!-- Información del producto -->
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <h4 class="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                    <i class="fas fa-cogs text-indigo-500 text-sm"></i>
+                                    Especificaciones del Producto
+                                </h4>
 
-                                    <h4 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                                        <i class="fas fa-box text-blue-500 text-sm"></i>
-                                        Información del Producto
-                                    </h4>
+                                <dl class="space-y-2 text-sm">
 
-                                    <dl class="space-y-2 text-sm">
+                                    {{-- 🔹 ESPECIFICACIONES FIJAS --}}
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">SKU</dt>
+                                        <dd class="text-gray-900 font-medium">{{ $product->id }}</dd>
+                                    </div>
 
-                                        <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">SKU</dt>
-                                            <dd class="text-gray-900 font-medium">{{ $product->id }}</dd>
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">Marca</dt>
+                                        <dd class="text-gray-900 font-medium capitalize">
+                                            {{ $product->brand->name }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">Categoría</dt>
+                                        <dd class="text-gray-900 font-medium">
+                                            {{ $product->subcategory->category->name }}
+                                        </dd>
+                                    </div>
+
+                                    {{-- 🔹 SEPARADOR --}}
+                                    @if ($product->specifications->count())
+                                        <div class="pt-3">
+                                            <p class="text-xs text-gray-400 uppercase">Especificaciones técnicas</p>
                                         </div>
+                                    @endif
 
+                                    {{-- 🔹 ESPECIFICACIONES DINÁMICAS --}}
+                                    @foreach ($product->specifications as $spec)
                                         <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">Marca</dt>
-                                            <dd class="text-gray-900 font-medium capitalize">
-                                                {{ $product->brand->name }}
-                                            </dd>
+                                            <dt class="text-gray-500">{{ $spec->name }}</dt>
+                                            <dd class="text-gray-900 font-medium">{{ $spec->value }}</dd>
                                         </div>
+                                    @endforeach
 
-                                        <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">Categoría</dt>
-                                            <dd class="text-gray-900 font-medium">
-                                                {{ $product->subcategory->category->name }}
-                                            </dd>
-                                        </div>
-
-
-
-                                    </dl>
-
-                                </div>
-
-
-                                <!-- Envío -->
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
-
-                                    <h4 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                                        <i class="fas fa-truck text-green-500 text-sm"></i>
-                                        Envío y Entrega
-                                    </h4>
-
-                                    <ul class="space-y-2 text-sm text-gray-600">
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío estándar: 3-5 días hábiles</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío express: 1-2 días hábiles</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío gratis en compras mayores a $50</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Rastreo del pedido disponible</span>
-                                        </li>
-
-                                    </ul>
-
-                                </div>
+                                </dl>
 
                             </div>
 
@@ -464,6 +436,97 @@
                     </div>
                 </div>
             </div>
+
+{{-- ===================== ACCESORIOS ===================== --}}
+@if ($product->accessories->count())
+    <div class="mt-8 animate-fadeInUp">
+
+        {{-- ACCESORIOS INCLUIDOS --}}
+        @if ($product->includedAccessories->count())
+            <div class="mb-4">
+
+                {{-- Banner título --}}
+                <div class="bg-gray-900 px-6 py-3 rounded-t-xl">
+                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        Accesorios Incluídos
+                    </h3>
+                </div>
+
+                {{-- Grid accesorios --}}
+                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
+                    <div class="flex flex-wrap gap-4 justify-start">
+                        @foreach ($product->includedAccessories as $acc)
+                            <div class="flex flex-col items-center gap-2 w-24 group">
+
+                                <div class="w-20 h-20 rounded-xl border-2 border-yellow-400 bg-gray-50
+                                            flex items-center justify-center overflow-hidden
+                                            group-hover:border-yellow-500 group-hover:shadow-md transition-all">
+                                    @if ($acc->image)
+                                        <img src="{{ Storage::url($acc->image) }}"
+                                             alt="{{ $acc->name }}"
+                                             class="w-full h-full object-contain p-1">
+                                    @else
+                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
+                                    @endif
+                                </div>
+
+                                <span class="text-xs font-bold text-gray-700 text-center uppercase leading-tight">
+                                    {{ $acc->name }}
+                                </span>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+        @endif
+
+        {{-- ACCESORIOS OPCIONALES --}}
+        @if ($product->optionalAccessories->count())
+            <div class="mb-4">
+
+                {{-- Banner título --}}
+                <div class="bg-gray-700 px-6 py-3 rounded-t-xl">
+                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-yellow-400"></i>
+                        Accesorios Opcionales
+                    </h3>
+                </div>
+
+                {{-- Grid accesorios --}}
+                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
+                    <div class="flex flex-wrap gap-4 justify-start">
+                        @foreach ($product->optionalAccessories as $acc)
+                            <div class="flex flex-col items-center gap-2 w-24 group">
+
+                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 bg-gray-50
+                                            flex items-center justify-center overflow-hidden
+                                            group-hover:border-gray-500 group-hover:shadow-md transition-all">
+                                    @if ($acc->image)
+                                        <img src="{{ Storage::url($acc->image) }}"
+                                             alt="{{ $acc->name }}"
+                                             class="w-full h-full object-contain p-1">
+                                    @else
+                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
+                                    @endif
+                                </div>
+
+                                <span class="text-xs font-bold text-gray-500 text-center uppercase leading-tight">
+                                    {{ $acc->name }}
+                                </span>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+        @endif
+
+    </div>
+@endif
 
             @push('script')
                 <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>

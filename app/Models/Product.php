@@ -98,4 +98,26 @@ class Product extends Model
             $query->orderBy('id', 'desc');
         });
     }
+
+    //Relacion con especificaciones
+    public function specifications()
+    {
+        return $this->hasMany(ProductSpecification::class);
+    }
+
+    //Accesorios
+    public function accessories()
+    {
+        return $this->hasMany(Accessory::class);
+    }
+
+    public function includedAccessories()
+    {
+        return $this->hasMany(Accessory::class)->where('type', 'included');
+    }
+
+    public function optionalAccessories()
+    {
+        return $this->hasMany(Accessory::class)->where('type', 'optional');
+    }
 }

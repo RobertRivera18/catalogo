@@ -174,7 +174,7 @@
                 </li>
             </ol>
         </nav>
-        
+
      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
@@ -301,17 +301,16 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
                     
-                    <a 
-    href="https://wa.me/593997433070?text=<?php echo e(urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current())); ?>" 
-    target="_blank"
-    class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
+                    <a href="https://wa.me/593997433070?text=<?php echo e(urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current())); ?>"
+                        target="_blank"
+                        class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
 
-    <i class="fab fa-whatsapp text-lg"></i>
-    Consultar por WhatsApp
-</a>
+                        <i class="fab fa-whatsapp text-lg"></i>
+                        Consultar por WhatsApp
+                    </a>
                 </div>
 
                 
@@ -379,84 +378,57 @@
 
 
 
-                        
                         <div x-show="activeTab === 'specs'" x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 transform scale-95"
                             x-transition:enter-end="opacity-100 transform scale-100">
 
-                            <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
 
-                                <!-- Información del producto -->
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <h4 class="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                    <i class="fas fa-cogs text-indigo-500 text-sm"></i>
+                                    Especificaciones del Producto
+                                </h4>
 
-                                    <h4 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                                        <i class="fas fa-box text-blue-500 text-sm"></i>
-                                        Información del Producto
-                                    </h4>
+                                <dl class="space-y-2 text-sm">
 
-                                    <dl class="space-y-2 text-sm">
+                                    
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">SKU</dt>
+                                        <dd class="text-gray-900 font-medium"><?php echo e($product->id); ?></dd>
+                                    </div>
 
-                                        <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">SKU</dt>
-                                            <dd class="text-gray-900 font-medium"><?php echo e($product->id); ?></dd>
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">Marca</dt>
+                                        <dd class="text-gray-900 font-medium capitalize">
+                                            <?php echo e($product->brand->name); ?>
+
+                                        </dd>
+                                    </div>
+
+                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
+                                        <dt class="text-gray-500">Categoría</dt>
+                                        <dd class="text-gray-900 font-medium">
+                                            <?php echo e($product->subcategory->category->name); ?>
+
+                                        </dd>
+                                    </div>
+
+                                    
+                                    <?php if($product->specifications->count()): ?>
+                                        <div class="pt-3">
+                                            <p class="text-xs text-gray-400 uppercase">Especificaciones técnicas</p>
                                         </div>
+                                    <?php endif; ?>
 
+                                    
+                                    <?php $__currentLoopData = $product->specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">Marca</dt>
-                                            <dd class="text-gray-900 font-medium capitalize">
-                                                <?php echo e($product->brand->name); ?>
-
-                                            </dd>
+                                            <dt class="text-gray-500"><?php echo e($spec->name); ?></dt>
+                                            <dd class="text-gray-900 font-medium"><?php echo e($spec->value); ?></dd>
                                         </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                        <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500">Categoría</dt>
-                                            <dd class="text-gray-900 font-medium">
-                                                <?php echo e($product->subcategory->category->name); ?>
-
-                                            </dd>
-                                        </div>
-
-
-
-                                    </dl>
-
-                                </div>
-
-
-                                <!-- Envío -->
-                                <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
-
-                                    <h4 class="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                                        <i class="fas fa-truck text-green-500 text-sm"></i>
-                                        Envío y Entrega
-                                    </h4>
-
-                                    <ul class="space-y-2 text-sm text-gray-600">
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío estándar: 3-5 días hábiles</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío express: 1-2 días hábiles</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Envío gratis en compras mayores a $50</span>
-                                        </li>
-
-                                        <li class="flex items-start gap-2">
-                                            <i class="fas fa-check text-green-500 mt-1 text-xs"></i>
-                                            <span>Rastreo del pedido disponible</span>
-                                        </li>
-
-                                    </ul>
-
-                                </div>
+                                </dl>
 
                             </div>
 
@@ -464,6 +436,99 @@
                     </div>
                 </div>
             </div>
+
+
+<?php if($product->accessories->count()): ?>
+    <div class="mt-8 animate-fadeInUp">
+
+        
+        <?php if($product->includedAccessories->count()): ?>
+            <div class="mb-4">
+
+                
+                <div class="bg-gray-900 px-6 py-3 rounded-t-xl">
+                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        Accesorios Incluídos
+                    </h3>
+                </div>
+
+                
+                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
+                    <div class="flex flex-wrap gap-4 justify-start">
+                        <?php $__currentLoopData = $product->includedAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="flex flex-col items-center gap-2 w-24 group">
+
+                                <div class="w-20 h-20 rounded-xl border-2 border-yellow-400 bg-gray-50
+                                            flex items-center justify-center overflow-hidden
+                                            group-hover:border-yellow-500 group-hover:shadow-md transition-all">
+                                    <?php if($acc->image): ?>
+                                        <img src="<?php echo e(Storage::url($acc->image)); ?>"
+                                             alt="<?php echo e($acc->name); ?>"
+                                             class="w-full h-full object-contain p-1">
+                                    <?php else: ?>
+                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
+                                    <?php endif; ?>
+                                </div>
+
+                                <span class="text-xs font-bold text-gray-700 text-center uppercase leading-tight">
+                                    <?php echo e($acc->name); ?>
+
+                                </span>
+
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+
+            </div>
+        <?php endif; ?>
+
+        
+        <?php if($product->optionalAccessories->count()): ?>
+            <div class="mb-4">
+
+                
+                <div class="bg-gray-700 px-6 py-3 rounded-t-xl">
+                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-yellow-400"></i>
+                        Accesorios Opcionales
+                    </h3>
+                </div>
+
+                
+                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
+                    <div class="flex flex-wrap gap-4 justify-start">
+                        <?php $__currentLoopData = $product->optionalAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="flex flex-col items-center gap-2 w-24 group">
+
+                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 bg-gray-50
+                                            flex items-center justify-center overflow-hidden
+                                            group-hover:border-gray-500 group-hover:shadow-md transition-all">
+                                    <?php if($acc->image): ?>
+                                        <img src="<?php echo e(Storage::url($acc->image)); ?>"
+                                             alt="<?php echo e($acc->name); ?>"
+                                             class="w-full h-full object-contain p-1">
+                                    <?php else: ?>
+                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
+                                    <?php endif; ?>
+                                </div>
+
+                                <span class="text-xs font-bold text-gray-500 text-center uppercase leading-tight">
+                                    <?php echo e($acc->name); ?>
+
+                                </span>
+
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+
+            </div>
+        <?php endif; ?>
+
+    </div>
+<?php endif; ?>
 
             <?php $__env->startPush('script'); ?>
                 <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>

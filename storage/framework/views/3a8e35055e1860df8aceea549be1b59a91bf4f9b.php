@@ -79,7 +79,8 @@
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-                <select class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
                     wire:model="subcategory_id">
 
                     <option value="" selected disabled>Seleccione una subcategoría</option>
@@ -230,18 +231,16 @@
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-            <div x-data x-ref="quillEditor" class="bg-white border border-gray-300 rounded-lg"
-                x-init="quill = new Quill($refs.quillEditor, {
-                    theme: 'snow',
-                    placeholder: 'Escribe la descripción del producto...',
-                });
-
-                quill.root.innerHTML = <?php echo \Illuminate\Support\Js::from($description ?? '')->toHtml() ?>;
-
-                quill.on('text-change', function() {
-                    window.livewire.find('<?php echo e($_instance->id); ?>').set('description', quill.root.innerHTML);
-                });"
-
+            <div x-data x-ref="quillEditor" class="bg-white border border-gray-300 rounded-lg" x-init="quill = new Quill($refs.quillEditor, {
+                theme: 'snow',
+                placeholder: 'Escribe la descripción del producto...',
+            });
+            
+            quill.root.innerHTML = <?php echo \Illuminate\Support\Js::from($description ?? '')->toHtml() ?>;
+            
+            quill.on('text-change', function() {
+                window.livewire.find('<?php echo e($_instance->id); ?>').set('description', quill.root.innerHTML);
+            });"
                 style="min-height: 180px;">
             </div>
 
@@ -282,7 +281,8 @@
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-                <select class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm"
                     wire:model="brand_id">
 
                     <option value="" selected disabled>Seleccione una marca</option>
@@ -369,7 +369,6 @@
         <?php if($subcategory_id): ?>
 
             <?php if(!$this->subcategory->color && !$this->subcategory->size): ?>
-
                 <div class="mb-6">
                     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['value' => 'Cantidad disponible','class' => 'mb-1']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -418,10 +417,59 @@
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
                 </div>
-
             <?php endif; ?>
 
         <?php endif; ?>
+
+        <!-- ESPECIFICACIONES -->
+        <div class="mb-6">
+
+            <div class="flex justify-between items-center mb-2">
+                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['value' => 'Especificaciones del producto']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['value' => 'Especificaciones del producto']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
+<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
+<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
+<?php endif; ?>
+
+                <button type="button" wire:click="addSpecification"
+                    class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
+                    + Agregar
+                </button>
+            </div>
+
+            <div class="space-y-3">
+
+                <?php $__currentLoopData = $specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="flex gap-2 items-center">
+
+                        <input type="text" wire:model.defer="specifications.<?php echo e($index); ?>.name"
+                            placeholder="Ej: Voltaje" class="w-1/2 border-gray-300 rounded-lg shadow-sm">
+
+                        <input type="text" wire:model.defer="specifications.<?php echo e($index); ?>.value"
+                            placeholder="Ej: 220V" class="w-1/2 border-gray-300 rounded-lg shadow-sm">
+
+                        <button type="button" wire:click="removeSpecification(<?php echo e($index); ?>)"
+                            class="text-red-500 text-lg hover:text-red-700">
+                            ✕
+                        </button>
+
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+            </div>
+
+        </div>
+
 
         <!-- Botón -->
         <div class="flex justify-end pt-4 border-t border-gray-100">
@@ -449,4 +497,5 @@
 
     </div>
 
-</div><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/livewire/admin/create-product.blade.php ENDPATH**/ ?>
+</div>
+<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/livewire/admin/create-product.blade.php ENDPATH**/ ?>
