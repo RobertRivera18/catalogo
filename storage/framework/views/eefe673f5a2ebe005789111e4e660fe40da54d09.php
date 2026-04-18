@@ -8,571 +8,349 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
     <?php $__env->startPush('css'); ?>
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/flexslider.min.css">
         <style>
-            /* Animaciones personalizadas */
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .animate-fadeInUp {
-                animation: fadeInUp 0.6s ease-out;
-            }
-
-            /* Contenedor flexslider */
-            .flexslider {
-                border: none !important;
-                box-shadow: none !important;
-                background: transparent !important;
-                overflow: visible !important;
-                /* evita que las flechas se corten */
-            }
-
-            /* Imagen principal */
-            .flexslider .slides img {
-                border-radius: 1rem !important;
-            }
-
-            /* Flechas navegación */
-            .flex-direction-nav a {
-                width: 40px;
-                height: 40px;
-                border-radius: 9999px;
-                background: rgba(0, 0, 0, 0.6);
-                color: white !important;
-                display: flex !important;
-                align-items: center;
-                justify-content: center;
-                font-size: 18px;
-                transition: all .25s ease;
-                backdrop-filter: blur(4px);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
-            }
-
-            /* Hover flechas */
-            .flex-direction-nav a:hover {
-                background: rgba(0, 0, 0, 0.8);
-            }
-
-            /* Posición flechas */
-            .flex-direction-nav .flex-prev {
-                left: 10px !important;
-            }
-
-            .flex-direction-nav .flex-next {
-                right: 10px !important;
-            }
-
-            /* Miniaturas */
-            .flex-control-thumbs {
-                margin-top: 1rem !important;
-                gap: 0.5rem;
-            }
-
-            /* Cada miniatura */
-            .flex-control-thumbs li {
-                border-radius: 0.5rem !important;
-                overflow: hidden;
-                border: 2px solid transparent !important;
-                transition: all 0.3s ease;
-            }
-
-            /* Hover miniatura */
-            .flex-control-thumbs li:hover {
-                border-color: #9ca3af !important;
-            }
-
-            /* Miniatura activa */
-            .flex-control-thumbs li.flex-active {
-                border-color: #111827 !important;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
-            }
-
-            /* Contenedor de la imagen principal */
-            .flexslider .slides li {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 420px;
-                background: #f9fafb;
-                border-radius: 1rem;
-            }
-
-            /* Imagen principal */
-            .flexslider .slides img {
-                max-height: 360px;
-                width: auto;
-                object-fit: contain;
-            }
-
-            /* Miniaturas */
-            .flex-control-thumbs img {
-                height: 70px !important;
-                object-fit: contain;
-                background: #f9fafb;
-                padding: 2px;
-            }
+            /* FlexSlider overrides — solo lo que Tailwind no puede controlar */
+            .flexslider { border: none !important; box-shadow: none !important; background: transparent !important; margin: 0 0 10px !important; }
+            .flexslider .slides > li { display: flex !important; align-items: center; justify-content: center; height: 380px; background: #f9fafb; border-radius: 1rem; }
+            .flexslider .slides img { max-height: 340px; width: auto; max-width: 100%; object-fit: contain; }
+            .flex-direction-nav a { width: 36px !important; height: 36px !important; border-radius: 9999px !important; background: rgba(0,0,0,.55) !important; color: #fff !important; display: flex !important; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+            .flex-direction-nav a:hover { background: rgba(0,0,0,.8) !important; }
+            .flex-direction-nav .flex-prev { left: 12px !important; }
+            .flex-direction-nav .flex-next { right: 12px !important; }
+            .flex-control-thumbs { margin: 0 !important; display: flex !important; gap: 8px; padding: 0; }
+            .flex-control-thumbs li { width: auto !important; float: none !important; border-radius: 10px !important; overflow: hidden; border: 1.5px solid transparent !important; flex: 1; transition: border-color .2s; }
+            .flex-control-thumbs li:hover { border-color: #9ca3af !important; }
+            .flex-control-thumbs li.flex-active { border-color: #111827 !important; }
+            .flex-control-thumbs img { height: 64px !important; width: 100% !important; object-fit: contain; background: #f9fafb; padding: 4px; display: block; }
         </style>
     <?php $__env->stopPush(); ?>
 
-    <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.container','data' => ['class' => 'px-4 py-4']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('container'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['class' => 'px-4 py-4']); ?>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
+
         
-        <nav class="mb-8 animate-fadeInUp" aria-label="Breadcrumb">
-            <ol
-                class="flex flex-wrap items-center gap-2 text-sm bg-white px-4 py-3 rounded-xl shadow-sm border border-gray-100">
-                <li class="flex items-center">
-                    <a href="/"
-                        class="flex items-center gap-2 text-gray-600 hover:text-orange-500 transition-colors group">
-                        <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="currentColor"
-                            viewBox="0 0 20 20">
-                            <path
-                                d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+        <nav class="mb-8" aria-label="Breadcrumb">
+            <ol class="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                <li>
+                    <a href="/" class="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                         </svg>
-                        <span class="font-medium">Inicio</span>
+                        Inicio
                     </a>
                 </li>
-
-                <li class="text-gray-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-width="2" d="m1 9 4-4-4-4" />
-                    </svg>
-                </li>
-
+                <li class="text-gray-300">›</li>
                 <li>
                     <a href="<?php echo e(route('categories.show', $product->subcategory->category->slug)); ?>"
-                        class="text-gray-600 hover:text-orange-500 transition-colors font-medium">
+                       class="hover:text-gray-900 transition-colors">
                         <?php echo e($product->subcategory->category->name); ?>
 
                     </a>
                 </li>
-
-                <li class="text-gray-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-width="2" d="m1 9 4-4-4-4" />
-                    </svg>
-                </li>
-
-                <li class="text-gray-500 font-medium truncate max-w-[200px]" aria-current="page">
+                <li class="text-gray-300">›</li>
+                <li class="text-gray-900 font-medium truncate max-w-[180px]" aria-current="page">
                     <?php echo e($product->subcategory->name); ?>
 
                 </li>
             </ol>
         </nav>
 
-     <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 pb-24">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+
             
-            <div class="animate-fadeInUp">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sticky top-6">
-
-                    <div class="flexslider relative">
-
-                        <ul class="slides">
-
-                            <?php $__currentLoopData = $product->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <li data-thumb="<?php echo e(Storage::url($image->url)); ?>">
-
-                                    <div
-                                        class="relative h-[420px] bg-gray-50 rounded-xl flex items-center justify-center">
-
-                                        <img src="<?php echo e(Storage::url($image->url)); ?>"
-                                            alt="Imagen del producto <?php echo e($product->name); ?>"
-                                            class="max-h-full max-w-full object-contain rounded-lg">
-
-                                    </div>
-
-                                </li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                        </ul>
-
-                    </div>
+            <div class="lg:sticky lg:top-6 self-start">
+                <div class="relative bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
 
                     
-                    <div
-                        class="absolute top-6 right-6 bg-red-500 text-white px-3 py-1.5 rounded-full shadow-md font-semibold text-xs">
-                        -25% OFF
-                    </div>
+                    <span class="absolute top-5 left-5 z-10 bg-red-500 text-white text-[11px] font-bold tracking-wide px-3 py-1 rounded-full shadow-md pointer-events-none">
+                        −25% OFF
+                    </span>
 
+                    <div class="flexslider rounded-xl overflow-hidden">
+                        <ul class="slides">
+                            <?php $__currentLoopData = $product->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li data-thumb="<?php echo e(Storage::url($image->url)); ?>">
+                                    <img src="<?php echo e(Storage::url($image->url)); ?>" alt="<?php echo e($product->name); ?>">
+                                </li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             
-            <div class="animate-fadeInUp space-y-6">
+            <div class="flex flex-col gap-5">
+
                 
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-5">
+
                     
-                    <div class="flex items-center justify-between mb-4">
-                        <span
-                            class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-xs font-bold px-3 py-1.5 rounded-full border border-indigo-200">
-                            <i class="fas fa-tag"></i>
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full tracking-wide">
                             <?php echo e($product->subcategory->name); ?>
 
                         </span>
 
-                        <span
-                            class="inline-flex items-center gap-2 text-sm font-semibold px-3 py-1.5 rounded-full <?php echo e($product->status == 2 ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-700 border border-gray-200'); ?>">
-                            <span
-                                class="w-2 h-2 rounded-full <?php echo e($product->status == 2 ? 'bg-green-500 animate-pulse' : 'bg-gray-500'); ?>"></span>
-                            <?php echo e($product->status == 2 ? 'Disponible' : 'No disponible'); ?>
-
-                        </span>
+                        <?php if($product->status == 2): ?>
+                            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Disponible
+                            </span>
+                        <?php else: ?>
+                            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-gray-500 bg-gray-100 border border-gray-200 px-3 py-1 rounded-full">
+                                <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                No disponible
+                            </span>
+                        <?php endif; ?>
                     </div>
 
                     
-                    <h1 class="text-xl font-bold text-gray-900 mb-4 leading-tight">
+                    <h1 class="text-2xl font-bold text-gray-900 leading-snug tracking-tight">
                         <?php echo e($product->name); ?>
 
                     </h1>
 
                     
-                    <div
-                        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-gray-200">
-                        <div class="flex items-center gap-2">
-                            <span class="text-gray-600 font-medium">Marca:</span>
-                            <a href="#"
-                                class="text-orange-600 hover:text-orange-700 font-bold capitalize underline decoration-2 underline-offset-2 transition-colors">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-5 border-b border-gray-100">
+
+                        <p class="text-sm text-gray-500">
+                            Marca:
+                            <span class="text-orange-600 font-bold uppercase tracking-wide ml-1">
                                 <?php echo e($product->brand->name); ?>
 
-                            </a>
-                        </div>
+                            </span>
+                        </p>
 
                         <?php
-                            $averageRating = round($product->reviews->avg('rating') ?? 5, 1);
-                            $reviewCount = $product->reviews->count();
+                            $avg   = round($product->reviews->avg('rating') ?? 5, 1);
+                            $count = $product->reviews->count();
                         ?>
 
-                        <div class="flex items-center gap-3 bg-amber-50 px-4 py-2 rounded-full border border-amber-200">
-                            <div class="flex items-center gap-1">
+                        <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
+                            <div class="flex items-center gap-0.5">
                                 <?php for($i = 1; $i <= 5; $i++): ?>
-                                    <i
-                                        class="fas fa-star text-sm <?php echo e($averageRating >= $i ? 'text-yellow-400' : 'text-gray-300'); ?>"></i>
+                                    <svg class="w-3 h-3 <?php echo e($avg >= $i ? 'text-amber-400' : 'text-gray-300'); ?>" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
                                 <?php endfor; ?>
                             </div>
-                            <span class="text-sm font-bold text-gray-700">
-                                <?php echo e(number_format($averageRating, 1)); ?>
-
-                            </span>
-                            <span class="text-sm text-gray-600">
-                                (<?php echo e($reviewCount); ?> <?php echo e($reviewCount === 1 ? 'reseña' : 'reseñas'); ?>)
-                            </span>
+                            <span class="text-xs font-bold text-gray-700"><?php echo e(number_format($avg, 1)); ?></span>
+                            <span class="text-xs text-gray-400">(<?php echo e($count); ?> <?php echo e($count === 1 ? 'reseña' : 'reseñas'); ?>)</span>
                         </div>
                     </div>
 
                     
-                    <div class="py-3">
-                        <div class="flex items-end gap-4">
-                            <div>
-                                <p class="text-sm text-gray-500 mb-1">Precio anterior:</p>
-                                <span class="text-2xl line-through text-gray-400 font-medium">
-                                    $<?php echo e(number_format($product->price + $product->price * 0.25, 2)); ?>
+                    <div class="flex items-center justify-between bg-gray-50 rounded-xl px-5 py-4 border border-gray-100">
+                        <div>
+                            <p class="text-xs text-gray-400 line-through mb-0.5">
+                                $<?php echo e(number_format($product->price * 1.25, 2)); ?>
 
-                                </span>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm text-green-600 font-semibold mb-1">¡Ahorra 25%!</p>
-                                <span
-                                    class="text-3xl font-black bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
-                                    $<?php echo e(number_format($product->price, 2)); ?>
+                            </p>
+                            <p class="text-3xl font-black text-gray-900 tracking-tight">
+                                $<?php echo e(number_format($product->price, 2)); ?>
 
-                                </span>
-                            </div>
-
+                            </p>
                         </div>
+                        <span class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full whitespace-nowrap">
+                            Ahorras $<?php echo e(number_format($product->price * 0.25, 2)); ?>
 
+                        </span>
                     </div>
-                    
-                    <a href="https://wa.me/593997433070?text=<?php echo e(urlencode('Hola, estoy interesado en este producto: ' . $product->name . ' ' . url()->current())); ?>"
-                        target="_blank"
-                        class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition">
 
-                        <i class="fab fa-whatsapp text-lg"></i>
+                    
+                    <a href="https://wa.me/593997433070?text=<?php echo e(urlencode('Hola, estoy interesado en: ' . $product->name . ' — ' . url()->current())); ?>"
+                       target="_blank"
+                       class="flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] active:scale-[.98] text-white font-semibold text-sm py-3.5 px-5 rounded-xl transition-all duration-150 shadow-sm">
+                        <svg class="w-5 h-5 fill-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
                         Consultar por WhatsApp
                     </a>
+
                 </div>
 
                 
+                <div x-data="{ tab: 'descripcion' }" class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
-
-                
-                
-
-                
-                <div x-data="{ activeTab: 'description' }" class="mt-12 mb-10">
                     
-                    <div class="bg-white rounded-t-2xl shadow-lg border border-gray-100 border-b-0">
-                        <ul class="flex flex-wrap gap-2 p-4" role="tablist">
-                            <li role="presentation">
-                                <button @click="activeTab = 'description'"
-                                    :class="activeTab === 'description'
-                                        ?
-                                        'bg-gray-900 text-white shadow-md' :
-                                        'bg-gray-50 text-gray-600 hover:bg-gray-100'"
-                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-200 active:scale-95"
-                                    type="button">
-
-                                    <i class="fas fa-info-circle"></i>
-                                    <span>Descripción</span>
-
-                                </button>
-                            </li>
-
-                            <li role="presentation">
-                                <button @click="activeTab = 'specs'"
-                                    :class="activeTab === 'specs'
-                                        ?
-                                        'bg-gray-900 text-white shadow-md' :
-                                        'bg-gray-50 text-gray-600 hover:bg-gray-100'"
-                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all duration-200 active:scale-95"
-                                    type="button">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    <span>Especificaciones</span>
-                                </button>
-                            </li>
-                        </ul>
+                    <div class="flex border-b border-gray-100">
+                        <button @click="tab = 'descripcion'"
+                                :class="tab === 'descripcion'
+                                    ? 'border-b-2 border-gray-900 text-gray-900 font-semibold'
+                                    : 'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'"
+                                class="flex-1 flex items-center justify-center gap-2 text-sm py-3.5 px-4 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            Descripción
+                        </button>
+                        <button @click="tab = 'specs'"
+                                :class="tab === 'specs'
+                                    ? 'border-b-2 border-gray-900 text-gray-900 font-semibold'
+                                    : 'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'"
+                                class="flex-1 flex items-center justify-center gap-2 text-sm py-3.5 px-4 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                            Especificaciones
+                        </button>
                     </div>
 
                     
-                    <div class="bg-white rounded-b-2xl shadow-lg border border-gray-100 border-t-0 p-4">
-                        
-                        <div x-show="activeTab === 'description'" x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform scale-95"
-                            x-transition:enter-end="opacity-100 transform scale-100"
-                            class="prose prose-sm max-w-none
-    prose-p:text-sm
-    prose-li:text-sm
-    prose-h1:text-base
-    prose-h2:text-sm
-    prose-h3:text-sm
-    prose-p:my-1
-    prose-ul:my-1
-    prose-li:my-0">
+                    <div x-show="tab === 'descripcion'"
+                         x-transition:enter="transition ease-out duration-150"
+                         x-transition:enter-start="opacity-0 translate-y-1"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         class="p-5 prose prose-sm max-w-none
+                                prose-p:text-gray-600 prose-p:text-sm prose-p:leading-relaxed prose-p:my-1.5
+                                prose-li:text-gray-600 prose-li:text-sm prose-li:my-0
+                                prose-h1:text-base prose-h2:text-sm prose-h3:text-sm
+                                prose-ul:my-1.5 prose-ol:my-1.5">
+                        <?php echo $product->description; ?>
 
-                            <?php echo $product->description; ?>
+                    </div>
 
+                    
+                    <div x-show="tab === 'specs'"
+                         x-transition:enter="transition ease-out duration-150"
+                         x-transition:enter-start="opacity-0 translate-y-1"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         class="p-5">
+                        <table class="w-full text-sm">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="py-2.5 pr-4 text-gray-400 w-2/5">SKU</td>
+                                    <td class="py-2.5 text-gray-900 font-medium text-right"><?php echo e($product->id); ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 pr-4 text-gray-400">Marca</td>
+                                    <td class="py-2.5 text-gray-900 font-medium text-right capitalize"><?php echo e($product->brand->name); ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 pr-4 text-gray-400">Categoría</td>
+                                    <td class="py-2.5 text-gray-900 font-medium text-right"><?php echo e($product->subcategory->category->name); ?></td>
+                                </tr>
 
-                        </div>
-
-
-
-
-                        <div x-show="activeTab === 'specs'" x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="opacity-0 transform scale-95"
-                            x-transition:enter-end="opacity-100 transform scale-100">
-
-                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
-
-                                <h4 class="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                                    <i class="fas fa-cogs text-indigo-500 text-sm"></i>
-                                    Especificaciones del Producto
-                                </h4>
-
-                                <dl class="space-y-2 text-sm">
-
-                                    
-                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                        <dt class="text-gray-500">SKU</dt>
-                                        <dd class="text-gray-900 font-medium"><?php echo e($product->id); ?></dd>
-                                    </div>
-
-                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                        <dt class="text-gray-500">Marca</dt>
-                                        <dd class="text-gray-900 font-medium capitalize">
-                                            <?php echo e($product->brand->name); ?>
-
-                                        </dd>
-                                    </div>
-
-                                    <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                        <dt class="text-gray-500">Categoría</dt>
-                                        <dd class="text-gray-900 font-medium">
-                                            <?php echo e($product->subcategory->category->name); ?>
-
-                                        </dd>
-                                    </div>
-
-                                    
-                                    <?php if($product->specifications->count()): ?>
-                                        <div class="pt-3">
-                                            <p class="text-xs text-gray-400 uppercase">Especificaciones técnicas</p>
-                                        </div>
-                                    <?php endif; ?>
-
-                                    
+                                <?php if($product->specifications->count()): ?>
+                                    <tr>
+                                        <td colspan="2" class="pt-5 pb-1">
+                                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                                Especificaciones técnicas
+                                            </span>
+                                        </td>
+                                    </tr>
                                     <?php $__currentLoopData = $product->specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                                            <dt class="text-gray-500"><?php echo e($spec->name); ?></dt>
-                                            <dd class="text-gray-900 font-medium"><?php echo e($spec->value); ?></dd>
-                                        </div>
+                                        <tr>
+                                            <td class="py-2.5 pr-4 text-gray-400"><?php echo e($spec->name); ?></td>
+                                            <td class="py-2.5 text-gray-900 font-medium text-right"><?php echo e($spec->value); ?></td>
+                                        </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
 
-                                </dl>
+                </div>
 
-                            </div>
+            </div>
+        </div>
 
+        
+        <?php if($product->accessories->count()): ?>
+            <div class="mt-10 space-y-5">
+
+                
+                <?php if($product->includedAccessories->count()): ?>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+
+                        <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-gray-100">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-700">
+                                Accesorios incluídos
+                            </h3>
                         </div>
-                    </div>
-                </div>
-            </div>
 
+                        <div class="p-5 flex flex-wrap gap-4">
+                            <?php $__currentLoopData = $product->includedAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex flex-col items-center gap-2 w-20 group">
+                                    <div class="w-16 h-16 rounded-xl border-2 border-emerald-200 bg-gray-50 flex items-center justify-center overflow-hidden group-hover:border-emerald-400 transition-colors">
+                                        <?php if($acc->image): ?>
+                                            <img src="<?php echo e(Storage::url($acc->image)); ?>" alt="<?php echo e($acc->name); ?>" class="w-full h-full object-contain p-1">
+                                        <?php else: ?>
+                                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+                                            </svg>
+                                        <?php endif; ?>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-600 text-center uppercase leading-tight tracking-wide">
+                                        <?php echo e($acc->name); ?>
 
-<?php if($product->accessories->count()): ?>
-    <div class="mt-8 animate-fadeInUp">
-
-        
-        <?php if($product->includedAccessories->count()): ?>
-            <div class="mb-4">
-
-                
-                <div class="bg-gray-900 px-6 py-3 rounded-t-xl">
-                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                        <i class="fas fa-check-circle text-green-400"></i>
-                        Accesorios Incluídos
-                    </h3>
-                </div>
-
-                
-                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
-                    <div class="flex flex-wrap gap-4 justify-start">
-                        <?php $__currentLoopData = $product->includedAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex flex-col items-center gap-2 w-24 group">
-
-                                <div class="w-20 h-20 rounded-xl border-2 border-yellow-400 bg-gray-50
-                                            flex items-center justify-center overflow-hidden
-                                            group-hover:border-yellow-500 group-hover:shadow-md transition-all">
-                                    <?php if($acc->image): ?>
-                                        <img src="<?php echo e(Storage::url($acc->image)); ?>"
-                                             alt="<?php echo e($acc->name); ?>"
-                                             class="w-full h-full object-contain p-1">
-                                    <?php else: ?>
-                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
-                                    <?php endif; ?>
+                                    </span>
                                 </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
 
-                                <span class="text-xs font-bold text-gray-700 text-center uppercase leading-tight">
-                                    <?php echo e($acc->name); ?>
-
-                                </span>
-
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                </div>
-
-            </div>
-        <?php endif; ?>
-
-        
-        <?php if($product->optionalAccessories->count()): ?>
-            <div class="mb-4">
+                <?php endif; ?>
 
                 
-                <div class="bg-gray-700 px-6 py-3 rounded-t-xl">
-                    <h3 class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
-                        <i class="fas fa-plus-circle text-yellow-400"></i>
-                        Accesorios Opcionales
-                    </h3>
-                </div>
+                <?php if($product->optionalAccessories->count()): ?>
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
-                
-                <div class="bg-white border border-gray-200 rounded-b-xl p-4 shadow-sm">
-                    <div class="flex flex-wrap gap-4 justify-start">
-                        <?php $__currentLoopData = $product->optionalAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="flex flex-col items-center gap-2 w-24 group">
+                        <div class="flex items-center gap-2.5 px-5 py-3.5 border-b border-gray-100">
+                            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-500">
+                                Accesorios opcionales
+                            </h3>
+                        </div>
 
-                                <div class="w-20 h-20 rounded-xl border-2 border-gray-300 bg-gray-50
-                                            flex items-center justify-center overflow-hidden
-                                            group-hover:border-gray-500 group-hover:shadow-md transition-all">
-                                    <?php if($acc->image): ?>
-                                        <img src="<?php echo e(Storage::url($acc->image)); ?>"
-                                             alt="<?php echo e($acc->name); ?>"
-                                             class="w-full h-full object-contain p-1">
-                                    <?php else: ?>
-                                        <i class="fas fa-box text-gray-400 text-2xl"></i>
-                                    <?php endif; ?>
+                        <div class="p-5 flex flex-wrap gap-4">
+                            <?php $__currentLoopData = $product->optionalAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex flex-col items-center gap-2 w-20 group">
+                                    <div class="w-16 h-16 rounded-xl border-2 border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden group-hover:border-gray-400 transition-colors">
+                                        <?php if($acc->image): ?>
+                                            <img src="<?php echo e(Storage::url($acc->image)); ?>" alt="<?php echo e($acc->name); ?>" class="w-full h-full object-contain p-1">
+                                        <?php else: ?>
+                                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
+                                            </svg>
+                                        <?php endif; ?>
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-400 text-center uppercase leading-tight tracking-wide">
+                                        <?php echo e($acc->name); ?>
+
+                                    </span>
                                 </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
 
-                                <span class="text-xs font-bold text-gray-500 text-center uppercase leading-tight">
-                                    <?php echo e($acc->name); ?>
-
-                                </span>
-
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                </div>
+                <?php endif; ?>
 
             </div>
         <?php endif; ?>
 
     </div>
-<?php endif; ?>
 
-            <?php $__env->startPush('script'); ?>
-                <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
-                <script>
-                    ClassicEditor.create(document.querySelector('#editor'), {
-                        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                        heading: {
-                            options: [{
-                                    model: 'paragraph',
-                                    title: 'Párrafo',
-                                    class: 'ck-heading_paragraph'
-                                },
-                                {
-                                    model: 'heading1',
-                                    view: 'h1',
-                                    title: 'Encabezado 1',
-                                    class: 'ck-heading_heading1'
-                                },
-                                {
-                                    model: 'heading2',
-                                    view: 'h2',
-                                    title: 'Encabezado 2',
-                                    class: 'ck-heading_heading2'
-                                }
-                            ]
-                        }
-                    }).catch(error => console.log(error));
-                </script>
-                <script>
-                    $(document).ready(function() {
-                        $('.flexslider').flexslider({
-                            animation: "slide",
-                            controlNav: "thumbnails",
-                            slideshow: false,
-                            animationSpeed: 400,
-                            directionNav: true,
-                        });
-                    });
-                </script>
-            <?php $__env->stopPush(); ?>
+    <?php $__env->startPush('script'); ?>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.flexslider').flexslider({
+                    animation: 'slide',
+                    controlNav: 'thumbnails',
+                    slideshow: false,
+                    animationSpeed: 350,
+                    directionNav: true,
+                });
+            });
+        </script>
+    <?php $__env->stopPush(); ?>
+
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da)): ?>
 <?php $component = $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da; ?>
 <?php unset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da); ?>
-<?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/products/show.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/products/show.blade.php ENDPATH**/ ?>

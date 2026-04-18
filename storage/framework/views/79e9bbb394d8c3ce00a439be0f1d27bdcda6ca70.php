@@ -1,5 +1,5 @@
 <?php if (isset($component)) { $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da = $component; } ?>
-<?php $component = App\View\Components\AppLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = App\View\Components\AppLayout::resolve(['title' => 'Teinsersa - Catálogo de Productos'] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('app-layout'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
@@ -36,36 +36,24 @@
         </div>
 
 
-
-        
-
-
-        
-
-        
-        
-
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('products-home')->html();
-} elseif ($_instance->childHasBeenRendered('SZCdKJq')) {
-    $componentId = $_instance->getRenderedChildComponentId('SZCdKJq');
-    $componentTag = $_instance->getRenderedChildComponentTagName('SZCdKJq');
+} elseif ($_instance->childHasBeenRendered('0HPGmvi')) {
+    $componentId = $_instance->getRenderedChildComponentId('0HPGmvi');
+    $componentTag = $_instance->getRenderedChildComponentTagName('0HPGmvi');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('SZCdKJq');
+    $_instance->preserveRenderedChild('0HPGmvi');
 } else {
     $response = \Livewire\Livewire::mount('products-home');
     $html = $response->html();
-    $_instance->logRenderedChild('SZCdKJq', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('0HPGmvi', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
     </div>
 
     <?php $__env->startPush('script'); ?>
-        
-
-
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
             const swiper = new Swiper('.swiper', {
