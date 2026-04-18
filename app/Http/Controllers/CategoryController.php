@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function show(Category $category){
-          return view('categories.show',compact('category'));
-    }
+    public function show(Category $category)
+{
+    // Eager load para los filtros del sidebar
+    $category->load('subcategories', 'brands');
+
+    return view('categories.show', compact('category'));
+}
 }

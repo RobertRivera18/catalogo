@@ -29,7 +29,7 @@
                 {{-- Ordenar por --}}
                 <div class="mb-2">
                     <p class="text-lg font-semibold">Ordenar por</p>
-                    <x-select wire:model.defer="order">
+                    <x-select wire:model="order">
                         <option value="new">Más recientes</option>
                         <option value="old">Más antiguos</option>
                     </x-select>
@@ -42,7 +42,7 @@
                         @foreach ($category->subcategories as $subcategory)
                             <li>
                                 <label>
-                                    <x-checkbox wire:model.defer="subcategoria" value="{{ $subcategory->slug }}" />
+                                    <x-checkbox wire:model="subcategoria" value="{{ $subcategory->slug }}" />
                                     <span class="ml-2 text-gray-700 capitalize">{{ $subcategory->name }}</span>
                                 </label>
                             </li>
@@ -57,7 +57,7 @@
                         @foreach ($category->brands as $brand)
                             <li>
                                 <label>
-                                    <x-checkbox wire:model.defer="marca" value="{{ $brand->name }}" />
+                                    <x-checkbox wire:model="marca" value="{{ $brand->name }}" />
                                     <span class="ml-2 text-gray-700 capitalize">{{ $brand->name }}</span>
                                 </label>
                             </li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,37 +11,55 @@ class CategoryFilter extends Component
 {
     use WithPagination;
 
-    public $category, $subcategoria = [], $marca = [], $order;
-    public $view = 'grid';
+    public $categorySlug;          // solo el slug, no el objeto
+    public $subcategoria = [];
+    public $marca        = [];
+    public $order        = 'new';
+    public $view         = 'grid';
 
     protected $queryString = ['subcategoria', 'marca', 'order'];
+
+    public function mount(Category $category)
+    {
+        $this->categorySlug = $category->slug;  // guardamos solo el slug
+    }
 
     public function limpiar()
     {
         $this->reset(['subcategoria', 'marca', 'order']);
+        $this->resetPage();
     }
 
-    public function updating($property)
+    public function updating()
     {
-        // Cada vez que se actualice cualquier propiedad, se reinicia la paginación
         $this->resetPage();
     }
 
     public function filtrar()
     {
-        // Solo reinicia la paginación al aplicar los filtros manualmente desde el form
         $this->resetPage();
     }
 
     public function render()
     {
-        $products = Product::filter([
-            'category'     => $this->category,
-            'subcategory'  => $this->subcategoria,
-            'brand'        => $this->marca,
-            'order'        => $this->order,
-        ])->paginate(12);
+        // Reconstruimos el objeto Category desde el slug en cada render
+        $category = Category::where('slug', $this->categorySlug)
+            ->with('subcategories', 'brands')
+            ->firstOrFail();
 
-        return view('livewire.category-filter', compact('products'));
+        $subcategorias = array_filter((array) $this->subcategoria);
+        $marcas        = array_filter((array) $this->marca);
+
+        $products = Product::with(['subcategory', 'brand', 'images', 'reviews'])
+            ->where('status', Product::PUBLICADO)
+            ->filter([
+                'category'    => $this->categorySlug,
+                'subcategory' => !empty($subcategorias) ? $subcategorias : null,
+                'brand'       => !empty($marcas)        ? $marcas        : null,
+                'order'       => $this->order,
+            ])
+            ->paginate(12);
+
+        return view('livewire.category-filter', compact('products', 'category'));
     }
 }
