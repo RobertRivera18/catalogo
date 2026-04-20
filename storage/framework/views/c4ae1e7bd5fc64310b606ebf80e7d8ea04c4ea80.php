@@ -340,7 +340,6 @@
                                         
                                         <h3
                                             class="font-semibold text-sm sm:text-base text-gray-900 leading-snug line-clamp-2">
-
                                             <a href="<?php echo e(route('products.show', $product)); ?>"
                                                 class="hover:text-gray-700 transition-colors">
 
@@ -494,7 +493,7 @@
 
             
             <div wire:loading
-                class="fixed bottom-8 right-8 bg-blue-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-pulse">
+                class="fixed bottom-8 right-8 bg-blue-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-pulse">
                 <i class="fas fa-spinner fa-spin"></i>
                 <span class="font-semibold">Cargando...</span>
             </div>

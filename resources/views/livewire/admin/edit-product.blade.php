@@ -263,99 +263,95 @@
 
             </div>
             {{-- ===================== ACCESORIOS ===================== --}}
-<div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
 
-    <h2 class="text-lg font-semibold text-gray-800 mb-4">Accesorios del Producto</h2>
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Accesorios del Producto</h2>
 
-    @foreach (['included' => 'Accesorios Incluídos', 'optional' => 'Accesorios Opcionales'] as $type => $label)
+                @foreach (['included' => 'Accesorios Incluídos', 'optional' => 'Accesorios Opcionales'] as $type => $label)
+                    <div class="mb-8">
 
-        <div class="mb-8">
-
-            {{-- Título + botón agregar --}}
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold text-gray-700">{{ $label }}</h3>
-                <button type="button" wire:click="addAccessory('{{ $type }}')"
-                    class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
-                    + Agregar
-                </button>
-            </div>
-
-            {{-- Accesorios ya guardados en BD --}}
-            @if ($product->accessories->where('type', $type)->count())
-                <div class="flex flex-wrap gap-3 mb-4">
-                    @foreach ($product->accessories->where('type', $type) as $acc)
-                        <div class="relative border rounded-lg p-2 text-center w-28"
-                            wire:key="acc-{{ $acc->id }}">
-
-                            @if ($acc->image)
-                                <img src="{{ Storage::url($acc->image) }}"
-                                    class="w-20 h-16 object-cover rounded mx-auto mb-1">
-                            @endif
-
-                            <p class="text-xs text-gray-600 truncate">{{ $acc->name }}</p>
-
-                            <button type="button"
-                                wire:click="deleteAccessory({{ $acc->id }})"
-                                class="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hover:bg-red-700">
-                                ✕
+                        {{-- Título + botón agregar --}}
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-semibold text-gray-700">{{ $label }}</h3>
+                            <button type="button" wire:click="addAccessory('{{ $type }}')"
+                                class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
+                                + Agregar
                             </button>
-
                         </div>
-                    @endforeach
-                </div>
-            @endif
 
-            {{-- Filas nuevas (aún no guardadas) --}}
-            <div class="space-y-2">
-                @foreach ($newAccessories[$type] as $index => $item)
-                    <div class="flex gap-2 items-center" wire:key="new-{{ $type }}-{{ $index }}">
+                        {{-- Accesorios ya guardados en BD --}}
+                        @if ($product->accessories->where('type', $type)->count())
+                            <div class="flex flex-wrap gap-3 mb-4">
+                                @foreach ($product->accessories->where('type', $type) as $acc)
+                                    <div class="relative border rounded-lg p-2 text-center w-28"
+                                        wire:key="acc-{{ $acc->id }}">
 
-                        <input type="text"
-                            wire:model.defer="newAccessories.{{ $type }}.{{ $index }}.name"
-                            placeholder="Nombre del accesorio"
-                            class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+                                        @if ($acc->image)
+                                            <img src="{{ Storage::url($acc->image) }}"
+                                                class="w-20 h-16 object-cover rounded mx-auto mb-1">
+                                        @endif
 
-                        <input type="file"
-                            wire:model="accessoryImages.{{ $type }}.{{ $index }}"
-                            accept="image/*"
-                            class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+                                        <p class="text-xs text-gray-600 truncate">{{ $acc->name }}</p>
 
-                        <button type="button"
-                            wire:click="removeNewAccessory('{{ $type }}', {{ $index }})"
-                            class="text-red-500 hover:text-red-700 text-lg">
-                            ✕
-                        </button>
+                                        <button type="button" wire:click="deleteAccessory({{ $acc->id }})"
+                                            class="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hover:bg-red-700">
+                                            ✕
+                                        </button>
+
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        {{-- Filas nuevas (aún no guardadas) --}}
+                        <div class="space-y-2">
+                            @foreach ($newAccessories[$type] as $index => $item)
+                                <div class="flex gap-2 items-center"
+                                    wire:key="new-{{ $type }}-{{ $index }}">
+
+                                    <input type="text"
+                                        wire:model.defer="newAccessories.{{ $type }}.{{ $index }}.name"
+                                        placeholder="Nombre del accesorio"
+                                        class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+
+                                    <input type="file"
+                                        wire:model="accessoryImages.{{ $type }}.{{ $index }}"
+                                        accept="image/*" class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+
+                                    <button type="button"
+                                        wire:click="removeNewAccessory('{{ $type }}', {{ $index }})"
+                                        class="text-red-500 hover:text-red-700 text-lg">
+                                        ✕
+                                    </button>
+
+                                </div>
+
+                                {{-- Preview de imagen temporal --}}
+                                @if (!empty($accessoryImages[$type][$index]))
+                                    <img src="{{ $accessoryImages[$type][$index]->temporaryUrl() }}"
+                                        class="w-20 h-16 object-cover rounded mt-1 ml-1">
+                                @endif
+                            @endforeach
+                        </div>
 
                     </div>
-
-                    {{-- Preview de imagen temporal --}}
-                    @if (!empty($accessoryImages[$type][$index]))
-                        <img src="{{ $accessoryImages[$type][$index]->temporaryUrl() }}"
-                            class="w-20 h-16 object-cover rounded mt-1 ml-1">
-                    @endif
-
                 @endforeach
+
+                {{-- Botón guardar accesorios --}}
+                @if (count($newAccessories['included']) || count($newAccessories['optional']))
+                    <div class="flex justify-end mt-2">
+                        <x-action-message class="mr-3" on="accessoriesSaved">
+                            Accesorios guardados ✓
+                        </x-action-message>
+
+                        <x-button wire:click="saveAccessories" wire:loading.attr="disabled"
+                            wire:target="saveAccessories">
+                            Guardar Accesorios
+                        </x-button>
+                    </div>
+                @endif
+
             </div>
-
-        </div>
-
-    @endforeach
-
-    {{-- Botón guardar accesorios --}}
-    @if (count($newAccessories['included']) || count($newAccessories['optional']))
-        <div class="flex justify-end mt-2">
-            <x-action-message class="mr-3" on="accessoriesSaved">
-                Accesorios guardados ✓
-            </x-action-message>
-
-            <x-button wire:click="saveAccessories" wire:loading.attr="disabled"
-                wire:target="saveAccessories">
-                Guardar Accesorios
-            </x-button>
-        </div>
-    @endif
-
-</div>
             <!-- BOTÓN -->
             <div class="flex mt-6 justify-end items-center">
 

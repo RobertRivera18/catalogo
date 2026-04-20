@@ -1,160 +1,216 @@
-<div class="container mx-auto p-4">
+<div class="container mx-auto px-4 py-6">
 
-    {{-- Header de la categoría --}}
-    <div class="bg-white rounded-xl shadow-md overflow-hidden flex justify-between items-center mb-6 px-4 py-3">
-        <h1 class="font-semibold text-gray-700 text-lg flex items-center gap-2">
-            <i>{!! $category->icon !!}</i> {{ $category->name }}
+    {{-- ─── HEADER ─── --}}
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm flex justify-between items-center mb-6 px-5 py-4">
+        <h1 class="font-bold text-gray-800 text-lg flex items-center gap-2.5">
+            <span class="text-xl">{!! $category->icon !!}</span>
+            {{ $category->name }}
         </h1>
 
-        <div class="hidden md:flex rounded-md overflow-hidden border border-gray-300 text-gray-500 shadow-sm">
-            <button
-                class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200 {{ $view == 'grid' ? 'text-orange-500 bg-gray-100' : '' }}"
-                wire:click="$set('view', 'grid')" aria-label="Vista de cuadrícula">
-                <i class="fas fa-border-all"></i>
+        <div class="hidden md:flex rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+            <button wire:click="$set('view', 'grid')" aria-label="Vista de cuadrícula"
+                class="px-4 py-2 transition-colors duration-150 {{ $view == 'grid' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
+                <i class="fas fa-border-all text-sm"></i>
             </button>
-            <button
-                class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200 {{ $view == 'list' ? 'text-orange-500 bg-gray-100' : '' }}"
-                wire:click="$set('view', 'list')" aria-label="Vista de lista">
-                <i class="fas fa-th-list"></i>
+            <button wire:click="$set('view', 'list')" aria-label="Vista de lista"
+                class="px-4 py-2 transition-colors duration-150 {{ $view == 'list' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
+                <i class="fas fa-th-list text-sm"></i>
             </button>
         </div>
     </div>
 
-
-    {{-- Grid general --}}
+    {{-- ─── GRID PRINCIPAL ─── --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {{-- Filtros --}}
+
+        {{-- ══════ FILTROS ══════ --}}
         <div class="col-span-1">
-            <form wire:submit.prevent="filtrar">
-                {{-- Ordenar por --}}
-                <div class="mb-2">
-                    <p class="text-lg font-semibold">Ordenar por</p>
-                    <x-select wire:model="order">
+            <form wire:submit.prevent="filtrar"
+                class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col gap-6 sticky top-4">
+
+                {{-- Ordenar --}}
+                <div>
+                    <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Ordenar por</p>
+                    <x-select wire:model="order"
+                        class="w-full text-sm rounded-xl border-gray-200 focus:ring-indigo-500 focus:border-indigo-500">
                         <option value="new">Más recientes</option>
                         <option value="old">Más antiguos</option>
                     </x-select>
                 </div>
 
+                <hr class="border-gray-100">
+
                 {{-- Subcategorías --}}
-                <div class="mb-2">
-                    <p class="text-lg font-semibold">Subcategorías</p>
-                    <ul>
+                <div>
+                    <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-3">Subcategorías</p>
+                    <ul class="flex flex-col gap-2">
                         @foreach ($category->subcategories as $subcategory)
                             <li>
-                                <label>
-                                    <x-checkbox wire:model="subcategoria" value="{{ $subcategory->slug }}" />
-                                    <span class="ml-2 text-gray-700 capitalize">{{ $subcategory->name }}</span>
+                                <label class="flex items-center gap-2.5 cursor-pointer group">
+                                    <x-checkbox wire:model="subcategoria" value="{{ $subcategory->slug }}"
+                                        class="rounded text-indigo-600 focus:ring-indigo-500" />
+                                    <span
+                                        class="text-sm text-gray-600 group-hover:text-gray-900 capitalize transition-colors">
+                                        {{ $subcategory->name }}
+                                    </span>
                                 </label>
                             </li>
                         @endforeach
                     </ul>
                 </div>
+
+                <hr class="border-gray-100">
 
                 {{-- Marcas --}}
-                <div class="mb-2">
-                    <p class="text-lg font-semibold">Marcas</p>
-                    <ul>
+                <div>
+                    <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-3">Marcas</p>
+                    <ul class="flex flex-col gap-2">
                         @foreach ($category->brands as $brand)
                             <li>
-                                <label>
-                                    <x-checkbox wire:model="marca" value="{{ $brand->name }}" />
-                                    <span class="ml-2 text-gray-700 capitalize">{{ $brand->name }}</span>
+                                <label class="flex items-center gap-2.5 cursor-pointer group">
+                                    <x-checkbox wire:model="marca" value="{{ $brand->name }}"
+                                        class="rounded text-indigo-600 focus:ring-indigo-500" />
+                                    <span
+                                        class="text-sm text-gray-600 group-hover:text-gray-900 capitalize transition-colors">
+                                        {{ $brand->name }}
+                                    </span>
                                 </label>
                             </li>
                         @endforeach
                     </ul>
                 </div>
 
-                {{-- Botón aplicar filtros --}}
-                <x-button type="submit" class="w-full mt-4">Aplicar Filtros</x-button>
+                {{-- Botón --}}
+                <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[.98] text-white text-sm font-semibold py-2.5 rounded-xl transition-all duration-150">
+                    Aplicar filtros
+                </button>
+
             </form>
         </div>
 
-        {{-- Productos --}}
+        {{-- ══════ PRODUCTOS ══════ --}}
         <div class="md:col-span-3">
+
             @if ($view == 'grid')
-                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     @forelse($products as $product)
-                        <li class="min-w-[220px] max-w-full p-3 bg-white rounded-xl shadow-md border border-gray-200">
-                            <figure class="rounded-xl overflow-hidden mb-3 aspect-square">
-                                <a href="{{ route('products.show', $product) }}" class="block w-full h-full">
-                                    <img src="{{ Storage::url($product->images->first()->url) }}"
-                                        class="w-full h-full object-cover object-center"
-                                        alt="Imagen de {{ $product->name }}">
-                                </a>
-                            </figure>
+                        @php $averageRating = round($product->reviews->avg('rating'), 1) ?? 5; @endphp
 
-                            @php
-                                $averageRating = round($product->reviews->avg('rating'), 1) ?? 5;
-                            @endphp
+                        <li>
+                            <div
+                                class="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 overflow-hidden h-full">
 
-                            <div class="flex items-center text-sm space-x-2 mb-1">
-                                <div class="flex space-x-0.5">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        @if ($averageRating >= $i)
-                                            <i class="fas fa-star text-yellow-400 text-base"></i>
-                                        @elseif ($averageRating >= $i - 0.5)
-                                            <i class="fas fa-star-half-alt text-yellow-400 text-base"></i>
-                                        @else
-                                            <i class="far fa-star text-gray-700 text-base"></i>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <div class="text-gray-700 font-medium space-x-1">
-                                    <span>{{ number_format($averageRating, 1) }}</span>
-                                    <span class="text-gray-500">({{ $product->reviews->count() }})</span>
-                                </div>
-                            </div>
-
-                            <h3 class="text-base font-semibold truncate mb-1">
-                                <a href="{{ route('products.show', $product) }}">
-                                    {{ Str::limit($product->name, 40) }}
-                                </a>
-                            </h3>
-
-                            <p class="text-sm text-gray-600 mb-1">
-                                {{ $product->subcategory->name }}
-                            </p>
-
-                            <p class="text-xs text-gray-500 mb-2">
-                                Quedan {{ $product->stock }} disponibles
-                            </p>
-
-                            <div class="flex justify-between items-center gap-2 text-sm font-semibold text-gray-800">
-                                <div class="inline-flex flex-col px-3 py-1 rounded-md border border-blue-200">
-                                    <span
-                                        class="text-gray-900 font-bold">${{ number_format($product->price, 2) }}</span>
-                                    <span class="text-gray-400 line-through text-xs">
-                                        ${{ number_format($product->price + $product->price * 0.25, 2) }}
-                                    </span>
-                                </div>
+                                {{-- Imagen --}}
                                 <a href="{{ route('products.show', $product) }}"
-                                    class="flex items-center gap-1 text-blue-600 hover:text-blue-800 transition">
-                                    <i class="fas fa-eye text-lg"></i>
-                                    <span>Ver</span>
+                                    class="block relative overflow-hidden bg-gray-50 aspect-square">
+                                    
+
+                                    <img src="{{ Storage::url($product->images->first()->url ?? 'img/default.jpg') }}"
+                                        alt="{{ $product->name }}" loading="lazy"
+                                        class="w-full h-full object-contain p-2 sm:p-4 transition-transform duration-300 group-hover:scale-105">
+                                    <span
+                                        class="absolute top-2.5 left-2.5 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                                        −25%
+                                    </span>
                                 </a>
+
+                                {{-- Info --}}
+                                <div class="flex flex-col gap-2 p-3 flex-1">
+
+                                    <span
+                                        class="text-[10px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full w-fit">
+                                        {{ $product->subcategory->name }}
+                                    </span>
+
+                                    <a href="{{ route('products.show', $product) }}"
+                                        class="text-sm font-bold text-gray-800 leading-snug line-clamp-2 hover:text-indigo-600 transition-colors">
+                                        {{ $product->name }}
+                                    </a>
+
+                                    {{-- Rating --}}
+                                    <div class="flex items-center gap-1.5">
+                                        <div class="flex gap-0.5">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($averageRating >= $i)
+                                                    <i class="fas fa-star text-amber-400 text-[11px]"></i>
+                                                @elseif ($averageRating >= $i - 0.5)
+                                                    <i class="fas fa-star-half-alt text-amber-400 text-[11px]"></i>
+                                                @else
+                                                    <i class="far fa-star text-gray-300 text-[11px]"></i>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-semibold text-gray-600">{{ number_format($averageRating, 1) }}</span>
+                                        <span
+                                            class="text-[10px] text-gray-400">({{ $product->reviews->count() }})</span>
+                                    </div>
+
+                                    {{-- Stock --}}
+                                    <div class="flex items-center gap-1.5">
+                                        <span
+                                            class="w-1.5 h-1.5 rounded-full
+                                            {{ $product->stock > 5 ? 'bg-emerald-400' : ($product->stock > 0 ? 'bg-amber-400' : 'bg-red-400') }}">
+                                        </span>
+                                        <span class="text-[10px] text-gray-500">
+                                            {{ $product->stock > 0 ? 'Quedan ' . $product->stock : 'Sin stock' }}
+                                        </span>
+                                    </div>
+
+                                    {{-- Precio --}}
+                                    <div class="mt-auto pt-1">
+                                        <p class="text-[10px] text-gray-400 line-through leading-none">
+                                            ${{ number_format($product->price * 1.25, 2) }}
+                                        </p>
+                                        <p class="text-lg font-black text-gray-900 leading-tight">
+                                            ${{ number_format($product->price, 2) }}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                {{-- CTA --}}
+                                <div class="px-3 pb-3">
+                                    <a href="{{ route('products.show', $product) }}"
+                                        class="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[.98] text-white text-xs font-semibold py-2.5 rounded-xl transition-all duration-150 w-full">
+                                        <i class="fas fa-eye text-xs"></i>
+                                        Ver producto
+                                    </a>
+                                </div>
+
                             </div>
                         </li>
 
                     @empty
                         <li class="col-span-full">
                             <div
-                                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center">
-                                <strong class="font-bold">¡Ups!</strong>
-                                <span class="block sm:inline">No existe ningún producto con ese filtro.</span>
+                                class="flex flex-col items-center justify-center gap-3 py-16 bg-white rounded-2xl border border-gray-100 shadow-sm text-center">
+                                <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+                                    <i class="fas fa-search text-red-400 text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800 text-sm">Sin resultados</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">No existe ningún producto con ese filtro.
+                                    </p>
+                                </div>
                             </div>
                         </li>
                     @endforelse
                 </ul>
             @else
-                <ul>
+                <ul class="flex flex-col gap-3">
                     @forelse($products as $product)
                         <x-products-list :product="$product" />
                     @empty
                         <div
-                            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center">
-                            <strong class="font-bold">¡Ups!</strong>
-                            <span class="block sm:inline">No existe ningún producto con ese filtro.</span>
+                            class="flex flex-col items-center justify-center gap-3 py-16 bg-white rounded-2xl border border-gray-100 shadow-sm text-center">
+                            <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+                                <i class="fas fa-search text-red-400 text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 text-sm">Sin resultados</p>
+                                <p class="text-xs text-gray-400 mt-0.5">No existe ningún producto con ese filtro.</p>
+                            </div>
                         </div>
                     @endforelse
                 </ul>
@@ -164,6 +220,7 @@
             <div class="mt-6">
                 {{ $products->links() }}
             </div>
+
         </div>
     </div>
 </div>
