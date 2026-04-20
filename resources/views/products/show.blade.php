@@ -74,6 +74,8 @@
                                         <img src="{{ Storage::url($image->url) }}" class="max-h-[360px] object-contain"
                                             alt="{{ $product->name }}">
                                     </div>
+
+                                    
                                 @endforeach
 
                             </div>
@@ -388,6 +390,8 @@
                     slidesPerView: 4,
                     freeMode: true,
                     watchSlidesProgress: true,
+                    preloadImages: false,
+                    lazy: true,
                     breakpoints: {
                         640: {
                             slidesPerView: 5
@@ -401,6 +405,10 @@
                 const main = new Swiper(".mainSwiper", {
                     spaceBetween: 10,
                     loop: true,
+                    preloadImages: false,
+                    lazy: {
+                        loadPrevNext: true, // 🔥 precarga la anterior y siguiente
+                    },
                     navigation: {
                         nextEl: ".swiper-button-next",
                         prevEl: ".swiper-button-prev",

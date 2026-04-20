@@ -13,8 +13,8 @@
         <!-- Logo y Categorías -->
         <h1 class="text-white">
             <a href="/" class="inline-flex flex-col items-end">
-                <span class="md:text-3xl text-xl leading-4 md:leading-6 font-semibold">Ecommerce</span>
-                <span>Tienda Online</span>
+                <span class="md:text-3xl text-xl leading-4 md:leading-6 font-semibold">Catalogo</span>
+                <span>Digital</span>
             </a>
         </h1>
 
