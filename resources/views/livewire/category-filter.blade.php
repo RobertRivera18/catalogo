@@ -9,11 +9,11 @@
 
         <div class="hidden md:flex rounded-xl overflow-hidden border border-gray-200 shadow-sm">
             <button wire:click="$set('view', 'grid')" aria-label="Vista de cuadrícula"
-                class="px-4 py-2 transition-colors duration-150 {{ $view == 'grid' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
+                class="px-4 py-2 transition-colors duration-150 {{ $view == 'grid' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
                 <i class="fas fa-border-all text-sm"></i>
             </button>
             <button wire:click="$set('view', 'list')" aria-label="Vista de lista"
-                class="px-4 py-2 transition-colors duration-150 {{ $view == 'list' ? 'bg-indigo-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
+                class="px-4 py-2 transition-colors duration-150 {{ $view == 'list' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:bg-gray-50' }}">
                 <i class="fas fa-th-list text-sm"></i>
             </button>
         </div>
@@ -31,7 +31,7 @@
                 <div>
                     <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Ordenar por</p>
                     <x-select wire:model="order"
-                        class="w-full text-sm rounded-xl border-gray-200 focus:ring-indigo-500 focus:border-indigo-500">
+                        class="w-full text-sm rounded-xl border-gray-200 focus:ring-blue-500 focus:border-blue-500">
                         <option value="new">Más recientes</option>
                         <option value="old">Más antiguos</option>
                     </x-select>
@@ -47,7 +47,7 @@
                             <li>
                                 <label class="flex items-center gap-2.5 cursor-pointer group">
                                     <x-checkbox wire:model="subcategoria" value="{{ $subcategory->slug }}"
-                                        class="rounded text-indigo-600 focus:ring-indigo-500" />
+                                        class="rounded text-blue-600 focus:ring-blue-500" />
                                     <span
                                         class="text-sm text-gray-600 group-hover:text-gray-900 capitalize transition-colors">
                                         {{ $subcategory->name }}
@@ -68,7 +68,7 @@
                             <li>
                                 <label class="flex items-center gap-2.5 cursor-pointer group">
                                     <x-checkbox wire:model="marca" value="{{ $brand->name }}"
-                                        class="rounded text-indigo-600 focus:ring-indigo-500" />
+                                        class="rounded text-blue-600 focus:ring-blue-500" />
                                     <span
                                         class="text-sm text-gray-600 group-hover:text-gray-900 capitalize transition-colors">
                                         {{ $brand->name }}
@@ -81,7 +81,7 @@
 
                 {{-- Botón --}}
                 <button type="submit"
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 active:scale-[.98] text-white text-sm font-semibold py-2.5 rounded-xl transition-all duration-150">
+                    class="w-full bg-blue-600 hover:bg-blue-700 active:scale-[.98] text-white text-sm font-semibold py-2.5 rounded-xl transition-all duration-150">
                     Aplicar filtros
                 </button>
 
@@ -118,12 +118,12 @@
                                 <div class="flex flex-col gap-2 p-3 flex-1">
 
                                     <span
-                                        class="text-[10px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full w-fit">
+                                        class="text-[10px] font-semibold text-gray-700 bg-blue-50 border border-indigo-200 px-2 py-0.5 rounded-full w-fit">
                                         {{ $product->subcategory->name }}
                                     </span>
 
                                     <a href="{{ route('products.show', $product) }}"
-                                        class="text-sm font-bold text-gray-800 leading-snug line-clamp-2 hover:text-indigo-600 transition-colors">
+                                        class="text-sm font-bold text-gray-800 leading-snug line-clamp-2 hover:text-blue-600 transition-colors">
                                         {{ $product->name }}
                                     </a>
 
@@ -172,7 +172,7 @@
                                 {{-- CTA --}}
                                 <div class="px-3 pb-3">
                                     <a href="{{ route('products.show', $product) }}"
-                                        class="flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[.98] text-white text-xs font-semibold py-2.5 rounded-xl transition-all duration-150 w-full">
+                                        class="flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 active:scale-[.98] text-white text-xs font-semibold py-2.5 rounded-xl transition-all duration-150 w-full">
                                         <i class="fas fa-eye text-xs"></i>
                                         Ver producto
                                     </a>

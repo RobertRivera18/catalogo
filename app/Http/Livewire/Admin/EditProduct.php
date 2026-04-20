@@ -138,14 +138,13 @@ class EditProduct extends Component
             ->filter()
             ->toArray();
 
-        // 🔥 ELIMINAR los que ya no existen
         $toDelete = array_diff($existingIds, $incomingIds);
 
         $this->product->specifications()
             ->whereIn('id', $toDelete)
             ->delete();
 
-        // 🔥 CREAR o ACTUALIZAR
+  
         foreach ($this->specifications as $spec) {
 
             if (!empty($spec['name']) && !empty($spec['value'])) {
