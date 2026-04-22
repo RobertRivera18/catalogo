@@ -597,88 +597,84 @@ echo $html;
 
             </div>
             
-<div class="bg-white rounded-lg shadow-lg p-6 mt-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 mt-6">
 
-    <h2 class="text-lg font-semibold text-gray-800 mb-4">Accesorios del Producto</h2>
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Accesorios del Producto</h2>
 
-    <?php $__currentLoopData = ['included' => 'Accesorios Incluídos', 'optional' => 'Accesorios Opcionales']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = ['included' => 'Accesorios Incluídos', 'optional' => 'Accesorios Opcionales']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="mb-8">
 
-        <div class="mb-8">
-
-            
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="font-semibold text-gray-700"><?php echo e($label); ?></h3>
-                <button type="button" wire:click="addAccessory('<?php echo e($type); ?>')"
-                    class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
-                    + Agregar
-                </button>
-            </div>
-
-            
-            <?php if($product->accessories->where('type', $type)->count()): ?>
-                <div class="flex flex-wrap gap-3 mb-4">
-                    <?php $__currentLoopData = $product->accessories->where('type', $type); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="relative border rounded-lg p-2 text-center w-28"
-                            wire:key="acc-<?php echo e($acc->id); ?>">
-
-                            <?php if($acc->image): ?>
-                                <img src="<?php echo e(Storage::url($acc->image)); ?>"
-                                    class="w-20 h-16 object-cover rounded mx-auto mb-1">
-                            <?php endif; ?>
-
-                            <p class="text-xs text-gray-600 truncate"><?php echo e($acc->name); ?></p>
-
-                            <button type="button"
-                                wire:click="deleteAccessory(<?php echo e($acc->id); ?>)"
-                                class="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hover:bg-red-700">
-                                ✕
+                        
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="font-semibold text-gray-700"><?php echo e($label); ?></h3>
+                            <button type="button" wire:click="addAccessory('<?php echo e($type); ?>')"
+                                class="text-sm bg-indigo-500 text-white px-3 py-1 rounded-lg hover:bg-indigo-600">
+                                + Agregar
                             </button>
-
                         </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
-            <?php endif; ?>
 
-            
-            <div class="space-y-2">
-                <?php $__currentLoopData = $newAccessories[$type]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="flex gap-2 items-center" wire:key="new-<?php echo e($type); ?>-<?php echo e($index); ?>">
+                        
+                        <?php if($product->accessories->where('type', $type)->count()): ?>
+                            <div class="flex flex-wrap gap-3 mb-4">
+                                <?php $__currentLoopData = $product->accessories->where('type', $type); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="relative border rounded-lg p-2 text-center w-28"
+                                        wire:key="acc-<?php echo e($acc->id); ?>">
 
-                        <input type="text"
-                            wire:model.defer="newAccessories.<?php echo e($type); ?>.<?php echo e($index); ?>.name"
-                            placeholder="Nombre del accesorio"
-                            class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+                                        <?php if($acc->image): ?>
+                                            <img src="<?php echo e(Storage::url($acc->image)); ?>"
+                                                class="w-20 h-16 object-cover rounded mx-auto mb-1">
+                                        <?php endif; ?>
 
-                        <input type="file"
-                            wire:model="accessoryImages.<?php echo e($type); ?>.<?php echo e($index); ?>"
-                            accept="image/*"
-                            class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+                                        <p class="text-xs text-gray-600 truncate"><?php echo e($acc->name); ?></p>
 
-                        <button type="button"
-                            wire:click="removeNewAccessory('<?php echo e($type); ?>', <?php echo e($index); ?>)"
-                            class="text-red-500 hover:text-red-700 text-lg">
-                            ✕
-                        </button>
+                                        <button type="button" wire:click="deleteAccessory(<?php echo e($acc->id); ?>)"
+                                            class="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hover:bg-red-700">
+                                            ✕
+                                        </button>
+
+                                    </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        
+                        <div class="space-y-2">
+                            <?php $__currentLoopData = $newAccessories[$type]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="flex gap-2 items-center"
+                                    wire:key="new-<?php echo e($type); ?>-<?php echo e($index); ?>">
+
+                                    <input type="text"
+                                        wire:model.defer="newAccessories.<?php echo e($type); ?>.<?php echo e($index); ?>.name"
+                                        placeholder="Nombre del accesorio"
+                                        class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+
+                                    <input type="file"
+                                        wire:model="accessoryImages.<?php echo e($type); ?>.<?php echo e($index); ?>"
+                                        accept="image/*" class="w-1/2 border-gray-300 rounded-lg shadow-sm text-sm">
+
+                                    <button type="button"
+                                        wire:click="removeNewAccessory('<?php echo e($type); ?>', <?php echo e($index); ?>)"
+                                        class="text-red-500 hover:text-red-700 text-lg">
+                                        ✕
+                                    </button>
+
+                                </div>
+
+                                
+                                <?php if(!empty($accessoryImages[$type][$index])): ?>
+                                    <img src="<?php echo e($accessoryImages[$type][$index]->temporaryUrl()); ?>"
+                                        class="w-20 h-16 object-cover rounded mt-1 ml-1">
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
 
                     </div>
-
-                    
-                    <?php if(!empty($accessoryImages[$type][$index])): ?>
-                        <img src="<?php echo e($accessoryImages[$type][$index]->temporaryUrl()); ?>"
-                            class="w-20 h-16 object-cover rounded mt-1 ml-1">
-                    <?php endif; ?>
-
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </div>
 
-        </div>
-
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-    
-    <?php if(count($newAccessories['included']) || count($newAccessories['optional'])): ?>
-        <div class="flex justify-end mt-2">
-            <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+                
+                <?php if(count($newAccessories['included']) || count($newAccessories['optional'])): ?>
+                    <div class="flex justify-end mt-2">
+                        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.action-message','data' => ['class' => 'mr-3','on' => 'accessoriesSaved']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('action-message'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -687,15 +683,15 @@ echo $html;
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['class' => 'mr-3','on' => 'accessoriesSaved']); ?>
-                Accesorios guardados ✓
-             <?php echo $__env->renderComponent(); ?>
+                            Accesorios guardados ✓
+                         <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
 
-            <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
+                        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.button','data' => ['wire:click' => 'saveAccessories','wire:loading.attr' => 'disabled','wire:target' => 'saveAccessories']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('button'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -704,17 +700,17 @@ echo $html;
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['wire:click' => 'saveAccessories','wire:loading.attr' => 'disabled','wire:target' => 'saveAccessories']); ?>
-                Guardar Accesorios
-             <?php echo $__env->renderComponent(); ?>
+                            Guardar Accesorios
+                         <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
-        </div>
-    <?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
-</div>
+            </div>
             <!-- BOTÓN -->
             <div class="flex mt-6 justify-end items-center">
 
@@ -830,7 +826,7 @@ echo $html;
 
 
             Livewire.on('deleteProduct', () => {
-                Swal.fire({
+                swal.fire({
                         title: '¿Eliminar producto?',
                         text: 'Esta acción no se puede deshacer.',
                         icon: 'warning',

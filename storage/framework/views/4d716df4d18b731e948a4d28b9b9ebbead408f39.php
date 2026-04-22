@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
 
-    <title><?php echo e($title); ?></title>
+    
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -68,15 +68,15 @@
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('navigation')->html();
-} elseif ($_instance->childHasBeenRendered('QyU3SkZ')) {
-    $componentId = $_instance->getRenderedChildComponentId('QyU3SkZ');
-    $componentTag = $_instance->getRenderedChildComponentTagName('QyU3SkZ');
+} elseif ($_instance->childHasBeenRendered('3b9aAsl')) {
+    $componentId = $_instance->getRenderedChildComponentId('3b9aAsl');
+    $componentTag = $_instance->getRenderedChildComponentTagName('3b9aAsl');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('QyU3SkZ');
+    $_instance->preserveRenderedChild('3b9aAsl');
 } else {
     $response = \Livewire\Livewire::mount('navigation');
     $html = $response->html();
-    $_instance->logRenderedChild('QyU3SkZ', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('3b9aAsl', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>

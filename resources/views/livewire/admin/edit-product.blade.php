@@ -413,7 +413,7 @@
 
 
             Livewire.on('deleteProduct', () => {
-                Swal.fire({
+                swal.fire({
                         title: '¿Eliminar producto?',
                         text: 'Esta acción no se puede deshacer.',
                         icon: 'warning',
