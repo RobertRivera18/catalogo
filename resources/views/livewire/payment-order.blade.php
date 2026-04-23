@@ -1,125 +1,165 @@
-<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="min-h-screen bg-[#f5f5f7] py-10">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 xl:grid-cols-5 gap-10">
 
-    <div class="order-2 lg:order-1 xl:col-span-3">
-        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
-            <p class="text-gray-700 uppercase"><span class="font-semibold">Número de orden:</span>
-                Orden-{{ $order->id }}</p>
-        </div>
+        {{-- IZQUIERDA --}}
+        <div class="xl:col-span-3 space-y-8">
 
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div class="grid grid-cols-2 gap-6 text-gray-700">
-                <div>
-
-                    @if ($order->envio_type == 1)
-                        <p class="text-lg font-semibold">Envio<i class="fas fa-store text-lg text-gray-700"></i></p>
-                        <p class="text-sm">Los Productos deben ser recogidos en la tienda</p>
-
-                        <p class="text-sm">Calle Falsa y Avenida123</p>
-                    @else
-                        <p class="text-lg font-semibold">Envio <i class="fas fa-truck text-3xl text-gray-700"></i></p>
-                        <p class="text-sm">Los Productos seran enviados a:</p>
-                        <p class="text-sm"> <i class="fas fa-address-card"></i> {{ $order->address }}</p>
-                        <p><i class="fas fa-map-pin"></i> {{ $order->department->name }}-{{ $order->city->name }}-
-                            {{ $order->district->name }}</p>
-                    @endif
-                </div>
-
-                <div>
-                    <p class="text-lg font-semibold">Datos de Contacto</p>
-                    <p class="text-sm font-bold"><i class="fas fa-user mr-1"></i>Persona que recibira el producto: <span
-                            class="font-normal">{{ $order->contact }}</span></p>
-                    <p class="text-sm"> <i class="fas fa-phone mr-1"></i>Telefono de Contacto:{{ $order->phone }}</p>
-
-                </div>
+            {{-- Header --}}
+            <div>
+                <p class="text-sm text-gray-400">Checkout</p>
+                <h1 class="text-2xl font-semibold text-gray-900 tracking-tight">
+                    Finaliza tu compra
+                </h1>
             </div>
-        </div>
 
-        <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
-            <p class="text-xl font-semibold mb-4">Resumen</p>
+            {{-- Card: Envío --}}
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-4">Envío</p>
 
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Precio</th>
-                        <th>Cant</th>
-                        <th>Total</th>
-                    </tr>
+                @if ($order->envio_type == 1)
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100">
+                            <i class="fas fa-store text-gray-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-800">Retiro en tienda</p>
+                            <p class="text-xs text-gray-500">Calle Falsa y Avenida 123</p>
+                        </div>
+                    </div>
+                @else
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 mt-1">
+                            <i class="fas fa-truck text-gray-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-800">Entrega a domicilio</p>
+                            <p class="text-xs text-gray-500">{{ $order->address }}</p>
+                            <p class="text-xs text-gray-400">
+                                {{ $order->provincia }},
+                                {{ $order->ciudad }},
+                            <br>
+                                {{ $order->references }}
+                            </p>
+                        </div>
+                    </div>
+                @endif
+            </div>
 
-                </thead>
+            {{-- Card: Contacto --}}
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-4">Contacto</p>
 
-                <tbody class="divide-y divide-gray-200">
-                    @foreach ($items as $item)
-                        <tr>
-                            <td>
-                                <div class="flex">
-                                    <img class="h-15 w-20 object-cover mr-4" src="{{ $item->options->image }}"
-                                        alt="">
-                                    <article>
-                                        <h1 class="font-bold">{{ $item->name }}</h1>
-                                        <div class="flex text-xs">
+                <div class="space-y-3 text-sm text-gray-700">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Nombre</span>
+                        <span>{{ $order->contact }}</span>
+                    </div>
 
-                                            @isset($item->options->color)
-                                                Color: {{ $item->options->color }}
-                                            @endisset
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Teléfono</span>
+                        <span>{{ $order->phone }}</span>
+                    </div>
 
-                                            @isset($item->options->size)
-                                                - {{ $item->options->size }}
-                                            @endisset
-                                        </div>
-                                    </article>
-                                </div>
-                            </td>
-                            <hr>
-                            <td class="text-center">
-                                ${{ $item->price }}
-                            </td>
-
-                            <td class="text-center">
-                                {{ $item->qty }}
-                            </td>
-
-                            <td class="text-center">
-                                ${{ $item->price * $item->qty }}
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-
-
-    </div>
-
-    <div class="order-1 lg:order-2 xl:col-span-2">
-        <div class="bg-white rounded-lg shadow-lg px-6 pt-6">
-            <div class="flex justify-between items-center mb-4">
-                <img class="h-8" src="{{ asset('img/pagos.jpg') }}" alt="">
-                <div class="text-gray-700">
-                    <p class="text-sm font-semibold">
-                        Subtotal: ${{ $order->total - $order->shipping_cost }}
-                    </p>
-                    <p class="text-sm font-semibold">
-                        Envío: ${{ $order->shipping_cost }}
-                    </p>
-                    <p class="text-lg font-semibold uppercase">
-                        Total: ${{ $order->total }}
-                    </p>
-
-                    <div class="cho-container">
-
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Documento</span>
+                        <span>
+                            {{ strtoupper($order->identification_type) }}
+                            · {{ $order->identification_number }}
+                        </span>
                     </div>
                 </div>
             </div>
 
+            {{-- Productos --}}
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-5">Productos</p>
 
-            <div id="paypal-button-container"></div>
+                <div class="space-y-5">
+                    @foreach ($items as $item)
+                        <div class="flex items-center gap-4">
+
+                            <img class="w-16 h-16 rounded-xl object-cover"
+                                 src="{{ $item->options->image }}" alt="">
+
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">
+                                    {{ $item->name }}
+                                    
+                                </p>
+
+                                <p class="text-xs text-gray-400">
+                                    @isset($item->options->color)
+                                        {{ $item->options->color }}
+                                    @endisset
+                                    @isset($item->options->size)
+                                        · {{ $item->options->size }}
+                                    @endisset
+                                </p>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">
+                                    {{ $item->qty }} × ${{ $item->price }}
+                                </p>
+                                <p class="text-sm font-semibold text-gray-900">
+                                    ${{ $item->price * $item->qty }}
+                                </p>
+                            </div>
+
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
         </div>
-    </div>
 
+        {{-- DERECHA (PAGO PREMIUM) --}}
+        <div class="xl:col-span-2">
+            <div class="sticky top-10">
+
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
+
+                    {{-- Logo pago --}}
+                    <div class="flex justify-center mb-6">
+                        <img class="h-6 opacity-80" src="{{ asset('img/pagos.jpg') }}" alt="">
+                    </div>
+
+                    {{-- Totales --}}
+                    <div class="space-y-3 text-sm text-gray-600">
+
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span>${{ $order->total - $order->shipping_cost }}</span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span>Envío</span>
+                            <span>${{ $order->shipping_cost }}</span>
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-between text-base font-semibold text-gray-900">
+                            <span>Total</span>
+                            <span>${{ $order->total }}</span>
+                        </div>
+
+                    </div>
+
+                    {{-- Botón --}}
+                    <div class="mt-6">
+                        <div id="paypal-button-container"></div>
+                    </div>
+
+                    {{-- Seguridad --}}
+                    <p class="text-xs text-gray-400 text-center mt-5">
+                        Pago seguro · Encriptación SSL
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 

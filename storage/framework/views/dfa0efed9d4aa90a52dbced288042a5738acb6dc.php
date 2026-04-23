@@ -7,156 +7,128 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-10">
 
-        <section class="grid lg:grid-cols-4 gap-6 text-white">
+        
+        <div>
+            <h1 class="text-2xl font-semibold text-gray-900">Dashboard de órdenes</h1>
+            <p class="text-sm text-gray-400">Resumen general del sistema</p>
+        </div>
 
-            <a href="<?php echo e(route('admin.orders.index')."?status=2"); ?>"
-                class="bg-gray-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-2xl">
-                    <?php echo e($recibido); ?>
+        
+        <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                </p>
-                <p class="uppercase text-center">Recibido</p>
-                <p class="text-center text-2xl mt-2">
-                    <i class="fas fa-credit-card"></i>
-                </p>
-            </a>
+            <?php
+                $stats = [
+                    ['label'=>'Recibido','value'=>$recibido,'icon'=>'fa-credit-card','color'=>'gray','status'=>2],
+                    ['label'=>'Enviado','value'=>$enviado,'icon'=>'fa-truck','color'=>'blue','status'=>3],
+                    ['label'=>'Entregado','value'=>$entregado,'icon'=>'fa-check','color'=>'green','status'=>4],
+                    ['label'=>'Anulado','value'=>$anulado,'icon'=>'fa-times','color'=>'red','status'=>5],
+                ];
+            ?>
 
-            <a href="<?php echo e(route('admin.orders.index')."?status=3"); ?>"
-                class="bg-yellow-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-2xl">
-                    <?php echo e($enviado); ?>
+            <?php $__currentLoopData = $stats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e(route('admin.orders.index').'?status='.$stat['status']); ?>"
+                   class="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition group">
 
-                </p>
-                <p class="uppercase text-center">Enviado</p>
-                <p class="text-center text-2xl mt-2">
-                    <i class="fas fa-truck"></i>
-                </p>
-            </a>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500"><?php echo e($stat['label']); ?></span>
 
-            <a href="<?php echo e(route('admin.orders.index')."?status=4"); ?>"
-                class="bg-pink-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-2xl">
-                    <?php echo e($entregado); ?>
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl
+                            bg-<?php echo e($stat['color']); ?>-100 text-<?php echo e($stat['color']); ?>-600">
+                            <i class="fas <?php echo e($stat['icon']); ?>"></i>
+                        </div>
+                    </div>
 
-                </p>
-                <p class="uppercase text-center">Entregado</p>
-                <p class="text-center text-2xl mt-2">
-                    <i class="fas fa-check-circle"></i>
-                </p>
-            </a>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        <?php echo e($stat['value']); ?>
 
-            <a href="<?php echo e(route('admin.orders.index')."?status=5"); ?>"
-                class="bg-green-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-2xl">
-                    <?php echo e($anulado); ?>
+                    </p>
 
-                </p>
-                <p class="uppercase text-center">Anulado</p>
-                <p class="text-center text-2xl mt-2">
-                    <i class="fas fa-times-circle"></i>
-                </p>
-            </a>
+                    <p class="text-xs text-gray-400 mt-1">Ver órdenes</p>
+
+                </a>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
         </section>
 
+        
         <?php if($orders->count()): ?>
 
-        <section class="bg-white shadow-lg rounded-lg px-12 py-8 mt-12 text-gray-700">
-            <h1 class="text-2xl mb-4">Pedidos recientes</h1>
+            <section class="bg-white border border-gray-200 rounded-2xl">
 
-            <ul>
-                <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li>
-                    <a href="<?php echo e(route('admin.orders.show', $order)); ?>"
-                        class="flex items-center py-2 px-4 hover:bg-gray-100">
-                        <span class="w-12 text-center">
-                            <?php switch($order->status):
-                            case (1): ?>
-                            <i class="fas fa-business-time text-red-500 opacity-50"></i>
-                            <?php break; ?>
-                            <?php case (2): ?>
-                            <i class="fas fa-credit-card text-gray-500 opacity-50"></i>
-                            <?php break; ?>
-                            <?php case (3): ?>
-                            <i class="fas fa-truck text-yellow-500 opacity-50"></i>
-                            <?php break; ?>
-                            <?php case (4): ?>
-                            <i class="fas fa-check-circle text-pink-500 opacity-50"></i>
-                            <?php break; ?>
-                            <?php case (5): ?>
-                            <i class="fas fa-times-circle text-green-500 opacity-50"></i>
-                            <?php break; ?>
-                            <?php default: ?>
+                <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                    <h2 class="text-sm font-medium text-gray-900">Pedidos recientes</h2>
+                </div>
 
-                            <?php endswitch; ?>
-                        </span>
+                <ul class="divide-y divide-gray-100">
 
-                        <span>
-                            Orden: <?php echo e($order->id); ?>
+                    <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                            <br>
-                            <?php echo e($order->created_at->format('d/m/Y')); ?>
+                        <?php
+                            $statusMap = [
+                                1 => ['Pendiente','text-gray-400'],
+                                2 => ['Recibido','text-gray-600'],
+                                3 => ['Enviado','text-blue-600'],
+                                4 => ['Entregado','text-green-600'],
+                                5 => ['Anulado','text-red-600'],
+                            ];
 
-                        </span>
+                            [$label,$color] = $statusMap[$order->status] ?? ['-','text-gray-400'];
+                        ?>
 
+                        <li>
+                            <a href="<?php echo e(route('admin.orders.show', $order)); ?>"
+                               class="flex items-center px-6 py-4 hover:bg-gray-50 transition">
 
-                        <div class="ml-auto">
-                            <span class="font-bold">
-                                <?php switch($order->status):
-                                case (1): ?>
+                                
+                                <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 mr-4">
+                                    <i class="fas fa-box text-gray-500 text-sm"></i>
+                                </div>
 
-                                Pendiente
+                                
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-900">
+                                        Orden #<?php echo e($order->id); ?>
 
-                                <?php break; ?>
-                                <?php case (2): ?>
+                                    </p>
+                                    <p class="text-xs text-gray-400">
+                                        <?php echo e($order->created_at->format('d M Y')); ?>
 
-                                Recibido
+                                    </p>
+                                </div>
 
-                                <?php break; ?>
-                                <?php case (3): ?>
+                                
+                                <div class="text-right mr-6">
+                                    <p class="text-sm font-medium <?php echo e($color); ?>">
+                                        <?php echo e($label); ?>
 
-                                Enviado
+                                    </p>
+                                    <p class="text-xs text-gray-400">
+                                        $<?php echo e(number_format($order->total, 2)); ?>
 
-                                <?php break; ?>
-                                <?php case (4): ?>
+                                    </p>
+                                </div>
 
-                                Entregado
+                                
+                                <i class="fas fa-chevron-right text-gray-300"></i>
 
-                                <?php break; ?>
-                                <?php case (5): ?>
+                            </a>
+                        </li>
 
-                                Anulado
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                <?php break; ?>
-                                <?php default: ?>
+                </ul>
 
-                                <?php endswitch; ?>
-                            </span>
-
-                            <br>
-
-                            <span class="text-sm">
-                                <?php echo e($order->total); ?> USD
-                            </span>
-                        </div>
-
-                        <span>
-                            <i class="fas fa-angle-right ml-6"></i>
-                        </span>
-
-                    </a>
-                </li>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </ul>
-        </section>
+            </section>
 
         <?php else: ?>
-        <div class="bg-white shadow-lg rounded-lg px-12 py-8 mt-12 text-gray-700">
-            <span class="font-bold text-lg">
-                No existe registros de ordenes
-            </span>
-        </div>
+
+            <div class="bg-white border border-gray-200 rounded-2xl p-10 text-center">
+                <i class="fas fa-box-open text-3xl text-gray-300 mb-3"></i>
+                <p class="text-gray-500">No hay órdenes registradas</p>
+            </div>
+
         <?php endif; ?>
 
     </div>

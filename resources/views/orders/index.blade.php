@@ -1,124 +1,109 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <section class="grid lg:grid-cols-5 gap-6 text-white">
-            <a href="{{route('orders.index'). "?status=1"}}" class="bg-red-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-xl">{{$pendiente}}</p>
-                <p class="text-center uppercase">Pendiente</p>
-                <p class="text-center text-xl mt-2">
-                    <i class="fas fa-business-time"></i>
-                </p>
-            </a>
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-10">
 
+        {{-- HEADER --}}
+        <div>
+            <h1 class="text-2xl font-semibold text-gray-900">Mis pedidos</h1>
+            <p class="text-sm text-gray-400">Seguimiento y estado de tus órdenes</p>
+        </div>
 
-            <a href="{{route('orders.index'). "?status=2"}}" class="bg-gray-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-xl">{{$recibido}}</p>
-                <p class="text-center uppercase">Recibido</p>
-                <p class="text-center text-xl mt-2">
-                    <i class="fas fa-credit-card"></i>
-                </p>
-            </a>
+        {{-- STATS --}}
+        <section class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
 
+            @php
+                $stats = [
+                    ['label'=>'Pendiente','value'=>$pendiente,'icon'=>'fa-clock','color'=>'yellow','status'=>1],
+                    ['label'=>'Recibido','value'=>$recibido,'icon'=>'fa-credit-card','color'=>'gray','status'=>2],
+                    ['label'=>'Enviado','value'=>$enviado,'icon'=>'fa-truck','color'=>'blue','status'=>3],
+                    ['label'=>'Entregado','value'=>$entregado,'icon'=>'fa-check','color'=>'green','status'=>4],
+                    ['label'=>'Anulado','value'=>$anulado,'icon'=>'fa-times','color'=>'red','status'=>5],
+                ];
+            @endphp
 
+            @foreach($stats as $stat)
+                <a href="{{ route('orders.index').'?status='.$stat['status'] }}"
+                   class="bg-white border border-gray-200 rounded-2xl p-4 hover:shadow-md transition">
 
-            <a href="{{route('orders.index'). "?status=3"}}" class="bg-yellow-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-xl">{{$enviado}}</p>
-                <p class="text-center uppercase">Enviado</p>
-                <p class="text-center text-xl mt-2">
-                    <i class="fas fa-truck"></i>
-                </p>
-            </a>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs text-gray-500">{{ $stat['label'] }}</span>
 
-            <a href="{{route('orders.index'). "?status=4"}}" class="bg-pink-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-xl">{{$entregado}}</p>
-                <p class="text-center uppercase">Entregado</p>
-                <p class="text-center text-xl mt-2">
-                    <i class="fas fa-check-circle"></i>
-                </p>
-            </a>
-
-            <a href="{{route('orders.index'). "?status=5"}}" class="bg-green-500 bg-opacity-75 rounded-lg px-12 pt-8 pb-4">
-                <p class="text-center text-xl">{{$anulado}}</p>
-                <p class="text-center uppercase">Anulado</p>
-                <p class="text-center text-xl mt-2">
-                    <i class="fas fa-times-circle"></i>
-                </p>
-            </a>
-        </section>
-
-
-        <section class="bg-white rounded-lg shadow-lg px-12 py-8 mt-12 text-gray-700">
-            <h1 class="mb-4 text-lg">Pedidos Recientes</h1>
-            <ul>
-                @foreach($orders as $order)
-                <li>
-                    <a href="{{route('orders.show',$order)}}" class="flex items-center py-2 px-4 hover:bg-gray-200" >
-                        <span class="w-12 text-center">
-                            @switch($order->status)
-                            @case(1)
-                            <i class="fas fa-business-time text-red-500 opacity-50"></i>
-                            @break
-                            @case(2)
-                            <i class="fas fa-credit-card text-gray-500 opacity-50"></i>
-                            @break
-                            @case(3)
-                            <i class="fas fa-times-circle text-yellow-500 opacity-50"></i>
-                            @break
-                            @case(4)
-                            <i class="fas fa-check-circle text-pink-500 opacity-50"></i>
-                            @break
-                            @case(5)
-                            <i class="fas fa-times-circle text-green-500 opacity-50"></i>
-                            @break
-                            @default
-
-                            @endswitch
-                        </span>
-                        <span>
-                            Orden: {{$order->id}}
-                            <br>
-                            {{$order->created_at->format('d/m/y')}}
-                        </span>
-
-
-                        <div class="ml-auto ">
-                            <span class="font-bold">
-                                @switch($order->status)
-                                @case(1)
-                                Pendiente
-                                @break
-                                @case(2)
-                                Recibido
-                                @break
-                                @case(3)
-                                Enviado
-                                @break
-
-                                @case(4)
-                                Entregado
-                                @break
-
-                                @case(5)
-                                Anulado
-                                @break
-                                @default
-
-                                @endswitch
-                            </span>
-                            <br>
-                            <span class="text-sm">
-                              {{$order->total}} USD
-                            </span>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-lg
+                            bg-{{ $stat['color'] }}-100 text-{{ $stat['color'] }}-600">
+                            <i class="fas {{ $stat['icon'] }} text-sm"></i>
                         </div>
+                    </div>
 
-                        <span>
-                            <i class="fas fa-angle-right ml-6"></i>
-                        </span>
-                    </a>
-                </li>
-                @endforeach
-            </ul>
+                    <p class="text-xl font-semibold text-gray-900">
+                        {{ $stat['value'] }}
+                    </p>
+                </a>
+            @endforeach
+
         </section>
+
+        {{-- LISTA --}}
+        <section class="bg-white border border-gray-200 rounded-2xl">
+
+            <div class="px-6 py-4 border-b border-gray-100">
+                <h2 class="text-sm font-medium text-gray-900">Pedidos recientes</h2>
+            </div>
+
+            <ul class="divide-y divide-gray-100">
+
+                @foreach($orders as $order)
+
+                    @php
+                        $statusMap = [
+                            1 => ['Pendiente','text-yellow-600'],
+                            2 => ['Recibido','text-gray-600'],
+                            3 => ['Enviado','text-blue-600'],
+                            4 => ['Entregado','text-green-600'],
+                            5 => ['Anulado','text-red-600'],
+                        ];
+
+                        [$label,$color] = $statusMap[$order->status] ?? ['-','text-gray-400'];
+                    @endphp
+
+                    <li>
+                        <a href="{{ route('orders.show', $order) }}"
+                           class="flex items-center px-6 py-4 hover:bg-gray-50 transition">
+
+                            {{-- ICON --}}
+                            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-100 mr-4">
+                                <i class="fas fa-box text-gray-500 text-sm"></i>
+                            </div>
+
+                            {{-- INFO --}}
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">
+                                    Orden #{{ $order->id }}
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    {{ $order->created_at->format('d M Y') }}
+                                </p>
+                            </div>
+
+                            {{-- STATUS --}}
+                            <div class="text-right mr-6">
+                                <p class="text-sm font-medium {{ $color }}">
+                                    {{ $label }}
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    ${{ number_format($order->total, 2) }}
+                                </p>
+                            </div>
+
+                            {{-- ARROW --}}
+                            <i class="fas fa-chevron-right text-gray-300"></i>
+
+                        </a>
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        </section>
+
     </div>
-
-
 </x-app-layout>

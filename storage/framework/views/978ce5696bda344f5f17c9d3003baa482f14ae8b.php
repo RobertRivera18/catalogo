@@ -1,133 +1,173 @@
-<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-5 gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="min-h-screen bg-[#f5f5f7] py-10">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 xl:grid-cols-5 gap-10">
 
-    <div class="order-2 lg:order-1 xl:col-span-3">
-        <div class="bg-white rounded-lg shadow-lg px-6 py-4 mb-6">
-            <p class="text-gray-700 uppercase"><span class="font-semibold">Número de orden:</span>
-                Orden-<?php echo e($order->id); ?></p>
-        </div>
+        
+        <div class="xl:col-span-3 space-y-8">
 
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <div class="grid grid-cols-2 gap-6 text-gray-700">
-                <div>
-
-                    <?php if($order->envio_type == 1): ?>
-                        <p class="text-lg font-semibold">Envio<i class="fas fa-store text-lg text-gray-700"></i></p>
-                        <p class="text-sm">Los Productos deben ser recogidos en la tienda</p>
-
-                        <p class="text-sm">Calle Falsa y Avenida123</p>
-                    <?php else: ?>
-                        <p class="text-lg font-semibold">Envio <i class="fas fa-truck text-3xl text-gray-700"></i></p>
-                        <p class="text-sm">Los Productos seran enviados a:</p>
-                        <p class="text-sm"> <i class="fas fa-address-card"></i> <?php echo e($order->address); ?></p>
-                        <p><i class="fas fa-map-pin"></i> <?php echo e($order->department->name); ?>-<?php echo e($order->city->name); ?>-
-                            <?php echo e($order->district->name); ?></p>
-                    <?php endif; ?>
-                </div>
-
-                <div>
-                    <p class="text-lg font-semibold">Datos de Contacto</p>
-                    <p class="text-sm font-bold"><i class="fas fa-user mr-1"></i>Persona que recibira el producto: <span
-                            class="font-normal"><?php echo e($order->contact); ?></span></p>
-                    <p class="text-sm"> <i class="fas fa-phone mr-1"></i>Telefono de Contacto:<?php echo e($order->phone); ?></p>
-
-                </div>
+            
+            <div>
+                <p class="text-sm text-gray-400">Checkout</p>
+                <h1 class="text-2xl font-semibold text-gray-900 tracking-tight">
+                    Finaliza tu compra
+                </h1>
             </div>
-        </div>
 
-        <div class="bg-white rounded-lg shadow-lg p-6 text-gray-700 mb-6">
-            <p class="text-xl font-semibold mb-4">Resumen</p>
+            
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-4">Envío</p>
 
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Precio</th>
-                        <th>Cant</th>
-                        <th>Total</th>
-                    </tr>
+                <?php if($order->envio_type == 1): ?>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100">
+                            <i class="fas fa-store text-gray-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-800">Retiro en tienda</p>
+                            <p class="text-xs text-gray-500">Calle Falsa y Avenida 123</p>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 mt-1">
+                            <i class="fas fa-truck text-gray-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-800">Entrega a domicilio</p>
+                            <p class="text-xs text-gray-500"><?php echo e($order->address); ?></p>
+                            <p class="text-xs text-gray-400">
+                                <?php echo e($order->provincia); ?>,
+                                <?php echo e($order->ciudad); ?>,
+                            <br>
+                                <?php echo e($order->references); ?>
 
-                </thead>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
 
-                <tbody class="divide-y divide-gray-200">
-                    <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr>
-                            <td>
-                                <div class="flex">
-                                    <img class="h-15 w-20 object-cover mr-4" src="<?php echo e($item->options->image); ?>"
-                                        alt="">
-                                    <article>
-                                        <h1 class="font-bold"><?php echo e($item->name); ?></h1>
-                                        <div class="flex text-xs">
+            
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-4">Contacto</p>
 
-                                            <?php if(isset($item->options->color)): ?>
-                                                Color: <?php echo e($item->options->color); ?>
+                <div class="space-y-3 text-sm text-gray-700">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Nombre</span>
+                        <span><?php echo e($order->contact); ?></span>
+                    </div>
 
-                                            <?php endif; ?>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Teléfono</span>
+                        <span><?php echo e($order->phone); ?></span>
+                    </div>
 
-                                            <?php if(isset($item->options->size)): ?>
-                                                - <?php echo e($item->options->size); ?>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400">Documento</span>
+                        <span>
+                            <?php echo e(strtoupper($order->identification_type)); ?>
 
-                                            <?php endif; ?>
-                                        </div>
-                                    </article>
-                                </div>
-                            </td>
-                            <hr>
-                            <td class="text-center">
-                                $<?php echo e($item->price); ?>
+                            · <?php echo e($order->identification_number); ?>
 
-                            </td>
-
-                            <td class="text-center">
-                                <?php echo e($item->qty); ?>
-
-                            </td>
-
-                            <td class="text-center">
-                                $<?php echo e($item->price * $item->qty); ?>
-
-                            </td>
-
-                        </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
-        </div>
-
-
-
-    </div>
-
-    <div class="order-1 lg:order-2 xl:col-span-2">
-        <div class="bg-white rounded-lg shadow-lg px-6 pt-6">
-            <div class="flex justify-between items-center mb-4">
-                <img class="h-8" src="<?php echo e(asset('img/pagos.jpg')); ?>" alt="">
-                <div class="text-gray-700">
-                    <p class="text-sm font-semibold">
-                        Subtotal: $<?php echo e($order->total - $order->shipping_cost); ?>
-
-                    </p>
-                    <p class="text-sm font-semibold">
-                        Envío: $<?php echo e($order->shipping_cost); ?>
-
-                    </p>
-                    <p class="text-lg font-semibold uppercase">
-                        Total: $<?php echo e($order->total); ?>
-
-                    </p>
-
-                    <div class="cho-container">
-
+                        </span>
                     </div>
                 </div>
             </div>
 
+            
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
+                <p class="text-sm font-medium text-gray-900 mb-5">Productos</p>
 
-            <div id="paypal-button-container"></div>
+                <div class="space-y-5">
+                    <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="flex items-center gap-4">
+
+                            <img class="w-16 h-16 rounded-xl object-cover"
+                                 src="<?php echo e($item->options->image); ?>" alt="">
+
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900">
+                                    <?php echo e($item->name); ?>
+
+                                    
+                                </p>
+
+                                <p class="text-xs text-gray-400">
+                                    <?php if(isset($item->options->color)): ?>
+                                        <?php echo e($item->options->color); ?>
+
+                                    <?php endif; ?>
+                                    <?php if(isset($item->options->size)): ?>
+                                        · <?php echo e($item->options->size); ?>
+
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">
+                                    <?php echo e($item->qty); ?> × $<?php echo e($item->price); ?>
+
+                                </p>
+                                <p class="text-sm font-semibold text-gray-900">
+                                    $<?php echo e($item->price * $item->qty); ?>
+
+                                </p>
+                            </div>
+
+                        </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            </div>
 
         </div>
-    </div>
 
+        
+        <div class="xl:col-span-2">
+            <div class="sticky top-10">
+
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
+
+                    
+                    <div class="flex justify-center mb-6">
+                        <img class="h-6 opacity-80" src="<?php echo e(asset('img/pagos.jpg')); ?>" alt="">
+                    </div>
+
+                    
+                    <div class="space-y-3 text-sm text-gray-600">
+
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span>$<?php echo e($order->total - $order->shipping_cost); ?></span>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <span>Envío</span>
+                            <span>$<?php echo e($order->shipping_cost); ?></span>
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-between text-base font-semibold text-gray-900">
+                            <span>Total</span>
+                            <span>$<?php echo e($order->total); ?></span>
+                        </div>
+
+                    </div>
+
+                    
+                    <div class="mt-6">
+                        <div id="paypal-button-container"></div>
+                    </div>
+
+                    
+                    <p class="text-xs text-gray-400 text-center mt-5">
+                        Pago seguro · Encriptación SSL
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
