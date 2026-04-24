@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function show(Category $category)
     {
-        // Eager load para los filtros del sidebar
+        
         $category->load('subcategories', 'brands');
 
         return view('categories.show', compact('category'));

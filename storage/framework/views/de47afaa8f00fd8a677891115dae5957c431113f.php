@@ -11,14 +11,40 @@
 
         
         <div class="flex items-center justify-between">
-            <div>
-                <h1 class="text-xl font-semibold text-gray-900">
-                    Orden #<?php echo e($order->id); ?>
+            <div class="space-y-3">
 
-                </h1>
-                <p class="text-sm text-gray-400">
-                    Seguimiento de tu pedido
-                </p>
+                
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 tracking-tight">
+                        Orden #<?php echo e(str_pad($order->id, 6, '0', STR_PAD_LEFT)); ?>
+
+                    </h1>
+                    <p class="text-sm text-gray-400">
+                        Seguimiento de tu pedido
+                    </p>
+                </div>
+
+                
+                <?php if($order->status == 5): ?>
+                    <div
+                        class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+
+                        <div class="mt-0.5">
+                            <i class="fas fa-times-circle text-red-500"></i>
+                        </div>
+
+                        <div>
+                            <p class="text-sm font-semibold">
+                                Orden cancelada
+                            </p>
+                            <p class="text-xs text-red-600 mt-0.5">
+                                Este pedido fue anulado y no será procesado.
+                            </p>
+                        </div>
+
+                    </div>
+                <?php endif; ?>
+
             </div>
 
             <?php if($order->status == 1): ?>
@@ -39,6 +65,16 @@
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
 <?php endif; ?>
+            <?php endif; ?>
+            <?php if($order->status == 1): ?>
+                <form action="<?php echo e(route('orders.cancel', $order)); ?>" method="POST" class="inline">
+                    <?php echo csrf_field(); ?>
+                    <button onclick="return confirm('¿Seguro que deseas cancelar esta orden?')"
+                        class="ml-3 inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-red-600 transition">
+                        <i class="fas fa-times"></i>
+                        Cancelar orden
+                    </button>
+                </form>
             <?php endif; ?>
         </div>
 

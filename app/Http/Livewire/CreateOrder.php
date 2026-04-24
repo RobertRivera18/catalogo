@@ -16,7 +16,7 @@ class CreateOrder extends Component
     public $envio_type = 1;
     public $contact, $phone, $address, $references, $identification_number, $provincia, $ciudad;
     public $identification_type;
-    public $shipping_cost = 0;
+    public $shipping_cost = 10;
     public $departments, $cities = [], $districts = [];
     public $department_id = "", $city_id = "", $district_id = "";
 
@@ -94,7 +94,7 @@ class CreateOrder extends Component
         $order->identification_type = $this->identification_type;
         $order->identification_number = $this->identification_number;
         $order->envio_type = $this->envio_type;
-        $order->shipping_cost = 0;
+        $order->shipping_cost = 10;
         $order->total = str_replace(',', '', Cart::subtotal()) + $this->shipping_cost;
         $order->content = Cart::content();
 

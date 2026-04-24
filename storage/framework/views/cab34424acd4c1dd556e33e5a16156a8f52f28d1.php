@@ -244,7 +244,7 @@
                 </div>
 
                 <div class="flex-1">
-                    <p class="text-sm font-medium text-gray-800">Envío a domicilio</p>
+                    <p class="text-sm font-medium text-gray-800">Envío a domicilio (Servientrega)</p>
                     <p class="text-xs text-gray-400 mt-0.5">Entrega en 2–4 días hábiles</p>
                 </div>
 

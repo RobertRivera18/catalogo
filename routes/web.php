@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/create', CreateOrder::class)->name('orders.create');
     Route::get('order/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
     Route::get('order/{order}/payment', PaymentOrder::class)->name('orders.payment');
 });
 // Route::get('prueba', function () {
