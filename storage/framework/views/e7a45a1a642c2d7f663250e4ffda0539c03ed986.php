@@ -337,11 +337,7 @@
                                    required autocomplete="current-password" />
                         </div>
 
-                        <?php if(Route::has('password.request')): ?>
-                            <a class="forgot-link" href="<?php echo e(route('password.request')); ?>">
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        <?php endif; ?>
+                        
                     </div>
 
                     
@@ -357,16 +353,6 @@
 
                 </form>
 
-                
-                <div class="divider">
-                    <hr><span>o</span><hr>
-                </div>
-
-                
-                <p class="register-line">
-                    ¿No tienes cuenta?
-                    <a href="<?php echo e(route('register')); ?>">Crear una gratis</a>
-                </p>
 
                 
                 <div class="badge-trust">

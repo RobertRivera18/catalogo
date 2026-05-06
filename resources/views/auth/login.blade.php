@@ -314,11 +314,7 @@
                                    required autocomplete="current-password" />
                         </div>
 
-                        @if (Route::has('password.request'))
-                            <a class="forgot-link" href="{{ route('password.request') }}">
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        @endif
+                        
                     </div>
 
                     {{-- Remember me --}}
@@ -334,16 +330,6 @@
 
                 </form>
 
-                {{-- Divider --}}
-                <div class="divider">
-                    <hr><span>o</span><hr>
-                </div>
-
-                {{-- Register --}}
-                <p class="register-line">
-                    ¿No tienes cuenta?
-                    <a href="{{ route('register') }}">Crear una gratis</a>
-                </p>
 
                 {{-- Trust badges --}}
                 <div class="badge-trust">

@@ -53,7 +53,6 @@ class OrderController extends Controller
                 $product->increment('quantity', $item->qty);
             }
 
-            // 🔥 si tienes variantes (talla/color)
             if (isset($item->options->size_id)) {
                 $product->sizes()
                     ->where('id', $item->options->size_id)

@@ -194,15 +194,15 @@
                     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('add-cart-item', ['product' => $product])->html();
-} elseif ($_instance->childHasBeenRendered('bd7Zr0O')) {
-    $componentId = $_instance->getRenderedChildComponentId('bd7Zr0O');
-    $componentTag = $_instance->getRenderedChildComponentTagName('bd7Zr0O');
+} elseif ($_instance->childHasBeenRendered('4VVV5Bs')) {
+    $componentId = $_instance->getRenderedChildComponentId('4VVV5Bs');
+    $componentTag = $_instance->getRenderedChildComponentTagName('4VVV5Bs');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('bd7Zr0O');
+    $_instance->preserveRenderedChild('4VVV5Bs');
 } else {
     $response = \Livewire\Livewire::mount('add-cart-item', ['product' => $product]);
     $html = $response->html();
-    $_instance->logRenderedChild('bd7Zr0O', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('4VVV5Bs', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -210,15 +210,15 @@ echo $html;
                         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('download-p-d-f', ['product' => $product])->html();
-} elseif ($_instance->childHasBeenRendered('7zOsP1h')) {
-    $componentId = $_instance->getRenderedChildComponentId('7zOsP1h');
-    $componentTag = $_instance->getRenderedChildComponentTagName('7zOsP1h');
+} elseif ($_instance->childHasBeenRendered('hRlDNAR')) {
+    $componentId = $_instance->getRenderedChildComponentId('hRlDNAR');
+    $componentTag = $_instance->getRenderedChildComponentTagName('hRlDNAR');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('7zOsP1h');
+    $_instance->preserveRenderedChild('hRlDNAR');
 } else {
     $response = \Livewire\Livewire::mount('download-p-d-f', ['product' => $product]);
     $html = $response->html();
-    $_instance->logRenderedChild('7zOsP1h', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('hRlDNAR', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -237,89 +237,91 @@ echo $html;
 
                 </div>
 
-                
                 <div x-data="{ tab: 'descripcion' }"
                     class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
                     
                     <div class="flex border-b border-gray-100">
-                        <button @click="tab = 'descripcion'"
-                            :class="tab === 'descripcion' ? 'border-b-2 border-gray-900 text-gray-900 font-semibold' :
-                                'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'"
-                            class="flex-1 flex items-center justify-center gap-2 text-sm py-3.5 px-4 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Descripción
-                        </button>
-                        <button @click="tab = 'specs'"
-                            :class="tab === 'specs' ? 'border-b-2 border-gray-900 text-gray-900 font-semibold' :
-                                'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'"
-                            class="flex-1 flex items-center justify-center gap-2 text-sm py-3.5 px-4 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                            Especificaciones
-                        </button>
+                        <?php $__currentLoopData = [['id' => 'descripcion', 'label' => 'Descripción', 'icon' => 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'], ['id' => 'specs', 'label' => 'Especificaciones', 'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2']]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <button @click="tab = '<?php echo e($t['id']); ?>'"
+                                :class="tab === '<?php echo e($t['id']); ?>'
+                                    ?
+                                    'border-b-2 border-gray-900 text-gray-900 font-medium' :
+                                    'border-b-2 border-transparent text-gray-400 hover:text-gray-600'"
+                                class="flex-1 flex items-center justify-center gap-2 text-sm py-3.5 px-4 transition-colors">
+                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="<?php echo e($t['icon']); ?>" />
+                                </svg>
+                                <?php echo e($t['label']); ?>
+
+                            </button>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
 
                     
                     <div x-show="tab === 'descripcion'" x-transition:enter="transition ease-out duration-150"
                         x-transition:enter-start="opacity-0 translate-y-1"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        class="p-5 prose prose-sm max-w-none
-                               prose-p:text-gray-600 prose-p:text-sm prose-p:leading-relaxed prose-p:my-1.5
-                               prose-li:text-gray-600 prose-li:text-sm prose-li:my-0
-                               prose-h1:text-base prose-h2:text-sm prose-h3:text-sm
-                               prose-ul:my-1.5 prose-ol:my-1.5">
-                        <?php echo $product->description; ?>
+                        x-transition:enter-end="opacity-100 translate-y-0" class="p-5 space-y-3">
 
+                        
+                        <div
+                            class="prose prose-sm max-w-none
+                    prose-p:text-gray-500 prose-p:text-sm prose-p:leading-relaxed prose-p:my-0
+                    prose-li:text-gray-500 prose-li:text-sm prose-li:my-0
+                    prose-h1:text-base prose-h2:text-sm prose-h3:text-sm
+                    prose-ul:my-1 prose-ol:my-1">
+                            <?php echo $product->description; ?>
+
+                        </div>
                     </div>
 
                     
                     <div x-show="tab === 'specs'" x-transition:enter="transition ease-out duration-150"
                         x-transition:enter-start="opacity-0 translate-y-1"
-                        x-transition:enter-end="opacity-100 translate-y-0" class="p-5">
-                        <table class="w-full text-sm">
-                            <tbody class="divide-y divide-gray-100">
-                                <tr>
-                                    <td class="py-2.5 pr-4 text-gray-400 w-2/5">SKU</td>
-                                    <td class="py-2.5 text-gray-900 font-medium text-right"><?php echo e($product->id); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 pr-4 text-gray-400">Marca</td>
-                                    <td class="py-2.5 text-gray-900 font-medium text-right capitalize">
-                                        <?php echo e($product->brand->name); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2.5 pr-4 text-gray-400">Categoría</td>
-                                    <td class="py-2.5 text-gray-900 font-medium text-right">
-                                        <?php echo e($product->subcategory->category->name); ?></td>
-                                </tr>
+                        x-transition:enter-end="opacity-100 translate-y-0">
 
-                                <?php if($product->specifications->count()): ?>
-                                    <tr>
-                                        <td colspan="2" class="pt-5 pb-1">
-                                            <span
-                                                class="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                                                Especificaciones técnicas
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <?php $__currentLoopData = $product->specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td class="py-2.5 pr-4 text-gray-400"><?php echo e($spec->name); ?></td>
-                                            <td class="py-2.5 text-gray-900 font-medium text-right">
+                        
+                        <div class="grid grid-cols-3 gap-2.5 p-5 pb-4">
+                            <div class="bg-gray-50 rounded-xl p-3">
+                                <p class="text-[10px] font-medium uppercase tracking-widest text-gray-400 mb-1">SKU</p>
+                                <p class="text-sm font-medium text-gray-900">#<?php echo e($product->id); ?></p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-3">
+                                <p class="text-[10px] font-medium uppercase tracking-widest text-gray-400 mb-1">Marca
+                                </p>
+                                <p class="text-sm font-medium text-gray-900 capitalize"><?php echo e($product->brand->name); ?></p>
+                            </div>
+                            <div class="bg-gray-50 rounded-xl p-3">
+                                <p class="text-[10px] font-medium uppercase tracking-widest text-gray-400 mb-1">
+                                    Categoría</p>
+                                <p class="text-sm font-medium text-gray-900">
+                                    <?php echo e($product->subcategory->category->name); ?></p>
+                            </div>
+                        </div>
+
+                        
+                        <?php if($product->specifications->count()): ?>
+                            <div class="px-5 pb-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                    Especificaciones técnicas
+                                </span>
+                            </div>
+
+                            <table class="w-full text-sm">
+                                <tbody>
+                                    <?php $__currentLoopData = $product->specifications; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $spec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr
+                                            class="<?php echo e($i % 2 === 0 ? 'bg-white' : 'bg-gray-50'); ?> border-t border-gray-100">
+                                            <td class="py-3 px-5 text-gray-400 w-2/5"><?php echo e($spec->name); ?></td>
+                                            <td class="py-3 px-5 text-gray-900 font-medium text-right">
                                                 <?php echo e($spec->value); ?></td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                            <div class="h-2"></div>
+                        <?php endif; ?>
                     </div>
 
                 </div>
@@ -338,16 +340,16 @@ echo $html;
                             <h3 class="text-xs font-bold uppercase tracking-widest text-gray-700">Accesorios incluídos
                             </h3>
                         </div>
-                        <div class="p-5 flex flex-wrap gap-4">
+                        <div class="p-5 flex flex-wrap gap-5">
                             <?php $__currentLoopData = $product->includedAccessories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $acc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="flex flex-col items-center gap-2 w-20 group">
+                                <div class="flex flex-col items-center gap-2 w-28 group">
                                     <div
-                                        class="w-16 h-16 rounded-xl border-2 border-emerald-200 bg-gray-50 flex items-center justify-center overflow-hidden group-hover:border-emerald-400 transition-colors">
+                                        class="w-28 h-28 rounded-2xl border-2 border-emerald-200 bg-gray-50 flex items-center justify-center overflow-hidden group-hover:border-emerald-400 transition-colors shadow-sm">
                                         <?php if($acc->image): ?>
                                             <img src="<?php echo e(Storage::url($acc->image)); ?>" alt="<?php echo e($acc->name); ?>"
-                                                class="w-full h-full object-contain p-1">
+                                                class="w-full h-full object-contain p-2">
                                         <?php else: ?>
-                                            <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor"
+                                            <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor"
                                                 stroke-width="1.5" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
@@ -355,7 +357,7 @@ echo $html;
                                         <?php endif; ?>
                                     </div>
                                     <span
-                                        class="text-[10px] font-semibold text-gray-600 text-center uppercase leading-tight tracking-wide">
+                                        class="text-xs font-semibold text-gray-600 text-center uppercase leading-tight tracking-wide">
                                         <?php echo e($acc->name); ?>
 
                                     </span>

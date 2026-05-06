@@ -80,7 +80,6 @@
                     </x-slot>
                     <x-slot name="content">
                         <x-dropdown-link href="{{ route('login') }}">{{ __('Login') }}</x-dropdown-link>
-                        <x-dropdown-link href="{{ route('register') }}">{{ __('Register') }}</x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             @endauth
@@ -157,9 +156,7 @@
                 <a href="{{route('login')}}" class="py-2 px-4 flex items-center hover:bg-gray-500 hover:text-white">
                     <span class="w-6 text-center"><i class="fas fa-user-circle"></i></span> Iniciar Sesión
                 </a>
-                <a href="{{route('register')}}" class="py-2 px-4 flex items-center hover:bg-gray-500 hover:text-white">
-                    <span class="w-6 text-center"><i class="fas fa-fingerprint"></i></span> Registrarse
-                </a>
+                
             @endauth
         </div>
     </nav>
