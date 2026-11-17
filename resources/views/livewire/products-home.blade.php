@@ -1,494 +1,454 @@
-<div class="container mx-auto px-4 py-6" x-data="{
-    open: false,
-    view: '{{ $view }}',
-    selectedCategory: '{{ $categorySelected }}'
-}">
-
-    {{-- Header mejorado con mejor jerarquía visual --}}
-    <div class="bg-gray-50 rounded-2xl p-5 md:p-6 mb-8 border border-gray-200 shadow-sm">
-
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-            {{-- Título --}}
-            <div>
-                <h1 class="text-xl md:text-2xl font-bold text-gray-900">
-                    Catálogo de Productos
-                </h1>
-
-                <p class="text-sm text-gray-500 mt-1">
-                    <span class="font-semibold text-gray-900 bg-white px-2 py-0.5 rounded-md border">
-                        {{ $products->total() }}
-                    </span>
-                    productos encontrados
-                </p>
-            </div>
-
-
-            {{-- Controles de vista --}}
-            <div class="flex items-center gap-3">
-
-                <span class="text-sm text-gray-500 font-medium hidden sm:block">
-                    Vista
+<div class="container mx-auto px-4 py-3 md:py-6 max-w-7xl font-sans tracking-tight antialiased" x-data="{ open: false, view: $wire.entangle('view') }">
+    <div
+        class="bg-white/80 backdrop-blur-xl rounded-3xl p-5 md:p-6 mb-6 border border-slate-200/60 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+            <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Catálogo de Productos
+            </h1>
+            <p class="text-xs md:text-sm text-slate-500 flex items-center gap-2 font-medium">
+                <span
+                    class="font-bold text-slate-900 bg-slate-100 px-3 py-0.5 rounded-full border border-slate-200/80 text-xs">
+                    {{ number_format($products->total()) }}
                 </span>
+                <span>productos disponibles</span>
+            </p>
+        </div>
 
-                <div class="flex rounded-lg border border-gray-200 bg-white shadow-sm overflow-hidden">
+        <div class="flex items-center gap-3 w-full md:w-auto">
+            <div class="hidden sm:inline-flex rounded-2xl border border-slate-200/80 bg-slate-100/70 p-1">
+                <button wire:click="$set('view', 'grid')" aria-label="Vista de cuadrícula"
+                    class="flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 {{ $view === 'grid' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">
+                    <i class="fas fa-th-large text-xs"></i>
+                    <span class="hidden lg:inline">Cuadrícula</span>
+                </button>
 
-                    {{-- Grid --}}
-                    <button wire:click="$set('view', 'grid')" aria-label="Vista de cuadrícula"
-                        class="flex items-center gap-2 px-4 py-2 text-sm font-medium transition
-                    {{ $view === 'grid' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-
-                        <i class="fas fa-border-all text-sm"></i>
-
-                        <span class="hidden lg:inline">Cuadrícula</span>
-
-                    </button>
-
-
-                    {{-- List --}}
-                    <button wire:click="$set('view', 'list')" aria-label="Vista de lista"
-                        class="flex items-center gap-2 px-4 py-2 text-sm font-medium border-l border-gray-200 transition
-                    {{ $view === 'list' ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
-
-                        <i class="fas fa-th-list text-sm"></i>
-
-                        <span class="hidden lg:inline">Lista</span>
-
-                    </button>
-
-                </div>
-
+                <button wire:click="$set('view', 'list')" aria-label="Vista de lista"
+                    class="flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 {{ $view === 'list' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800' }}">
+                    <i class="fas fa-list text-xs"></i>
+                    <span class="hidden lg:inline">Lista</span>
+                </button>
             </div>
-
-        </div>
-
-    </div>
-
-    {{-- Controles móviles mejorados --}}
-    <div class="md:hidden bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-        <div class="flex items-center justify-between gap-4">
-            {{-- Botón cambiar vista --}}
-            <button wire:click="$set('view', '{{ $view === 'grid' ? 'list' : 'grid' }}')" aria-label="Cambiar vista"
-                class="flex items-center justify-center w-12 h-12 rounded-xl border-2 border-gray-200 text-gray-600 hover:text-gray-500 hover:border-gray-300 hover:bg-gray-50 transition-all duration-200 active:scale-95">
-                <i class="fas {{ $view === 'grid' ? 'fa-th-list' : 'fa-border-all' }} text-lg"></i>
-            </button>
-
-            {{-- Botón filtros --}}
-            <button @click="open = true"
-                class="flex-1 flex items-center justify-center gap-3 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-semibold rounded-xl py-3 px-4 shadow-md hover:shadow-lg hover:from-gray-600 hover:to-orange-700 transition-all duration-200 active:scale-95">
-                <i class="fas fa-sliders-h"></i>
-                <span>Filtros y orden</span>
-            </button>
         </div>
     </div>
 
-    {{-- Panel lateral móvil mejorado --}}
-    <div class="fixed inset-0 z-50 md:hidden" x-show="open" x-cloak style="display: none;">
-        {{-- Overlay --}}
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" x-show="open"
+    <div
+        class="md:hidden bg-white/90 backdrop-blur-md rounded-2xl shadow-xs border border-slate-200/60 p-2 mb-4 flex items-center gap-2">
+        <button wire:click="$set('view', '{{ $view === 'grid' ? 'list' : 'grid' }}')" aria-label="Cambiar vista"
+            class="flex items-center justify-center w-11 h-11 rounded-xl border border-slate-200/80 text-slate-700 bg-slate-50 active:scale-95 transition-all duration-150 shrink-0">
+            <i class="fas {{ $view === 'grid' ? 'fa-list' : 'fa-th-large' }} text-sm"></i>
+        </button>
+
+        <button @click="open = true"
+            class="flex-1 flex items-center justify-center gap-2.5 bg-slate-900 text-white font-bold text-xs uppercase tracking-wider rounded-xl py-3 px-4 shadow-xs active:scale-[0.98] transition-all duration-150">
+            <i class="fas fa-sliders-h text-xs"></i>
+            <span>Filtros y orden</span>
+        </button>
+    </div>
+
+    <div class="md:hidden mb-6">
+        <div class="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-none snap-x flex gap-2">
+            <button wire:click="$set('category', '')"
+                class="snap-start px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 {{ !$categorySelected ? 'bg-slate-900 text-white shadow-xs' : 'bg-white text-slate-600 border border-slate-200/80' }}">
+                Todos
+            </button>
+            @foreach ($categories as $category)
+                <button wire:click="$set('category', '{{ $category->slug }}')"
+                    class="snap-start px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 {{ $category->slug === $categorySelected ? 'bg-slate-900 text-white shadow-xs' : 'bg-white text-slate-600 border border-slate-200/80' }}">
+                    {{ $category->name }}
+                </button>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- Modal Bottom Sheet (Móvil) --}}
+    <div class="fixed inset-0 z-50 md:hidden" x-show="open" x-cloak>
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-xs" x-show="open"
             x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="open = false">
         </div>
 
-        {{-- Panel deslizable --}}
-        <div class="absolute bottom-0 left-0 w-full bg-white rounded-t-3xl shadow-2xl max-h-[85vh] overflow-hidden flex flex-col"
+        <div class="absolute bottom-0 left-0 w-full bg-white rounded-t-3xl shadow-2xl max-h-[85vh] flex flex-col border-t border-slate-200/60"
             x-show="open" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-y-0"
             x-transition:leave-end="translate-y-full">
 
-            {{-- Header del panel --}}
-            <div class="flex items-center justify-between p-5 border-b border-gray-200">
+            <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-3"></div>
+
+            <div class="flex items-center justify-between px-6 pb-4 border-b border-slate-100">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-900">Filtros</h2>
-                    <p class="text-sm text-gray-500 mt-0.5">Personaliza tu búsqueda</p>
+                    <h2 class="text-base font-bold text-slate-900">Filtrar Productos</h2>
+                    <p class="text-xs text-slate-400">Ajusta los resultados según tu preferencia</p>
                 </div>
                 <button @click="open = false"
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors">
-                    <i class="fas fa-times text-xl"></i>
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">
+                    <i class="fas fa-times text-xs"></i>
                 </button>
             </div>
 
-            {{-- Contenido scrolleable --}}
-            <div class="flex-1 overflow-y-auto p-5">
-                <form wire:submit.prevent="filtrar" class="space-y-6">
-                    {{-- Ordenar --}}
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <div class="space-y-6">
                     <div>
-                        <label class="flex items-center gap-2 text-base font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-sort text-orange-500"></i>
-                            Ordenar por
-                        </label>
-                        <select wire:model.defer="order"
-                            class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all py-3 px-4">
-                            <option value="">Seleccionar orden...</option>
-                            <option value="new">📅 Más recientes</option>
-                            <option value="old">🕐 Más antiguos</option>
-                            <option value="price_asc">💰 Menor precio</option>
-                            <option value="price_desc">💎 Mayor precio</option>
-                            <option value="popular">⭐ Más populares</option>
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Ordenar
+                            por</label>
+                        <select wire:model.live="order"
+                            class="w-full border-slate-200/80 bg-slate-50/50 rounded-2xl text-xs font-semibold py-3 focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all">
+                            <option value="">Predeterminado</option>
+                            <option value="price_asc">Menor precio</option>
+                            <option value="price_desc">Mayor precio</option>
                         </select>
                     </div>
 
-                    {{-- Categorías --}}
                     <div>
-                        <label class="flex items-center gap-2 text-base font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-tags text-gray-500"></i>
-                            Categorías
-                        </label>
-                        <div class="space-y-2">
-                            @foreach ($categories as $category)
-                                <button type="button" wire:click="$set('category', '{{ $category->slug }}')"
-                                    class="w-full text-left px-4 py-3 rounded-xl transition-all duration-200 {{ $category->slug === $categorySelected ? 'bg-gray-500 text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-orange-50 hover:text-gray-600' }}">
-                                    <span class="font-medium">{{ $category->name }}</span>
-                                    @if ($category->slug === $categorySelected)
-                                        <i class="fas fa-check float-right mt-1"></i>
+                        <label
+                            class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Categorías</label>
+                        <div class="space-y-1.5">
+                            @foreach ($categories as $cat)
+                                <button type="button" wire:click="$set('category', '{{ $cat->slug }}')"
+                                    class="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-xs font-semibold transition-all duration-150 {{ $cat->slug === $categorySelected ? 'bg-slate-900 text-white shadow-xs' : 'bg-slate-50 hover:bg-slate-100 text-slate-700' }}">
+                                    <span>{{ $cat->name }}</span>
+                                    @if ($cat->slug === $categorySelected)
+                                        <i class="fas fa-check text-xs"></i>
                                     @endif
                                 </button>
                             @endforeach
                         </div>
                     </div>
 
-                    {{-- Botones de acción --}}
-                    <div class="flex gap-3 pt-4">
+                    <div class="flex gap-3 pt-4 border-t border-slate-100">
+                        <button type="button" wire:click="limpiar" @click="open = false"
+                            class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase rounded-xl py-3 transition-colors">Limpiar</button>
+                        <button type="button" @click="open = false"
+                            class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase rounded-xl py-3 shadow-xs active:scale-[0.98] transition-all">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Contenido Principal --}}
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+        {{-- Sidebar Desktop --}}
+        <aside class="hidden lg:block col-span-1">
+            <div
+                class="bg-white/90 backdrop-blur-md rounded-3xl border border-slate-200/60 p-6 sticky top-6 shadow-xs space-y-6">
+
+                {{-- Encabezado del Panel de Filtros --}}
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-sliders-h text-slate-400 text-xs"></i>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Filtros</h3>
+                    </div>
+
+                    @if ($categorySelected || $order)
                         <button type="button" wire:click="limpiar"
-                            class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl py-3 transition-colors">
+                            class="text-[11px] font-semibold text-slate-400 hover:text-slate-900 transition-colors">
                             Limpiar
                         </button>
-                        <button type="submit" @click="open = false"
-                            class="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl py-3 shadow-md hover:shadow-lg transition-all">
-                            Aplicar
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+                    @endif
+                </div>
 
-    {{-- Chips de categorías (móvil) --}}
-    <div class="md:hidden mb-6">
-        <div class="flex items-center gap-2 mb-3">
-            <i class="fas fa-filter text-gray-500"></i>
-            <span class="text-sm font-semibold text-gray-700">Categorías</span>
-        </div>
-        <div class="overflow-x-auto pb-2 -mx-4 px-4">
-            <div class="flex gap-2 min-w-max">
-                <button wire:click="$set('category', '')"
-                    class="px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap {{ !$categorySelected ? 'bg-gray-500 text-white shadow-md' : 'bg-white text-gray-700 border border-gray-200 hover:border-orange-300' }}">
-                    Todos
-                </button>
-                @foreach ($categories as $category)
-                    <button wire:click="$set('category', '{{ $category->slug }}')"
-                        class="px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap {{ $category->slug === $categorySelected ? 'bg-gray-500 text-white shadow-md' : 'bg-white text-gray-700 border border-gray-200 hover:border-gray-300' }}">
-                        {{ $category->name }}
-                    </button>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
-    {{-- Grid principal --}}
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {{-- Sidebar (Desktop) mejorado --}}
-        <aside class="hidden lg:block col-span-1">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-6">
-                <form wire:submit.prevent="filtrar" class="space-y-6">
-                    {{-- Ordenar --}}
-                    <div>
-                        <label class="flex items-center gap-2 text-base font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-sort text-orange-500"></i>
-                            Ordenar
+                <div class="space-y-6">
+                    {{-- Ordenar Resultados --}}
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                            Ordenar por
                         </label>
-                        <select wire:model.defer="order"
-                            class="w-full border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all">
-                            <option value="">Seleccionar...</option>
-                            <option value="new">Más recientes</option>
-                            <option value="old">Más antiguos</option>
-                            <option value="price_asc">Menor precio</option>
-                            <option value="price_desc">Mayor precio</option>
-                            <option value="popular">Más populares</option>
-                        </select>
+
+                        <div class="relative">
+                            <select wire:model.live="order"
+                                class="w-full appearance-none border border-slate-200/80 bg-slate-50/50 rounded-2xl text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-slate-900 focus:border-slate-900 focus:bg-white px-3.5 py-2.5 transition-all outline-none cursor-pointer">
+                                <option value="">Default (Destacados)</option>
+                                <option value="price_asc">Menor precio</option>
+                                <option value="price_desc">Mayor precio</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                <i class="fas fa-chevron-down text-[10px]"></i>
+                            </div>
+                        </div>
                     </div>
 
-                    <hr class="border-gray-200">
+                    <hr class="border-slate-100">
 
-                    {{-- Categorías --}}
-                    <div>
-
-                        <label class="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-2">
-                            <i class="fas fa-tags text-gray-600 text-sm"></i>
+                    {{-- Navegación de Categorías --}}
+                    <div class="space-y-2">
+                        <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
                             Categorías
                         </label>
 
-                        <div class="space-y-1">
-
-                            <label
-                                class="flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer hover:bg-gray-50 transition group">
-
-                                <input type="radio" wire:model="category" value=""
-                                    class="w-3.5 h-3.5 text-gray-900 focus:ring-gray-400 border-gray-300">
-
-                                <span class="text-sm text-gray-700 group-hover:text-gray-900">
-                                    Todos
-                                </span>
-
-                            </label>
+                        <nav class="space-y-1">
+                            {{-- Opción "Todas" --}}
+                            <button type="button" wire:click="$set('category', '')"
+                                class="w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 flex items-center justify-between group {{ !$categorySelected ? 'bg-slate-900 text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                                <span>Todas las categorías</span>
+                                @if (!$categorySelected)
+                                    <i class="fas fa-check text-[10px] text-white"></i>
+                                @endif
+                            </button>
 
                             @foreach ($categories as $cat)
-                                <label
-                                    class="flex items-center gap-2 px-2 py-1.5 rounded-md cursor-pointer hover:bg-gray-50 transition group">
-
-                                    <input type="radio" wire:model="category" value="{{ $cat->slug }}"
-                                        class="w-3.5 h-3.5 text-gray-900 focus:ring-gray-400 border-gray-300">
-
-                                    <span class="text-sm text-gray-700 group-hover:text-gray-900">
-                                        {{ $cat->name }}
-                                    </span>
-
-                                </label>
+                                @php $isActive = $cat->slug === $categorySelected; @endphp
+                                <button type="button" wire:click="$set('category', '{{ $cat->slug }}')"
+                                    class="w-full text-left px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 flex items-center justify-between group {{ $isActive ? 'bg-slate-900 text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                                    <span>{{ $cat->name }}</span>
+                                    @if ($isActive)
+                                        <i class="fas fa-check text-[10px] text-white"></i>
+                                    @endif
+                                </button>
                             @endforeach
-
-                        </div>
-
+                        </nav>
                     </div>
 
-                    <hr class="border-gray-200">
-                    {{-- Botones --}}
-                    <div class="space-y-2">
-                        <button type="submit"
-                            class="w-full bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl py-3 shadow-md hover:shadow-lg transition-all duration-200 active:scale-95">
-                            <i class="fas fa-check mr-2"></i>
-                            Aplicar Filtros
+                    <hr class="border-slate-100">
 
-                        </button>
+
+                    <div class="pt-1">
                         <button type="button" wire:click="limpiar"
-                            class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl py-2.5 transition-colors">
-                            <i class="fas fa-redo mr-2"></i>
-                            Limpiar
+                            class="w-full border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs rounded-2xl py-2.5 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            <i class="fas fa-undo text-[10px] text-slate-400"></i>
+                            <span>Restablecer Filtros</span>
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </aside>
 
-        {{-- Productos --}}
-        <section class="lg:col-span-4">
-            @if ($view === 'grid')
-                <div wire:loading.class="opacity-50 pointer-events-none" class="transition-opacity duration-200">
+        {{-- Grid / List de Productos --}}
+        <section class="lg:col-span-3">
 
-                    <ul class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6">
-
-                        @forelse ($products as $product)
-                            <li class="group">
-                                <article
-                                    class="h-full bg-white rounded-2xl border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
-
-                                    {{-- Imagen --}}
-                                    <div class="relative">
-
-                                        <a href="{{ route('products.show', $product) }}"
-                                            class="block relative aspect-[3/2] sm:aspect-[4/3] bg-gray-50 overflow-hidden">
-                                            <img src="{{ Storage::url($product->images->first()->url ?? 'img/default.jpg') }}"
-                                                alt="{{ $product->name }}" loading="lazy"
-                                                class="w-full h-full object-contain p-2 sm:p-4 transition-transform duration-300 group-hover:scale-105">
-
-                                            <div
-                                                class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                                            </div>
-
-                                        </a>
-
-                                        {{-- Badge --}}
-                                        <div
-                                            class="absolute top-2 right-2 bg-red-500 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow">
-                                            -20%
-                                        </div>
-
-                                    </div>
-
-
-                                    {{-- Contenido --}}
-                                    <div class="p-3 sm:p-4 space-y-2 sm:space-y-3">
-
-                                        {{-- Categoría y rating --}}
-                                        <div class="flex items-center justify-between">
-
-                                            <span
-                                                class="text-[10px] sm:text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded-md">
-                                                {{ $product->subcategory->name }}
-                                            </span>
-
-                                            @php
-                                                $avg = round($product->reviews->avg('rating') ?? 5, 1);
-                                            @endphp
-
-                                            <div class="flex items-center gap-1">
-                                                <i class="fas fa-star text-yellow-400 text-xs sm:text-sm"></i>
-                                                <span class="text-xs sm:text-sm font-semibold text-gray-700">
-                                                    {{ number_format($avg, 1) }}
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-
-                                        {{-- Nombre --}}
-                                        <h3
-                                            class="font-semibold text-sm sm:text-base text-gray-900 leading-snug line-clamp-2">
-                                            <a href="{{ route('products.show', $product) }}"
-                                                class="hover:text-gray-700 transition-colors">
-
-                                                {{ $product->name }}
-
-                                            </a>
-
-                                        </h3>
-
-                                        {{-- Precio --}}
-                                        <div class="flex items-center justify-between mt-1  border-t border-gray-100">
-
-                                            <div class="flex items-center gap-2 mt-1">
-
-                                                <p class="text-lg sm:text-xl font-bold text-gray-900">
-                                                    ${{ number_format($product->price, 2) }}
-                                                </p>
-
-                                                <p class="text-[10px] sm:text-xs text-gray-400 line-through">
-                                                    ${{ number_format($product->price * 1.25, 2) }}
-                                                </p>
-
-                                            </div>
-
-                                            <a href="{{ route('products.show', $product) }}"
-                                                class="flex items-center gap-1 sm:gap-2 bg-gray-900 hover:bg-gray-800 text-white font-semibold px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all hover:scale-105 shadow">
-
-                                                <i class="fas fa-eye text-xs"></i>
-                                                <span class="text-xs sm:text-sm">Ver</span>
-
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        @empty
-
-                            <li class="col-span-full">
-
-                                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-8 text-center">
-
-                                    <i class="fas fa-search text-5xl text-gray-300 mb-4"></i>
-
-                                    <h3 class="text-lg font-semibold text-gray-700 mb-2">
-                                        No se encontraron productos
-                                    </h3>
-
-                                    <p class="text-gray-500">
-                                        Intenta ajustar los filtros de búsqueda
-                                    </p>
-                                </div>
-                            </li>
-                        @endforelse
-                    </ul>
+            {{-- Loader principal: solo para cambios de filtro, orden o vista --}}
+            <div wire:loading.flex wire:target="category,order,view,limpiar"
+                class="w-full items-center justify-center py-16">
+                <div class="flex items-center gap-3 text-slate-400 font-semibold text-xs uppercase tracking-wider">
+                    <i class="fas fa-circle-notch animate-spin text-slate-900 text-base"></i>
+                    <span>Cargando catálogo...</span>
                 </div>
-            @else
-                {{-- Vista Lista mejorada --}}
-                <div wire:loading.class="opacity-50 pointer-events-none" class="transition-opacity duration-200">
-                    <ul class="space-y-2">
+            </div>
+
+            <div wire:loading.remove wire:target="category,order,view,limpiar">
+                @if ($view === 'grid')
+                    {{-- VISTA DE CUADRÍCULA --}}
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
                         @forelse ($products as $product)
-                            <li>
-                                <article
-                                    class="group flex flex-col sm:flex-row gap-5 bg-white p-5 rounded-2xl border-2 border-gray-100 hover:border-orange-300 shadow-sm hover:shadow-xl transition-all duration-300">
-                                    {{-- Imagen --}}
+                            <article wire:key="grid-{{ $product->id }}"
+                                class="group relative flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/60 bg-white p-3 sm:p-4 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300/80">
+
+                                {{-- Badges Superior Izquierda --}}
+                                <div
+                                    class="absolute left-3 top-3 sm:left-4 sm:top-4 z-10 flex flex-col items-start gap-1">
+                                    <span
+                                        class="rounded-full border border-slate-200/60 bg-white/90 px-2.5 py-0.5 text-[9px] sm:text-[10px] font-extrabold tracking-wider uppercase text-slate-800 backdrop-blur-md shadow-2xs">
+                                        {{ $product->brand->name ?? 'INVICTA' }}
+                                    </span>
+                                </div>
+
+                                {{-- Badge Descuento --}}
+                                @if (isset($product->discount_percentage) && $product->discount_percentage > 0)
+                                    <div
+                                        class="absolute right-3 top-3 sm:right-4 sm:top-4 z-10 flex h-8 w-8 sm:h-9 sm:w-9 flex-col items-center justify-center rounded-full bg-rose-600 text-center leading-none text-white shadow-xs">
+                                        <span class="text-[6px] sm:text-[7px] font-bold uppercase">OFF</span>
+                                        <span
+                                            class="text-[8px] sm:text-[9px] font-black">-{{ $product->discount_percentage }}%</span>
+                                    </div>
+                                @endif
+
+                                {{-- Imagen del producto --}}
+                                <div
+                                    class="relative mb-3 aspect-square w-full overflow-hidden rounded-xl bg-slate-50/80 sm:rounded-2xl p-3">
                                     <a href="{{ route('products.show', $product) }}"
-                                        class="w-full sm:w-48 flex-shrink-0">
-                                        <figure class="relative aspect-[4/3] rounded-xl overflow-hidden bg-gray-100">
-                                            <img src="{{ Storage::url($product->images->first()->url ?? 'img/default.jpg') }}"
-                                                alt="{{ $product->name }}"
-                                                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                                                loading="lazy">
-                                            <div
-                                                class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                                                -20%
-                                            </div>
-                                        </figure>
+                                        class="flex h-full w-full items-center justify-center">
+                                        <img src="{{ Storage::url($product->images->first()->url ?? 'img/default.jpg') }}"
+                                            alt="{{ $product->name }}" loading="lazy"
+                                            class="max-h-full max-w-full object-contain object-center transition-transform duration-500 ease-out group-hover:scale-105">
                                     </a>
 
-                                    {{-- Contenido --}}
-                                    <div class="flex-1 flex flex-col justify-between min-w-0">
-                                        <div class="space-y-2">
-                                            <div class="flex items-start justify-between gap-3">
-                                                <div class="flex-1 min-w-0">
-                                                    <span
-                                                        class="inline-block text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-1 rounded-md mb-2">
-                                                        {{ $product->subcategory->name ?? 'Sin categoría' }}
-                                                    </span>
-                                                    <h3 class="font-bold text-lg text-gray-900 leading-tight">
-                                                        <a href="{{ route('products.show', $product) }}"
-                                                            class="hover:text-orange-600 transition-colors">
-                                                            {{ $product->name }}
-                                                        </a>
-                                                    </h3>
-                                                </div>
-                                                @php
-                                                    $avg = round($product->reviews->avg('rating') ?? 5, 1);
-                                                @endphp
-                                                <div class="flex items-center gap-1 flex-shrink-0">
-                                                    <i class="fas fa-star text-yellow-400"></i>
-                                                    <span
-                                                        class="font-bold text-gray-700">{{ number_format($avg, 1) }}</span>
-                                                </div>
-                                            </div>
+                                    @if (($product->images->count() ?? 1) > 1)
+                                        <span
+                                            class="pointer-events-none absolute bottom-2.5 right-2.5 flex items-center gap-1 rounded-full bg-slate-900/70 px-2 py-1 text-[10px] font-medium text-white shadow-xs backdrop-blur-md">
+                                            <i class="fas fa-images text-[9px]"></i>
+                                            +{{ $product->images->count() - 1 }}
+                                        </span>
+                                    @endif
+                                </div>
 
-                                            <p class="text-sm text-gray-600 line-clamp-2">
-                                                {{ \Illuminate\Support\Str::limit(strip_tags($product->description), 150, '...') }}
-                                            </p>
+                                {{-- Información del Producto --}}
+                                <div class="flex flex-1 flex-col justify-between space-y-2.5 sm:space-y-3">
+                                    <div>
+                                        <span
+                                            class="block text-[9px] sm:text-[10px] font-bold tracking-wider uppercase text-slate-400">
+                                            {{ $product->subcategory->category->name ?? '' }}
+                                        </span>
 
-                                        </div>
+                                        <h3
+                                            class="mt-0.5 min-h-[2.25rem] text-xs font-bold uppercase leading-snug text-slate-900 line-clamp-2">
+                                            <a href="{{ route('products.show', $product) }}"
+                                                class="hover:text-slate-600 transition-colors">
+                                                {{ $product->name }}
+                                            </a>
+                                        </h3>
 
                                         <div
-                                            class="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
-                                            <div>
-                                                <p class="text-2xl font-bold text-gray-900">
-                                                    ${{ number_format($product->price, 2) }}
-                                                </p>
-                                                <p class="text-sm text-gray-400 line-through">
-                                                    ${{ number_format($product->price * 1.2, 2) }}
-                                                </p>
-                                            </div>
-
-                                            <a href="{{ route('products.show', $product) }}"
-                                                class="flex items-center gap-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold px-5 py-3 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-md">
-                                                <i class="fas fa-eye"></i>
-                                                <span>Ver detalles</span>
-                                            </a>
+                                            class="mt-1 flex items-center justify-between border-t border-slate-100 pt-1 text-[9px] sm:text-[10px]">
+                                            <span
+                                                class="font-medium italic tracking-tight text-slate-400 uppercase line-clamp-1">
+                                                {{ $product->collection_name ?? ($product->subcategory->name ?? 'Colección') }}
+                                            </span>
                                         </div>
                                     </div>
-                                </article>
-                            </li>
+
+                                    {{-- Precios, Stock y Botón --}}
+                                    <div
+                                        class="flex flex-col gap-2 border-t border-slate-100 pt-2.5 sm:flex-row sm:items-center sm:justify-between sm:pt-3">
+
+                                        {{-- Columna de Precio --}}
+                                        <div class="flex items-baseline justify-between sm:flex-col sm:justify-center">
+                                            <span
+                                                class="text-[8px] font-bold tracking-wider uppercase text-slate-400 leading-none">PRECIO</span>
+
+                                            <div class="flex items-baseline gap-1.5 sm:flex-col sm:gap-0">
+                                                @if (isset($product->old_price) && $product->old_price > $product->price)
+                                                    <span
+                                                        class="text-[9px] font-semibold text-slate-400 line-through leading-none">
+                                                        ${{ number_format($product->old_price, 2) }}
+                                                    </span>
+                                                @endif
+                                                <span class="text-sm font-extrabold leading-none text-slate-900">
+                                                    ${{ number_format($product->price, 2) }}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {{-- Columna de Stock y Acciones --}}
+                                        <div class="flex items-center gap-1.5 w-full sm:w-auto">
+                                            <div
+                                                class="flex h-9 min-w-[38px] sm:min-w-[42px] flex-col items-center justify-center rounded-xl border border-slate-200/80 bg-slate-50 px-1.5 py-0.5 text-[8px] font-semibold leading-tight text-slate-600 shrink-0">
+                                                <span class="text-[7px] text-slate-400 font-bold uppercase">STK</span>
+                                                <span
+                                                    class="font-bold text-slate-800 text-[9px] sm:text-[10px]">{{ $product->stock ?? 1 }}</span>
+                                            </div>
+
+                                            @livewire('add-cart', ['product' => $product], key('add-cart-grid-' . $product->id))
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </article>
                         @empty
                             <div
-                                class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-2xl p-8 text-center">
-                                <i class="fas fa-search text-5xl text-red-300 mb-4"></i>
-                                <h3 class="text-xl font-bold text-red-700 mb-2">No se encontraron productos</h3>
-                                <p class="text-red-600">Intenta ajustar los filtros de búsqueda</p>
+                                class="col-span-full bg-white border border-slate-200/60 rounded-3xl p-12 text-center shadow-xs">
+                                <i class="fas fa-box-open text-4xl text-slate-300 mb-3"></i>
+                                <h3 class="text-base font-bold text-slate-800">No se encontraron productos</h3>
+                                <p class="text-xs text-slate-400 mt-1">Prueba cambiando los parámetros o limpiando los
+                                    filtros.</p>
                             </div>
                         @endforelse
-                    </ul>
-                </div>
-            @endif
+                    </div>
+                @else
+                    {{-- VISTA DE LISTA --}}
+                    <div class="space-y-4">
+                        @forelse ($products as $product)
+                            <article wire:key="list-{{ $product->id }}"
+                                class="group bg-white rounded-3xl border border-slate-200/60 shadow-xs hover:shadow-md transition-all duration-300 p-4 flex flex-col sm:flex-row gap-5 items-center relative">
 
-            {{-- Indicador de carga --}}
-            <div wire:loading
-                class="fixed bottom-8 right-8 bg-blue-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 z-50 animate-pulse">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span class="font-semibold">Cargando...</span>
+                                {{-- Contenedor de Imagen --}}
+                                <div
+                                    class="w-full sm:w-44 aspect-square bg-slate-50/80 rounded-2xl overflow-hidden flex-shrink-0 relative flex items-center justify-center p-2 border border-slate-100">
+                                    <span
+                                        class="absolute top-2 left-2 z-10 bg-white/90 text-slate-900 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full border border-slate-200/60 backdrop-blur-md">
+                                        {{ $product->brand->name }}
+                                    </span>
+
+                                    <a href="{{ route('products.show', $product) }}"
+                                        class="w-full h-full flex items-center justify-center">
+                                        <img src="{{ Storage::url($product->images->first()->url ?? 'img/default.jpg') }}"
+                                            alt="{{ $product->name }}" loading="lazy"
+                                            class="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-105">
+                                    </a>
+                                </div>
+
+                                {{-- Detalles del Producto --}}
+                                <div class="flex-1 min-w-0 w-full space-y-2">
+                                    <div>
+                                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">
+                                            {{ $product->subcategory->name ?? '' }}
+                                        </span>
+
+                                        <h3 class="font-bold text-sm text-slate-900 uppercase leading-snug truncate">
+                                            <a href="{{ route('products.show', $product) }}"
+                                                class="hover:text-slate-600 transition-colors">
+                                                {{ $product->name }}
+                                            </a>
+                                        </h3>
+
+                                        <p
+                                            class="text-[10px] font-medium italic text-slate-400 uppercase tracking-tight">
+                                            {{ $product->collection_name ?? ($product->subcategory->name ?? '') }}
+                                        </p>
+
+                                        <span class="inline-block text-[10px] font-semibold text-slate-500 mt-0.5">
+                                            SKU: {{ $product->sku ?? ($product->code ?? 'N/A') }}
+                                        </span>
+                                    </div>
+
+                                    <p class="text-xs text-slate-500 line-clamp-2">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($product->description), 140, '...') }}
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="w-full sm:w-auto flex sm:flex-col items-center sm:items-end justify-between gap-3 border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0">
+                                    <div class="text-left sm:text-right">
+                                        @if (isset($product->old_price) && $product->old_price > $product->price)
+                                            <span class="block text-[10px] font-semibold text-slate-400 line-through">
+                                                ${{ number_format($product->old_price, 2) }}
+                                            </span>
+                                        @endif
+                                        <span class="text-base font-extrabold text-slate-900">
+                                            ${{ number_format($product->price, 2) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <div
+                                            class="flex h-9 min-w-[38px] sm:min-w-[42px] flex-col items-center justify-center rounded-xl border border-slate-200/80 bg-slate-50 px-1.5 py-0.5 text-[8px] font-semibold text-slate-600 shrink-0">
+                                            <span class="text-[7px] text-slate-400 font-bold uppercase">STK</span>
+                                            <span
+                                                class="font-bold text-slate-800 text-[9px] sm:text-[10px]">{{ $product->stock ?? 1 }}</span>
+                                        </div>
+
+                                        @livewire('add-cart', ['product' => $product], key('add-cart-list-' . $product->id))
+                                    </div>
+                                </div>
+
+                            </article>
+                        @empty
+                            <div class="bg-white border border-slate-200/60 rounded-3xl p-12 text-center shadow-xs">
+                                <i class="fas fa-box-open text-4xl text-slate-300 mb-3"></i>
+                                <h3 class="text-base font-bold text-slate-800">No se encontraron productos</h3>
+                                <p class="text-xs text-slate-400 mt-1">Prueba cambiando los parámetros o limpiando los
+                                    filtros.</p>
+                            </div>
+                        @endforelse
+                    </div>
+                @endif
+
+                {{-- Scroll infinito: centinela + spinner --}}
+                @if ($products->hasMorePages())
+                    <div wire:key="sentinel-{{ $products->count() }}"
+                        wire:intersect.margin.300px="loadMore"
+                        class="flex items-center justify-center py-10 min-h-[80px]">
+                        <div wire:loading.flex wire:target="loadMore"
+                            class="items-center gap-3 text-slate-400 font-semibold text-xs uppercase tracking-wider">
+                            <i class="fas fa-circle-notch animate-spin text-slate-900 text-base"></i>
+                            <span>Cargando más productos...</span>
+                        </div>
+                    </div>
+                @endif
             </div>
 
-            {{-- Paginación mejorada --}}
-            <div class="mt-8">
-                {{ $products->links() }}
-            </div>
         </section>
     </div>
 </div>

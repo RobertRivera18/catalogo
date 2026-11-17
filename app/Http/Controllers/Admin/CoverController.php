@@ -57,11 +57,7 @@ class CoverController extends Controller
      * @param  \App\Models\Cover  $cover
      * @return \Illuminate\Http\Response
      */
-    public function show(Cover $cover)
-    {
-        //
-    }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *

@@ -10,7 +10,22 @@
     <div class="max-w-5xl mx-auto px-4 py-10 space-y-8">
 
         
-        <div class="flex items-center justify-between">
+        <?php if(session('success')): ?>
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
+                <i class="fas fa-check-circle text-emerald-500"></i>
+                <span><?php echo e(session('success')); ?></span>
+            </div>
+        <?php endif; ?>
+
+        <?php if(session('error')): ?>
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-2">
+                <i class="fas fa-exclamation-circle text-red-500"></i>
+                <span><?php echo e(session('error')); ?></span>
+            </div>
+        <?php endif; ?>
+
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="space-y-3">
 
                 
@@ -20,19 +35,17 @@
 
                     </h1>
                     <p class="text-sm text-gray-400">
-                        Seguimiento de tu pedido
+                        Seguimiento de tu pedido · <?php echo e($order->created_at->format('d/m/Y H:i')); ?>
+
                     </p>
                 </div>
 
                 
                 <?php if($order->status == 5): ?>
-                    <div
-                        class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
-
+                    <div class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
                         <div class="mt-0.5">
                             <i class="fas fa-times-circle text-red-500"></i>
                         </div>
-
                         <div>
                             <p class="text-sm font-semibold">
                                 Orden cancelada
@@ -41,40 +54,33 @@
                                 Este pedido fue anulado y no será procesado.
                             </p>
                         </div>
-
                     </div>
                 <?php endif; ?>
 
             </div>
 
+            
             <?php if($order->status == 1): ?>
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.boton-enlace','data' => ['href' => ''.e(route('orders.payment', $order)).'','class' => 'ml-auto inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm font-medium shadow hover:shadow-md hover:scale-[1.02] transition-all']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('boton-enlace'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['href' => ''.e(route('orders.payment', $order)).'','class' => 'ml-auto inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-xl text-sm font-medium shadow hover:shadow-md hover:scale-[1.02] transition-all']); ?>
-                    <i class="fas fa-credit-card"></i>
-                    Ir a pagar
-                 <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-            <?php endif; ?>
-            <?php if($order->status == 1): ?>
-                <form action="<?php echo e(route('orders.cancel', $order)); ?>" method="POST" class="inline">
-                    <?php echo csrf_field(); ?>
-                    <button onclick="return confirm('¿Seguro que deseas cancelar esta orden?')"
-                        class="ml-3 inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-red-600 transition">
-                        <i class="fas fa-times"></i>
-                        Cancelar orden
-                    </button>
-                </form>
+                <div class="flex flex-wrap items-center gap-3">
+                    
+                    <?php
+                        $waText = rawurlencode("Hola, consulto por mi pedido #" . str_pad($order->id, 6, '0', STR_PAD_LEFT) . " a nombre de {$order->contact} por un total de $" . number_format($order->total, 2));
+                    ?>
+                    <a href="https://wa.me/1234567890?text=<?php echo e($waText); ?>" target="_blank"
+                        class="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-medium shadow hover:bg-emerald-700 transition-all">
+                        <i class="fab fa-whatsapp text-base"></i>
+                        Coordinar por WhatsApp
+                    </a>
+
+                    <form action="<?php echo e(route('orders.cancel', $order)); ?>" method="POST" class="inline">
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" onclick="return confirm('¿Seguro que deseas cancelar esta orden?')"
+                            class="inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-red-600 transition">
+                            <i class="fas fa-times"></i>
+                            Cancelar orden
+                        </button>
+                    </form>
+                </div>
             <?php endif; ?>
         </div>
 
@@ -136,12 +142,12 @@
             <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
                 <div class="flex items-center gap-2 mb-3">
                     <i class="fas fa-truck text-gray-400"></i>
-                    <p class="text-sm font-semibold text-gray-900">Envío</p>
+                    <p class="text-sm font-semibold text-gray-900">Entrega</p>
                 </div>
-                <?php if($order->envio_type == 1): ?>
 
+                <?php if($order->envio_type == 1): ?>
                     <div class="flex items-start gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
+                        <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
                             <i class="fas fa-store text-gray-600 text-sm"></i>
                         </div>
 
@@ -152,12 +158,19 @@
                             <p class="text-xs text-gray-500 mt-0.5">
                                 Calle Falsa y Avenida 123
                             </p>
+                            <?php if($order->references): ?>
+                                <p class="text-xs text-gray-400 mt-1">
+                                    <i class="fas fa-comment-alt mr-1"></i>
+                                    <?php echo e($order->references); ?>
+
+                                </p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php else: ?>
                     <div class="flex items-start gap-3">
-                        <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
-                            <i class="fas fa-truck text-gray-600 text-sm"></i>
+                        <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+                            <i class="fas fa-map-marker-alt text-gray-600 text-sm"></i>
                         </div>
 
                         <div class="space-y-1">
@@ -166,11 +179,13 @@
 
                             </p>
 
-                            <p class="text-xs text-gray-500">
-                                <i class="fas fa-map-pin mr-1"></i>
-                                <?php echo e($order->provincia); ?> - <?php echo e($order->ciudad); ?>
+                            <?php if($order->provincia || $order->ciudad): ?>
+                                <p class="text-xs text-gray-500">
+                                    <i class="fas fa-map-pin mr-1"></i>
+                                    <?php echo e(collect([$order->provincia, $order->ciudad])->filter()->implode(' - ')); ?>
 
-                            </p>
+                                </p>
+                            <?php endif; ?>
 
                             <?php if($order->references): ?>
                                 <p class="text-xs text-gray-400">
@@ -181,25 +196,22 @@
                             <?php endif; ?>
                         </div>
                     </div>
-
                 <?php endif; ?>
             </div>
 
             
             <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
 
-                <!-- Header -->
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100">
                         <i class="fas fa-user text-gray-500"></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900 leading-none">Datos de contacto</p>
-                        <p class="text-xs text-gray-400">Persona que recibirá el pedido</p>
+                        <p class="text-xs text-gray-400 mt-1">Persona que recibirá el pedido</p>
                     </div>
                 </div>
 
-                <!-- Info -->
                 <div class="space-y-2">
                     <div class="flex items-center gap-2 text-sm text-gray-800">
                         <i class="fas fa-user-circle text-gray-400 text-xs"></i>
@@ -220,20 +232,21 @@
         <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <p class="text-sm font-semibold text-gray-900 mb-6">Productos</p>
 
-            <div class="space-y-5">
+            <div class="divide-y divide-gray-100">
                 <?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition">
+                    <div class="flex items-center gap-4 py-4 first:pt-0 last:pb-0">
 
-                        <img class="w-16 h-16 rounded-lg object-cover border" src="<?php echo e($item->options->image); ?>"
-                            alt="">
+                        <img class="w-16 h-16 rounded-lg object-cover border border-gray-100 bg-gray-50 shrink-0"
+                            src="<?php echo e($item->options->image ?? asset('img/default.jpg')); ?>"
+                            alt="<?php echo e($item->name); ?>">
 
-                        <div class="flex-1">
-                            <p class="text-sm font-medium text-gray-900">
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900 truncate">
                                 <?php echo e($item->name); ?>
 
                             </p>
 
-                            <p class="text-xs text-gray-400">
+                            <p class="text-xs text-gray-400 mt-0.5">
                                 <?php if(isset($item->options->color)): ?>
                                     <?php echo e($item->options->color); ?>
 
@@ -246,19 +259,28 @@
                             </p>
                         </div>
 
-                        <div class="text-right">
+                        <div class="text-right shrink-0">
                             <p class="text-xs text-gray-500">
-                                <?php echo e($item->qty); ?> × $<?php echo e($item->price); ?>
+                                <?php echo e($item->qty); ?> × $<?php echo e(number_format($item->price, 2)); ?>
 
                             </p>
                             <p class="text-sm font-semibold text-gray-900">
-                                $<?php echo e($item->price * $item->qty); ?>
+                                $<?php echo e(number_format($item->price * $item->qty, 2)); ?>
 
                             </p>
                         </div>
 
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+
+            
+            <div class="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center">
+                <span class="text-sm font-medium text-gray-500">Total del pedido</span>
+                <span class="text-xl font-bold text-gray-900">
+                    $<?php echo e(number_format($order->total, 2)); ?>
+
+                </span>
             </div>
         </div>
 
@@ -268,5 +290,4 @@
 <?php if (isset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da)): ?>
 <?php $component = $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da; ?>
 <?php unset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da); ?>
-<?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/orders/show.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/orders/show.blade.php ENDPATH**/ ?>

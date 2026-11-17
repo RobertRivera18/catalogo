@@ -21,7 +21,9 @@
     <link rel="stylesheet" href="<?php echo e(asset('vendor/fontawesome-free/css/all.min.css')); ?>">
 
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css"
+        integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
@@ -32,8 +34,10 @@
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
 
-     
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js" integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"
+        integrity="sha512-VQQXLthlZQO00P+uEu4mJ4G4OAgqTtKG1hri56kQY1DtdLeIqhKUp9W/lllDDu3uN3SnUNawpW7lBda8+dSi7w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Styles -->
     <?php echo \Livewire\Livewire::styles(); ?>
 
@@ -60,27 +64,27 @@
         <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('navigation-menu')->html();
-} elseif ($_instance->childHasBeenRendered('hbFr7Iz')) {
-    $componentId = $_instance->getRenderedChildComponentId('hbFr7Iz');
-    $componentTag = $_instance->getRenderedChildComponentTagName('hbFr7Iz');
+} elseif ($_instance->childHasBeenRendered('1pQmQTa')) {
+    $componentId = $_instance->getRenderedChildComponentId('1pQmQTa');
+    $componentTag = $_instance->getRenderedChildComponentTagName('1pQmQTa');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('hbFr7Iz');
+    $_instance->preserveRenderedChild('1pQmQTa');
 } else {
     $response = \Livewire\Livewire::mount('navigation-menu');
     $html = $response->html();
-    $_instance->logRenderedChild('hbFr7Iz', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('1pQmQTa', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
 
         <!-- Page Heading -->
         <?php if(isset($header)): ?>
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <?php echo e($header); ?>
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <?php echo e($header); ?>
 
-            </div>
-        </header>
+                </div>
+            </header>
         <?php endif; ?>
 
         <!-- Page Content -->
@@ -98,15 +102,16 @@ echo $html;
     <?php echo $__env->yieldPushContent('js'); ?>
     <?php echo $__env->yieldPushContent('script'); ?>
     <script>
-        Livewire.on('errorSize',mensaje=>{
+        Livewire.on('errorSize', mensaje => {
             Swal.fire({
-             icon: 'error',
-             title: 'Oops...',
-             text: mensaje
-})
+                icon: 'error',
+                title: 'Oops...',
+                text: mensaje
+            })
         });
     </script>
 
 </body>
 
-</html><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

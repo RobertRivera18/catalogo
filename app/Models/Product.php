@@ -72,6 +72,8 @@ class Product extends Model
     }
 
     // App\Models\Product.php
+    // App\Models\Product.php
+
     public function scopeFilter($query, $filters)
     {
         $query->when($filters['category'] ?? null, function ($query, $categorySlug) {
@@ -92,8 +94,14 @@ class Product extends Model
             });
         });
 
+        // Modificación de la lógica de ordenamiento
         $query->when($filters['order'] ?? null, function ($query, $order) {
-            $query->orderBy('id', $order === 'old' ? 'asc' : 'desc');
+            match ($order) {
+                'price_asc'  => $query->orderBy('price', 'asc'),
+                'price_desc' => $query->orderBy('price', 'desc'),
+                'old'        => $query->orderBy('id', 'asc'),
+                default      => $query->orderBy('id', 'desc'),
+            };
         }, function ($query) {
             $query->orderBy('id', 'desc');
         });

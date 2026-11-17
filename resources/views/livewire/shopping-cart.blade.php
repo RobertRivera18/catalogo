@@ -13,12 +13,10 @@
 
                 @foreach (Cart::content() as $item)
                     <div class="bg-white border border-gray-200 rounded-xl p-4 flex gap-4 items-center">
-
-                        <!-- Imagen -->
                         <img class="w-20 h-20 object-cover rounded-lg border" src="{{ $item->options->image }}"
                             alt="">
 
-                        <!-- Info -->
+
                         <div class="flex-1">
                             <h2 class="text-sm font-semibold text-gray-900 leading-tight">
                                 {{ $item->name }}
@@ -42,12 +40,11 @@
                             </p>
                         </div>
 
-                        <!-- Cantidad -->
+                      
                         <div class="flex items-center border rounded-lg px-2 py-1">
                             @livewire('update-cart-item', ['rowId' => $item->rowId], key($item->rowId))
                         </div>
 
-                        <!-- Total -->
                         <div class="text-right">
                             <p class="text-sm font-semibold text-gray-900">
                                 ${{ $item->price * $item->qty }}
@@ -62,14 +59,11 @@
                     </div>
                 @endforeach
 
-                <!-- Vaciar carrito -->
                 <button wire:click="destroy" class="text-sm text-gray-500 hover:text-red-500">
                     Vaciar carrito
                 </button>
-
             </div>
 
-            <!-- 💰 RESUMEN -->
             <div class="bg-white border border-gray-200 rounded-xl p-5 h-fit space-y-4">
 
                 <h2 class="text-lg font-semibold text-gray-900">

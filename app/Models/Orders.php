@@ -17,6 +17,9 @@ class Orders extends Model
     const ENTREGADO = 4;
     const ANULADO = 5;
 
+    protected $casts = [
+        'content' => 'array',
+    ];
 
     public function department()
     {
@@ -32,9 +35,10 @@ class Orders extends Model
         return $this->belongsTo(District::class);
     }
 
-    public function user()
-    {
-        return $this->belongsToMany(User::class);
-    }
    
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

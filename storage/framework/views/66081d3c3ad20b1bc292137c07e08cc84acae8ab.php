@@ -11,7 +11,6 @@
                     <?php echo e($quantity ?: $product->stock); ?>
 
                 </span>
-
                 <?php if(($quantity ?: $product->stock) > 10): ?>
                     <span class="text-[11px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
                         Disponible

@@ -29,8 +29,7 @@ class UpdateCartItem extends Component
         $this->qty = $this->qty + 1;
 
         Cart::update($this->rowId, $this->qty);
-
-        $this->emit('render');
+        $this->emitTo('dropdown-cart', 'render');
     }
     public function render()
     {

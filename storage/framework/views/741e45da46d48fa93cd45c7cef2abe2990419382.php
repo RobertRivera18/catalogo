@@ -13,12 +13,10 @@
 
                 <?php $__currentLoopData = Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="bg-white border border-gray-200 rounded-xl p-4 flex gap-4 items-center">
-
-                        <!-- Imagen -->
                         <img class="w-20 h-20 object-cover rounded-lg border" src="<?php echo e($item->options->image); ?>"
                             alt="">
 
-                        <!-- Info -->
+
                         <div class="flex-1">
                             <h2 class="text-sm font-semibold text-gray-900 leading-tight">
                                 <?php echo e($item->name); ?>
@@ -45,7 +43,7 @@
                             </p>
                         </div>
 
-                        <!-- Cantidad -->
+                      
                         <div class="flex items-center border rounded-lg px-2 py-1">
                             <?php
 if (! isset($_instance)) {
@@ -64,7 +62,6 @@ echo $html;
 ?>
                         </div>
 
-                        <!-- Total -->
                         <div class="text-right">
                             <p class="text-sm font-semibold text-gray-900">
                                 $<?php echo e($item->price * $item->qty); ?>
@@ -80,14 +77,11 @@ echo $html;
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                <!-- Vaciar carrito -->
                 <button wire:click="destroy" class="text-sm text-gray-500 hover:text-red-500">
                     Vaciar carrito
                 </button>
-
             </div>
 
-            <!-- 💰 RESUMEN -->
             <div class="bg-white border border-gray-200 rounded-xl p-5 h-fit space-y-4">
 
                 <h2 class="text-lg font-semibold text-gray-900">

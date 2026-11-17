@@ -12,6 +12,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CategoryController;
+use App\Livewire\OrdenCart;
+
 
 Route::get('/', WelcomeController::class)->name('home');
 Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
@@ -36,3 +38,5 @@ Route::middleware(['auth'])->group(function () {
 //     dd($products->contains('id', 101));
 // });
 Route::post('reviews/{product}', [ReviewController::class, 'store'])->name('reviews.store');
+
+//Route::get('checkout', OrdenCart::class)->name('checkoutOrden');

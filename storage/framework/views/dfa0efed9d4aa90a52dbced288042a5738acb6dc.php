@@ -16,10 +16,11 @@
         </div>
 
         
-        <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
 
             <?php
                 $stats = [
+                    ['label'=>'Pendiente','value'=>$pendiente,'icon'=>'fa-clock','color'=>'yellow','status'=>1],
                     ['label'=>'Recibido','value'=>$recibido,'icon'=>'fa-credit-card','color'=>'gray','status'=>2],
                     ['label'=>'Enviado','value'=>$enviado,'icon'=>'fa-truck','color'=>'blue','status'=>3],
                     ['label'=>'Entregado','value'=>$entregado,'icon'=>'fa-check','color'=>'green','status'=>4],
@@ -58,7 +59,19 @@
             <section class="bg-white border border-gray-200 rounded-2xl">
 
                 <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                    <h2 class="text-sm font-medium text-gray-900">Pedidos recientes</h2>
+                    <h2 class="text-sm font-medium text-gray-900">
+                        <?php if(request('status')): ?>
+                            Órdenes filtradas (Estado: <?php echo e(request('status')); ?>)
+                        <?php else: ?>
+                            Pedidos recientes (Excluyendo pendientes)
+                        <?php endif; ?>
+                    </h2>
+                    
+                    <?php if(request('status')): ?>
+                        <a href="<?php echo e(route('admin.orders.index')); ?>" class="text-xs text-blue-600 hover:underline">
+                            <i class="fas fa-undo mr-1"></i> Ver todas
+                        </a>
+                    <?php endif; ?>
                 </div>
 
                 <ul class="divide-y divide-gray-100">
@@ -67,7 +80,7 @@
 
                         <?php
                             $statusMap = [
-                                1 => ['Pendiente','text-gray-400'],
+                                1 => ['Pendiente','text-yellow-600'],
                                 2 => ['Recibido','text-gray-600'],
                                 3 => ['Enviado','text-blue-600'],
                                 4 => ['Entregado','text-green-600'],
@@ -91,9 +104,12 @@
                                     <p class="text-sm font-medium text-gray-900">
                                         Orden #<?php echo e($order->id); ?>
 
+                                        <?php if(isset($order->contact)): ?>
+                                            <span class="text-xs text-gray-500 font-normal">(<?php echo e($order->contact); ?>)</span>
+                                        <?php endif; ?>
                                     </p>
                                     <p class="text-xs text-gray-400">
-                                        <?php echo e($order->created_at->format('d M Y')); ?>
+                                        <?php echo e($order->created_at->format('d M Y, H:i')); ?>
 
                                     </p>
                                 </div>
@@ -126,7 +142,10 @@
 
             <div class="bg-white border border-gray-200 rounded-2xl p-10 text-center">
                 <i class="fas fa-box-open text-3xl text-gray-300 mb-3"></i>
-                <p class="text-gray-500">No hay órdenes registradas</p>
+                <p class="text-gray-500">No hay órdenes registradas con este filtro</p>
+                <a href="<?php echo e(route('admin.orders.index')); ?>" class="inline-block mt-3 text-xs text-blue-600 font-semibold hover:underline">
+                    Ver listado general
+                </a>
             </div>
 
         <?php endif; ?>

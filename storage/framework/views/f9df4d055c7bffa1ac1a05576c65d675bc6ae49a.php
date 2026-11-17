@@ -8,173 +8,70 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <?php echo e(__('Profile')); ?>
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="font-bold text-2xl text-slate-900 tracking-tight">
+                    <?php echo e(__('Configuración del Perfil')); ?>
 
-        </h2>
+                </h2>
+                <p class="text-xs text-slate-500 mt-0.5">
+                    <?php echo e(__('Gestiona la información de tu cuenta y la seguridad.')); ?>
+
+                </p>
+            </div>
+            
+            <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100/80 backdrop-blur-md border border-slate-200/60 rounded-full text-slate-700 text-xs font-medium shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span><?php echo e(Auth::user()->name ?? __('Usuario')); ?></span>
+            </div>
+        </div>
      <?php $__env->endSlot(); ?>
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+    <div class="py-10 bg-slate-50/60 min-h-[calc(100vh-4rem)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            
             <?php if(Laravel\Fortify\Features::canUpdateProfileInformation()): ?>
-                <?php
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-slate-200/60 shadow-sm transition-all duration-300 hover:shadow-md">
+                    <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('profile.update-profile-information-form')->html();
-} elseif ($_instance->childHasBeenRendered('lGMufCV')) {
-    $componentId = $_instance->getRenderedChildComponentId('lGMufCV');
-    $componentTag = $_instance->getRenderedChildComponentTagName('lGMufCV');
+} elseif ($_instance->childHasBeenRendered('FTvJxXh')) {
+    $componentId = $_instance->getRenderedChildComponentId('FTvJxXh');
+    $componentTag = $_instance->getRenderedChildComponentTagName('FTvJxXh');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('lGMufCV');
+    $_instance->preserveRenderedChild('FTvJxXh');
 } else {
     $response = \Livewire\Livewire::mount('profile.update-profile-information-form');
     $html = $response->html();
-    $_instance->logRenderedChild('lGMufCV', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('FTvJxXh', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
-
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.section-border','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('section-border'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <?php if(Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords())): ?>
-                <div class="mt-10 sm:mt-0">
+                <div class="bg-white/80 backdrop-blur-xl rounded-2xl p-6 sm:p-8 border border-slate-200/60 shadow-sm transition-all duration-300 hover:shadow-md">
                     <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('profile.update-password-form')->html();
-} elseif ($_instance->childHasBeenRendered('lIczufG')) {
-    $componentId = $_instance->getRenderedChildComponentId('lIczufG');
-    $componentTag = $_instance->getRenderedChildComponentTagName('lIczufG');
+} elseif ($_instance->childHasBeenRendered('MpDCftB')) {
+    $componentId = $_instance->getRenderedChildComponentId('MpDCftB');
+    $componentTag = $_instance->getRenderedChildComponentTagName('MpDCftB');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('lIczufG');
+    $_instance->preserveRenderedChild('MpDCftB');
 } else {
     $response = \Livewire\Livewire::mount('profile.update-password-form');
     $html = $response->html();
-    $_instance->logRenderedChild('lIczufG', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-                </div>
-
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.section-border','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('section-border'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-            <?php endif; ?>
-
-            <?php if(Laravel\Fortify\Features::canManageTwoFactorAuthentication()): ?>
-                <div class="mt-10 sm:mt-0">
-                    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('profile.two-factor-authentication-form')->html();
-} elseif ($_instance->childHasBeenRendered('ijcL9P2')) {
-    $componentId = $_instance->getRenderedChildComponentId('ijcL9P2');
-    $componentTag = $_instance->getRenderedChildComponentTagName('ijcL9P2');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('ijcL9P2');
-} else {
-    $response = \Livewire\Livewire::mount('profile.two-factor-authentication-form');
-    $html = $response->html();
-    $_instance->logRenderedChild('ijcL9P2', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-                </div>
-
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.section-border','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('section-border'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-            <?php endif; ?>
-
-            <div class="mt-10 sm:mt-0">
-                <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('profile.logout-other-browser-sessions-form')->html();
-} elseif ($_instance->childHasBeenRendered('Ez53dEe')) {
-    $componentId = $_instance->getRenderedChildComponentId('Ez53dEe');
-    $componentTag = $_instance->getRenderedChildComponentTagName('Ez53dEe');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('Ez53dEe');
-} else {
-    $response = \Livewire\Livewire::mount('profile.logout-other-browser-sessions-form');
-    $html = $response->html();
-    $_instance->logRenderedChild('Ez53dEe', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
-}
-echo $html;
-?>
-            </div>
-
-            <?php if(Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures()): ?>
-                <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.section-border','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('section-border'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
-
-                <div class="mt-10 sm:mt-0">
-                    <?php
-if (! isset($_instance)) {
-    $html = \Livewire\Livewire::mount('profile.delete-user-form')->html();
-} elseif ($_instance->childHasBeenRendered('W1XiWhv')) {
-    $componentId = $_instance->getRenderedChildComponentId('W1XiWhv');
-    $componentTag = $_instance->getRenderedChildComponentTagName('W1XiWhv');
-    $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('W1XiWhv');
-} else {
-    $response = \Livewire\Livewire::mount('profile.delete-user-form');
-    $html = $response->html();
-    $_instance->logRenderedChild('W1XiWhv', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('MpDCftB', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
                 </div>
             <?php endif; ?>
+
+            
+
         </div>
     </div>
  <?php echo $__env->renderComponent(); ?>
@@ -182,5 +79,4 @@ echo $html;
 <?php if (isset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da)): ?>
 <?php $component = $__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da; ?>
 <?php unset($__componentOriginal8e2ce59650f81721f93fef32250174d77c3531da); ?>
-<?php endif; ?>
-<?php /**PATH C:\xampp\htdocs\catalogo\resources\views/profile/show.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\catalogo\resources\views/profile/show.blade.php ENDPATH**/ ?>
